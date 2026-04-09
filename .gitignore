@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.eggs/
+
+# Environment
+.env
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Outputs
+outputs/
+logs/
+tmp/
+*.log
+
+# Large data (keep configs but ignore large numpy arrays if needed)
+# env_data/ — keep for now, these are small
+
+# Notebooks checkpoints
+.ipynb_checkpoints/

@@ -1,0 +1,24 @@
+Queuing network control is essential for managing congestion in job-processing systems 
+such as service systems, communication networks, and manufacturing processes. Despite growing interest in applying reinforcement learning (RL) techniques,  queueing network control
+%model-free reinforcement learning (RL) have been proposed to train control policies for arbitrary network topologies. 
+poses distinct challenges, including high stochasticity, large state and action spaces, and lack of stability. 
+To tackle these challenges, we propose a scalable framework for policy optimization based on differentiable discrete event simulation. 
+Our main insight is that by implementing a well-designed smoothing technique for discrete event dynamics, we can compute $\pathwise$ policy gradients for large-scale queueing networks using auto-differentiation software (e.g., Tensorflow, PyTorch) and GPU parallelization. Through extensive empirical experiments, we observe that our policy gradient estimators are several orders of magnitude more accurate than typical $\reinforce$-based  estimators. 
+In addition, we propose a new policy architecture, which drastically improves stability while maintaining the flexibility of neural-network policies.
+In a wide variety of scheduling and admission control tasks, we demonstrate that training control policies with pathwise gradients leads to a 50-1000x improvement in sample efficiency over state-of-the-art RL methods.
+Unlike prior tailored approaches to queueing, our methods can flexibly handle realistic scenarios, including systems operating in non-stationary environments and those with non-exponential interarrival/service times.
+
+
+% To tackle these challenges, 
+% we propose a scalable framework for policy optimization based on differentiable simulation
+% and demonstrate substantial improvements in  sample efficiency in multi-class queuing networks.
+% %and reduces sample inefficiency of existing learning approaches. 
+% Our main algorithmic insight is to compute pathwise gradients for 
+% discrete event dynamical systems with auto-differentiation (e.g. Tensorflow or PyTorch).
+% We address the non-differentiability of the discrete event dynamics through carefully designed smoothing. 
+% We find that for scheduling and admission control tasks, training control policies with pathwise gradients leads to a 50-1000x improvement in sample efficiency over state-of-the-art RL methods.
+% Our methods can handle realistic instances, including systems operating in a non-stationary environment and with non-exponential system inputs (i.e., interarrival and service times), which are relevant for many practical settings.\hntodo{This last bit is confusing because everyone who don't know D and G (meaning almost every reader) will be left perplexed why black-box RL methods don't apply. Need to qualify by saying queueing-specific innovations that stabilize SoTA RL methods etc...}
+
+
+%%% TeX-master: "abstract"
+%%% Local Variables: %%% mode: latex %%% TeX-master: "main" %%% End:

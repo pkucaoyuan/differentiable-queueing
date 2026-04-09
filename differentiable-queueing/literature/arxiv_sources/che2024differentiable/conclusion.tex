@@ -1,0 +1,13 @@
+\section{Conclusion}
+\label{section:conclusion}
+
+In this work, we introduce a new framework for policy optimization in queuing network control. This framework uses a novel approach for gradient estimation in discrete-event dynamical systems. Our proposed $\pathwise$ policy gradient estimator is observed to be orders of magnitude more efficient than model-free RL alternatives such as $\reinforce$ across an array of carefully designed empirical experiments. In addition, we introduce a new policy architecture, which drastically improves stability while maintaining the flexibility of neural network policies. Altogether, these illustrate how structural knowledge of queuing networks can be leveraged to accelerate reinforcement learning for queuing control problems.
+
+We next discuss some potential extensions of our approach:
+\begin{itemize}[itemsep=0pt]
+    %parallel server systems~\cite{harrison1998heavy}.
+    \item We consider policies with preemption. Our proposed method can also handle non-preemptive policies by keeping track of the occupied servers as part of the state.
+    %\item While we focus on scheduling and admission control separately, one can also solve these problems jointly using our methodology for improved performance. One can also consider state-dependent admission control policies, rather than fixed buffer sizes as we do in this work.
+    \item We focus on scheduling and admission control problems in queuing network satisfying Assumptions \ref{ass:queue}, but the algorithmic ideas can be extended to more general queuing networks by utilizing a larger state space that contains the residual workloads of \emph{all} jobs in the network, rather than only the top-of-queue jobs as is done in this work. A higher dimensional state descriptor is required for more general networks as multiple jobs in the same queue can be served simultaneously.
+    \item Beyond queuing network control, our methodology can be extended to control problems in other discrete-event dynamical systems. More explicitly, our methodology can handle systems that involve a state update of the form $x_{k+1} = g(x_{k}, e_{k+1})$ where $g$ is a differentiable function and $e_{k+1}$ is the selected event. Recall that in this work, the state update is linear in $x_{k}$ and $e_{k+1}$: $x_{k+1} = x_{k} + De_{k+1}$. We also require that $e_{k+1}$ is differentiable almost surely in the action $u_{k}$. 
+\end{itemize}

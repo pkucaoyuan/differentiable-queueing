@@ -1,0 +1,324 @@
+\section{Proofs}
+\label{sec:appendix_proofs}
+
+\subsection{Proof of Theorem~\ref{thm:mm1-smoothing}}
+\label{section:mm1-smoothing-proof}
+We focus on the case where $x_k\geq1$. Then,
+\begin{align*}
+x_{k+1} & =x_{k}+1\{\tau_k^A<w_k/\mu\}-1\{\tau_k^A>w_k/\mu\}\\
+ & =x_{k}+\frac{e^{-\beta \tau_k^A}}{e^{-\beta \tau_k^A}+e^{-\beta w_k/\mu}}-\frac{e^{-\beta w_k/\mu}}{e^{-\beta \tau_k^A}+e^{-\beta w_k/\mu}}\\
+ & =x_{k}+\frac{e^{-\beta \tau_k^A}-e^{-\beta w_k/\mu}}{e^{-\beta \tau_k^A}+e^{-\beta w_k/\mu}}.
+\end{align*}
+Since the inter-arrival times and workloads are exponentially distributed, by the memoryless property, we have $\tau_k^A\sim\mathsf{Exp}\left(\lambda\right)$ and
+$w_k\sim \mathsf{Exp}\left(1\right)$.
+
+
+The true gradient is
+\[
+\frac{d}{d\mu}\mathbb{E}[x_{k+1}-x_{k}]=\frac{d}{d\mu}\frac{\lambda-\mu}{\lambda+\mu}=-\frac{2\lambda}{(\lambda+\mu)^{2}}.
+\]
+Under our $\mathsf{softmin}_{\beta}$ approximation for the event-selection, 
+%the one-step transition is
+%\[
+%\mathbb{E}[x_{t+1}-x_{t}]=\frac{\lambda-\mu}{\lambda+\mu}
+%\]
+%the $\pathwise$ gradient can be expressed as
+we have
+\begin{align*}
+ & \mathbb{E}\left[\frac{d}{d\mu}\frac{e^{-\beta \tau_k^A}-e^{-\beta w_k/\mu}}{e^{-\beta \tau_k^A}+e^{-\beta w_k/\mu}}\right]\\
+ %& =\mathbb{E}\left[\frac{d}{d\mu}\frac{e^{-\beta \tau_k^A}-e^{-\beta w_k/\mu}}{e^{-\beta \tau_k^A}+e^{-\beta w_k/\mu}}\right]\\
+ & =\mathbb{E}\left[-2\beta\frac{e^{-\beta(\tau_k^A+w_k/\mu)}}{(e^{-\beta \tau_k^A}+e^{-\beta w_k/\mu})^{2}}\frac{w_k}{\mu^{2}}\right]\\
+ %& =-2\frac{\beta}{\mu}\mathbb{E}\left[S_{i}\left(\frac{e^{\beta(T_{i}+S_{i})}}{(e^{\beta T_{i}}+e^{\beta S_{i}})^{2}}1\{T_{i}<S_{i}\}+\frac{e^{\beta(T_{i}+S_{i})}}{(e^{\beta T_{i}}+e^{\beta S_{i}})^{2}}1\{T_{i}>S_{i}\}\right)\right]\\
+ %& =-2\frac{\beta}{\mu}\mathbb{E}\left[S_{i}\left(\frac{e^{\beta(T_{i}-S_{i})}}{(e^{\beta(T_{i}-S_{i})}+1)^{2}}1\{T_{i}<S_{i}\}+\frac{e^{\beta(S_{i}-T_{i})}}{(e^{\beta(S_{i}-T_{i})}+1)^{2}}1\{T_{i}>S_{i}\}\right)\right]\\
+ & =-2\frac{\beta}{\mu}\mathbb{E}\left[\tau_k^S\left(\frac{e^{\beta(\tau_k^A-\tau_k^S)}}{(e^{\beta(\tau_k^A-\tau_k^S)}+1)^{2}}1\{\tau_k^A<\tau_k^S\}+\frac{e^{\beta(\tau_k^S-\tau_k^A)}}{(e^{\beta(\tau_k^S-\tau_k^A)}+1)^{2}}1\{\tau_k^A>\tau_k^S\}\right)\right],
+\end{align*}
+for $\tau_k^S=w_k/\mu$.
+%
+% as
+% \[
+% \frac{e^{\beta(T_{i}+S_{i})}}{(e^{\beta T_{i}}+e^{\beta S_{i}})^{2}}=\frac{e^{\beta(T_{i}+S_{i})}}{e^{2\beta S_{i}}(e^{\beta(T_{i}-S_{i})}+1)^{2}}=\frac{e^{\beta(T_{i}-S_{i})}}{(e^{\beta(T_{i}-S_{i})}+1)^{2}}
+% \]
+%
+Next, note that
+\begin{align*}
+ & \mathbb{E}\left[\tau_k^S\frac{e^{\beta(\tau_k^A-\tau_k^S)}}{(e^{\beta(\tau_k^A-\tau_k^S)}+1)^{2}}1\{\tau_k^A<\tau_k^S\}\right]\\
+ & =\mathbb{E}\left[\left.\mathbb{E}\left[\tau_k^S\frac{e^{\beta(\tau_k^A-\tau_k^S)}}{(e^{\beta(\tau_k^A-\tau_k^S)}+1)^{2}}1\{\tau_k^A<\tau_k^S\}\right]\right |\tau_k^A=t\right]\\
+ & =\mathbb{E}\left[\left.\mathbb{E}\left[\tau_k^S\frac{e^{\beta(t-\tau_k^S)}}{(e^{\beta(t-\tau_k^S)}+1)^{2}}\right|\tau_k^A=t,\tau_k^S>t\right]\mathbb{P}(\tau_k^S>t|\tau_k^A=t)\right]\\
+ %& =\mathbb{E}\left[\mathbb{E}\left[(t+S')\frac{e^{-\beta S'}}{(e^{-\beta S'}+1)^{2}}\right]\mathbb{P}(\tau_k^S>t|\tau_k^A=t)\right]\\
+ & =\mathbb{E}\left[\mathbb{E}\left[(t+S')\frac{e^{-\beta S'}}{(e^{-\beta S'}+1)^{2}}\right]\mathbb{P}(\tau_k^S>t|\tau_k^A=t)\right] \mbox{ for $S'\sim \mathsf{Exp}(\mu)$}\\
+ & =\mathbb{E}\left[(tA(\beta,\mu)+B(\beta,\mu))\mathbb{P}(\tau_k^S>t|\tau_k^A=t)\right]\\
+ & =\mathbb{E}\left[(\tau_k^A A(\beta,\mu)+B(\beta,\mu))e^{-\mu \tau_k^A}\right]\\
+ & =\frac{\lambda}{(\lambda+\mu)^{2}}A(\beta,\mu)+\frac{\lambda}{(\lambda+\mu)}B(\beta,\mu)
+\end{align*}
+where
+\begin{align*}
+A(\beta,\mu) & =\frac{\mu\left(\beta-\mu H\left(\frac{\mu}{2\beta}\right)+\mu H\left(\frac{\mu}{2\beta}-\frac{1}{2}\right)\right)}{2\beta^{2}}\\
+ & =\frac{\mu}{2\beta}+\frac{\mu^{2}}{2\beta^{2}}\left(\underbrace{H\left(\frac{\mu}{2\beta}-\frac{1}{2}\right)-H\left(\frac{\mu}{2\beta}\right)}_{\tilde{H}(\beta,\mu)}\right)\\
+B(\beta,\mu) & =\frac{\mu}{4\beta^{3}}\left(2\beta H\left(\frac{\mu}{2\beta}\right)-2\beta H\left(\frac{\mu}{2\beta}-\frac{1}{2}\right)-\mu\psi^{(1)}\left(\frac{\beta+\mu}{2\beta}\right)+\mu\psi^{(1)}\left(\frac{2\beta+\mu}{2\beta}\right)\right)\\
+ & =-\frac{\mu}{2\beta^{2}}\tilde{H}(\beta,\mu)+\frac{\mu^{2}}{4\beta^{3}}\left(\underbrace{\psi^{(1)}\left(\frac{2\beta+\mu}{2\beta}\right)-\psi^{(1)}\left(\frac{\beta+\mu}{2\beta}\right)}_{\tilde{\psi}^{(1)}(\beta,\mu)}\right)
+\end{align*}
+Moreover, note that
+\begin{align*}
+H\left(\frac{\mu}{2\beta}\right) & =\psi^{(0)}\left(\frac{\mu}{2\beta}+1\right)+\gamma\\
+H\left(\frac{\mu}{2\beta}-\frac{1}{2}\right) & =\psi^{(0)}\left(\frac{\mu}{2\beta}+\frac{1}{2}\right)+\gamma
+\end{align*}
+Note that
+\begin{align*}
+H\left(\frac{\mu}{2\beta}\right)-H\left(\frac{\mu}{2\beta}-\frac{1}{2}\right) & =\log\left(\frac{\mu}{2\beta}+1\right)+\frac{1}{\frac{\mu}{2\beta}+1}\\
+ & -\log\left(\frac{\mu}{2\beta}+\frac{1}{2}\right)+\frac{1}{\frac{\mu}{2\beta}+1}.
+\end{align*}
+
+Similarly,
+\begin{align*}
+ & \mathbb{E}\left[\tau_k^S\frac{e^{\beta(\tau_k^S-\tau_k^A)}}{(e^{\beta(\tau_k^S-\tau_k^A)}+1)^{2}}1\{\tau_k^A>\tau_k^S\}\right]\\
+ & =\mathbb{E}\left[\mathbb{E}\left[\left.s\frac{e^{-\beta(\tau_k^A-s)}}{(e^{-\beta(\tau_k^A-s)}+1)^{2}}1\{\tau_k^A>s\}\right|\tau_k^S=s\right]\right]\\
+ & =\mathbb{E}\left[\mathbb{E}\left[\left.s\frac{e^{-\beta(\tau_k^A-s)}}{(e^{-\beta(\tau_k^A-s)}+1)^{2}}\right|\tau_k^A>s,\tau_k^S=s\right]\mathbb{P}(\tau_k^A>s|\tau_k^S=s)\right]\\
+ & =\mathbb{E}\left[\mathbb{E}\left[s\frac{e^{-\beta T'}}{(e^{-\beta T'}+1)^{2}}\right]\mathbb{P}(\tau_k^A>s|\tau_k^S=s)\right] \mbox{ for $T'\sim \mathsf{Exp}(\lambda)$}\\
+ & =\mathbb{E}\left[\tau_k^S A(\beta,\lambda)e^{-\lambda \tau_k^S}\right]\\
+ & =\frac{\mu}{(\lambda+\mu)^{2}} A(\beta,\lambda).
+\end{align*}
+Then,
+\begin{align*}
+% & -2\frac{\beta}{\mu}\mathbb{E}\left[\tau_k^S\left(e^{\beta(\tau_k^A-\tau_k^S)}1\{\tau_k^A<\tau_k^S\}+e^{\beta(\tau_k^S-\tau_k^A)}1\{\tau_k^A>\tau_k^S\}\right)\right]\\
+ &-2\frac{\beta}{\mu}\mathbb{E}\left[\tau_k^S\left(\frac{e^{\beta(\tau_k^A-\tau_k^S)}}{(e^{\beta(\tau_k^A-\tau_k^S)}+1)^{2}}1\{\tau_k^A<\tau_k^S\}+\frac{e^{\beta(\tau_k^S-\tau_k^A)}}{(e^{\beta(\tau_k^S-\tau_k^A)}+1)^{2}}1\{\tau_k^A>\tau_k^S\}\right)\right]\\
+ & =-2\frac{\beta}{\mu}\left(\frac{\lambda}{(\lambda+\mu)^{2}}A(\beta,\mu)+\frac{\lambda}{(\lambda+\mu)}B(\beta,\mu)+\frac{\mu}{(\lambda+\mu)^{2}}A(\beta,\lambda)\right)\\
+ & =-2\frac{\beta}{\mu}\left(\frac{\lambda A(\beta,\mu)+\mu A(\beta,\lambda)}{(\lambda+\mu)^{2}}+\frac{\lambda}{(\lambda+\mu)}B(\beta,\mu)\right)\\
+ & =\frac{-2\lambda}{(\lambda+\mu)^{2}}-\frac{2\beta}{\mu}\left(\frac{\lambda\mu^{2}\tilde{H}(\beta,\mu)+\mu\lambda^{2}\tilde{H}(\beta,\lambda)}{2\beta^{2}(\lambda+\mu)^{2}}-\frac{\lambda\mu}{2\beta^{2}(\lambda+\mu)}\tilde{H}(\beta,\mu)+\frac{\lambda}{(\lambda+\mu)}\frac{\mu^{2}}{4\beta^{3}}\tilde{\psi}^{(1)}(\beta,\mu)\right).
+\end{align*}
+Note that as $\beta\to\infty$,
+\begin{align*}
+\lim_{\beta\to\infty}\tilde{H}(\beta,\mu) & =\gamma+\psi^{(0)}\left(\frac{1}{2}\right),\\
+\lim_{\beta\to\infty}\tilde{\psi}^{(1)}(\beta,\mu) & =-\frac{\pi^{2}}{3}.
+\end{align*}
+This means that the leading order term is $O(1/\beta^{2})$. In particular,
+\begin{align*}
+-\frac{2\beta}{\mu}\left(\frac{\lambda\mu^{2}\tilde{H}(\beta,\mu)+\mu\lambda^{2}\tilde{H}(\beta,\lambda)}{2\beta^{2}(\lambda+\mu)^{2}}-\frac{\lambda\mu\tilde{H}(\beta,\mu)}{2\beta^{2}(\lambda+\mu)}\right) & \sim\frac{\pi^{2}\lambda^{2}(\mu-\lambda)}{6\beta^{2}(\lambda+\mu)^{2}}
+\end{align*}
+Finally, we have the second-order term
+\[
+-\frac{2\beta}{\mu}\frac{\lambda}{(\lambda+\mu)}\frac{\mu^{2}}{4\beta^{3}}\tilde{\psi}^{(1)}(\beta,\mu)\sim\frac{\pi^{2}\lambda\mu}{6\beta^{2}(\lambda+\mu)}.
+\]
+Thus, we have the following characterization of the bias:
+\[
+\mathbb{E}\left[\frac{d}{d\mu}\frac{e^{-\beta \tau_k^A}-e^{-\beta w_k/\mu}}{e^{-\beta \tau_k^A}+e^{-\beta w_k/\mu}}\right]-\left(\frac{-2\lambda}{(\lambda+\mu)^{2}}\right)\sim\frac{1}{\beta^{2}}\frac{\pi^{2}\lambda(\mu^{2}-\lambda^{2}+2\mu\lambda)}{6(\lambda+\mu)^{2}}+o\left(\frac{1}{\beta^{2}}\right)
+\]
+
+For variance, we have
+\begin{align*}
+ & \mathbb{E}\left[\left(-2\beta\frac{e^{\beta(\tau_k^A+w_k/\mu)}}{(e^{\beta \tau_k^A}+e^{\beta w_k/\mu})^{2}}\frac{w_k}{\mu^{2}}\right)^{2}\right]\\
+ & =\mathbb{E}\left[\frac{4\beta^{2}}{\mu^{2}}\frac{e^{2\beta(\tau_k^A+\tau_k^S)}}{\left(e^{\beta \tau_k^A}+e^{\beta \tau_k^S}\right)^{4}}\tau_k^{S,2}\right]\\
+ & =\frac{4\beta^{2}}{\mu^{2}}\mathbb{E}\left[\tau_k^{S,2}\left(\frac{e^{2\beta(\tau_k^A+\tau_k^S)}}{\left(e^{\beta \tau_k^A}+e^{\beta \tau_k^S}\right)^{4}}1\{\tau_k^A<\tau_k^S\}+\frac{e^{2\beta(\tau_k^A+\tau_k^S)}}{\left(e^{\beta \tau_k^A}+e^{\beta \tau_k^S}\right)^{4}}1\{\tau_k^A>\tau_k^S\}\right)\right]\\
+ & =\frac{4\beta^{2}}{\mu^{2}}\mathbb{E}\left[\tau_k^{S,2}\left(\frac{e^{2\beta(\tau_k^A-\tau_k^S)}}{\left(e^{\beta(\tau_k^A-\tau_k^S)}+1\right)^{4}}1\{\tau_k^A<\tau_k^S\}+\frac{e^{2\beta(\tau_k^S-\tau_k^A)}}{\left(e^{\beta(\tau_k^S-\tau_k^A)}+1\right)^{4}}1\{\tau_k^A>\tau_k^S\}\right)\right].
+\end{align*}
+Note that
+\begin{align*}
+ & \mathbb{E}\left[\tau_k^{S,2}\frac{e^{2\beta(\tau_k^A-\tau_k^S)}}{\left(e^{\beta(\tau_k^A-\tau_k^S)}+1\right)^{4}}1\{\tau_k^A<\tau_k^S\}\right]\\
+ & =\mathbb{E}\left[\mathbb{E}\left[\left.\tau_k^{S,2}\frac{e^{2\beta(\tau_k^A-\tau_k^S)}}{\left(e^{\beta(\tau_k^A-\tau_k^S)}+1\right)^{4}}1\{t<\tau_k^S\}\right]\right|\tau_k^A=t\right]\\
+ %& =\mathbb{E}\left[\mathbb{E}\left[S_{i}^{2}\frac{e^{2\beta(t-S_{i})}}{(e^{\beta(t-S_{i})}+1)^{2}}|T_{i}=t,S_{i}>t\right]\mathbb{P}(S_{i}>t|T_{i}=t)\right]\\
+ & =\mathbb{E}\left[\mathbb{E}\left[(t+S')^{2}\frac{e^{-2\beta S'}}{(e^{-\beta S'}+1)^{4}}\right]\mathbb{P}(\tau_k^S>t|\tau_k^A=t)\right] \mbox{ for $S'\sim \mathsf{Exp}(\mu)$}\\
+ & =\mathbb{E}\left[\mathbb{E}\left[(t^{2}+2S'+S'^{2})\frac{e^{-2\beta S'}}{(e^{-\beta S'}+1)^{4}}\right]\mathbb{P}(S_{i}>t|T_{i}=t)\right]\\
+ & =\mathbb{E}\left[\left(t^{2}\tilde{A}(\beta,\mu)+t\tilde{B}(\beta,\mu)+\tilde{C}(\beta,\mu)\right)\mathbb{P}(S_{i}>t|T_{i}=t)\right]\\
+ & =\mathbb{E}\left[\left(T_{i}^{2}\tilde{A}(\beta,\mu)+T_{i}\tilde{B}(\beta,\mu)+\tilde{C}(\beta,\mu)\right)e^{-\mu T_{i}}\right]\\
+ & =\frac{2\lambda}{(\lambda+\mu)^{3}}\tilde{A}(\beta,\mu)+\frac{\lambda}{(\lambda+\mu)^{2}}\tilde{B}(\beta,\mu)+\frac{\lambda}{(\lambda+\mu)}\tilde{C}(\beta,\mu).
+\end{align*}
+Similarly,
+\begin{align*}
+ & \mathbb{E}\left[\tau_k^{S,2}\frac{e^{2\beta(\tau_k^S-\tau_k^A)}}{\left(e^{\beta(\tau_k^S-\tau_k^A)}+1\right)^{4}}1\{\tau_k^A>\tau_k^S\}\right]\\
+ & =\mathbb{E}\left[\mathbb{E}\left[\left.s^{2}\frac{e^{2\beta(s-\tau_k^A)}}{\left(e^{\beta(s-\tau_k^A)}+1\right)^{4}}1\{\tau_k^A>s\}\right|\tau_k^S=s\right]\right]\\
+ & =\mathbb{E}\left[\mathbb{E}\left[s^{2}\frac{e^{-2\beta(\tau_k^A-s)}}{(e^{-\beta(\tau_k^A-s)}+1)^{4}}|\tau_k^A>s,\tau_k^S=s\right]\mathbb{P}(\tau_k^A>s|\tau_k^S=s)\right]\\
+ & =\mathbb{E}\left[\mathbb{E}\left[s^{2}\frac{e^{-2\beta T'}}{(e^{-\beta T'}+1)^{4}}\right]\mathbb{P}(\tau_k^A>s|\tau_k^S=s)\right] \mbox{ for $T'\sim \mathsf{Exp}(\lambda)$}\\
+ & =\mathbb{E}\left[\tilde{A}(\beta,\lambda)\tau_k^{S,2}e^{-\lambda \tau_k^S}\right]\\
+ & =\frac{2\mu}{(\lambda+\mu)^{2}}\tilde{A}(\beta,\lambda).
+\end{align*}
+Putting the above two parts together, we have
+\begin{align*}
+ %& \frac{4\beta^{2}}{\mu^{2}}\mathbb{E}\left[S_{i}^{2}\left(\frac{e^{\beta(T_{i}-S_{i})2}}{(e^{\beta(T_{i}-S_{i})}+1)^{4}}1\{T_{i}<S_{i}\}+\frac{e^{\beta(S_{i}-T_{i})2}}{(e^{\beta(S_{i}-T_{i})}+1)^{4}}1\{T_{i}>S_{i}\}\right)\right]\\
+ &\frac{4\beta^{2}}{\mu^{2}}\mathbb{E}\left[\tau_k^{S,2}\left(\frac{e^{2\beta(\tau_k^A-\tau_k^S)}}{\left(e^{\beta(\tau_k^A-\tau_k^S)}+1\right)^{4}}1\{\tau_k^A<\tau_k^S\}+\frac{e^{2\beta(\tau_k^S-\tau_k^A)}}{\left(e^{\beta(\tau_k^S-\tau_k^A)}+1\right)^{4}}1\{\tau_k^A>\tau_k^S\}\right)\right]\\
+ & =\frac{4\beta^{2}}{\mu^{2}}\left(\frac{2\lambda}{(\lambda+\mu)^{3}}\tilde{A}(\beta,\mu)+\frac{\lambda}{(\lambda+\mu)^{2}}\tilde{B}(\beta,\mu)+\frac{\lambda}{(\lambda+\mu)}\tilde{C}(\beta,\mu)+\frac{2\mu}{(\lambda+\mu)^{2}}\tilde{A}(\beta,\lambda)\right)\\
+ & \sim\frac{4\beta\lambda}{3\mu(\lambda+\mu)^{2}} \mbox{ as $\beta\to\infty$.}
+\end{align*}
+
+
+\subsection{Proof of Theorem~\ref{thm:mm1_variance}}
+\label{sec:proof_mm1_variance}
+
+By assumption, $h \leq c(\mu - \lambda)$ for some $c < 1$. First, we develop bound for $\var_{\infty} (\hat{\nabla}^{\mathsf{R}} J_{N}(\theta; \xi_{1:N}))$.
+%= \Theta\left(N^{-1} \theta^{-2} (1-\rho)^{-4} \right)$. 
+We can compute the variance by conditioning on the value of $Y$:
+\begin{align*}
+    \var_{\infty}(\hat{Q}_{N}(\mu-hY)\cdot(\log Y-\frac{1}{\theta}))&=\mathbb{E}\left[\var_{\infty}\left(\hat{Q}_{N}(\mu-hy)(\log y-\frac{1}
+{\theta})|Y=y\right)\right]\\
+&+\var\left(\mathbb{E}\left[\hat{Q}_{N}(\mu-hy)(\log y-\frac{1}{\theta})|Y=y)\right]\right).
+\end{align*}
+For the first term, note that the asymptotic variance in the CLT for the ergodic estimator $\hat{Q}_{N}(\mu)$ is $\var_{\infty}(\hat Q(\mu))=\frac{2\rho(1+\rho)}{(1-\rho)^{4}}$. Then, we have $\var_{\infty}(\hat{Q}_{N}(\mu)) = \frac{2\rho(1+\rho)}{N(1-\rho)^{4}}$. Since $h \leq \mu$, $\var_{\infty}(\hat{Q}_{N}(\mu))= \frac{2\rho(1+\rho)}{N(1-\rho)^{4}}$.
+Then,
+\begin{align*}
+&\E \left[ \var_{\infty}\left(\hat{Q}_{N}(\mu-hy)\cdot(\log y+\frac{1}{\theta})|Y = y\right) \right] \\
+& =\E \left[  (\log y+\frac{1}{\theta})^{2} \var_{\infty}(\hat{Q}_{N}(\mu-hy)|Y = y) \right]\\
+& \geq \E \left[  (\log Y+\frac{1}{\theta})^{2}
+\frac{2\rho(1+\rho)}{N(1-\rho)^{4}} \right]\\
+& = \frac{1}{\theta^{2}}
+\frac{2\rho(1+\rho)}{N(1-\rho)^{4}}=\Theta\left( (1-\rho)^{-4} \right),
+\end{align*}
+where the last equality uses the fact that for $Y\sim\text{Beta}(\theta,1)$,
+\[
+\E[\log Y]=\psi(\theta) - \psi(\theta + 1)=-\frac{1}{\theta}
+\]
+and
+\[
+\E \left[  (\log Y+\frac{1}{\theta})^{2}\right]=\var(\log Y) = \psi_{1}(\theta) - \psi_{1}(\theta + 1) = \frac{1}{\theta^{2}}.
+\]
+For the second term, we plug in the true estimand as the expectation of $Q_{N}(\mu)$, i.e. $Q(\mu) = \frac{\lambda}{\mu - \lambda}$. Then,
+\begin{align*}
+&\var\left(\mathbb{E}\left[\hat{Q}_{N}(\mu-hy)(\log y+\frac{1}{\theta})|Y=y)\right]\right) \\
+& = \var\left(\frac{\lambda}{\mu - hY - \lambda}
+\left( \log Y + \frac{1}{\theta} \right)\right) \\
+& = \E \left[ \left(\frac{\lambda}{\mu - hY - \lambda} \right)^{2}
+\left( \log Y + \frac{1}{\theta} \right)^{2} \right]
+- \E \left[ \left(\frac{\lambda}{\mu - hY - \lambda} \right)
+\left( \log Y + \frac{1}{\theta} \right) \right]^{2}.
+\end{align*}
+We proceed to evaluate these expectations analytically.
+\begin{align*}
+& \E \left[ \left(\frac{\lambda}{\mu - hY - \lambda} \right)
+\left( \log Y + \frac{1}{\theta} \right) \right] \\
+&= \frac{\rho}{1-\rho}
+\left(
+\frac{\Gamma(\theta)}{\Gamma(1+\theta)}
+F^{2}_{1}
+\left(1,\theta,1+\theta,\frac{h}{\mu-\lambda} \right)
+-
+\theta\Phi \left(\frac{h}{\mu - \lambda},2,\theta \right)
+\right) \\
+&=O((1-\rho)^{-1}),
+\end{align*}
+where $F^{2}_{1}$ is the Hypergoemetric 2F1  function and $\Phi$ is the Lerch transcendental function.
+We also have
+\begin{align*}
+& \E \left[ \left(\frac{\lambda}{\mu - hY - \lambda} \right)^{2}
+\left( \log Y + \frac{1}{\theta} \right)^{2} \right] \\
+& = \frac{\lambda^{2}}{\theta^{2}(\mu - \lambda)^{3}}
+\left(
+2(\mu - \lambda)
++ h\theta^{3}\Phi \left(\frac{h}{\mu - \lambda},2,\theta+1 \right)
++ h\theta^{3}(\theta - 1)\Phi \left(\frac{h}{\mu - \lambda},3,\theta+1 \right) \right. \\
+& 
++ (\mu - \lambda) 
+\left( \theta\frac{\mu - \lambda}{\mu - h - \lambda} - (\theta - 1) F_{1}^{2}(1,\theta,1+\theta,\frac{h}{\mu-\lambda})
+\right) \\
+&\left. +2(\mu -\lambda) F_{2}^{3}\left((2,\theta,\theta),(1+\theta,1+\theta),\frac{h}{\mu-\lambda}\right)
+\right) \\
+& = O((1-\rho)^{-2}).
+\end{align*}
+Taking the difference between the above two parts under the limit as $(1-\rho)\to 0$, we have
+\[
+\var\left(\frac{\lambda}{\mu - hY - \lambda}
+\left( \log Y + \frac{1}{\theta} \right)\right) =O((1-\rho)^{-2}).
+\]
+
+Next, we develop a bound for $\var_{\infty} (\hat{\nabla} J_{N}(\theta; \xi_{1:N}))$.
+\begin{align*}
+    \var_{\infty}\left(
+    h \cdot \hat{\nabla} Q_{N}(\mu - h Y) \left( \frac{1}{\theta} Y \log Y \right)
+    \right)&=
+    \E\left[\var_{\infty}\left(h \cdot \hat{\nabla} Q_{N}(\mu - h Y) \left( \frac{1}{\theta} Y \log Y \right)|Y=y\right)\right]\\
+&+\var\left(\mathbb{E}\left[h \cdot \hat{\nabla} Q_{N}(\mu - h Y) \left( \frac{1}{\theta} Y \log Y \right)|Y = y\right]\right)
+\end{align*}
+For the first term, we can use the fact that $|Y\log Y| \leq 1/e$ almost surely since $Y\in[0,1]$. We also use recent results in~\cite{hu2023comparison}, which compute the asymptotic variance of the IPA estimator:
+\[
+\var_{\infty}(\hat{\nabla} Q_{N}(\mu)) = \frac{1 + 16\rho + 27 \rho^{2} + 2 \rho^{3} + 6\rho^{4}}{\mu^{2}N(1 + \rho)(1-\rho)^{5}} \leq 52\mu^{-2}N^{-1}(1-\rho)^{-5}
+\]
+Under $\mu - hy$, the congestion factor $1 - \frac{\lambda}{\mu - hy} = \frac{\mu - hy - \lambda}{\mu - hy} \geq \frac{\mu - cy(\mu - \lambda) - \lambda}{\mu} = (1-cy)(1-\rho)$ and $\mu-hy\geq \mu-h\geq (1-c)\mu$.
+So we have the bound,
+\begin{align*}
+ &\var_{\infty}\left(h\hat{\nabla} Q_{N}(\mu - h Y) \left( \frac{1}{\theta} y \log y\right)|Y=y\right) \\
+ & \leq  h^{2} \theta^{-2}(y \log y)^{2}\var_{\infty}(\hat{\nabla} Q_{N}(\mu - h y)) \\
+ & \leq h^{2}\mu^{-2}\theta^{-2}e^{-2} 52N^{-1}(1-c)^{-7}(1-\rho)^{-5} \\
+ & = O(N^{-1} h^{2} \mu^{-2} (1-\rho)^{-5}) \\
+ &= O(N^{-1}  (1-\rho)^{-3})
+\end{align*}
+since $h = O(1-\rho)$.
+
+For the second term, we plug in the true estimand as the mean of $\hat{\nabla} Q_{N}(\mu)$, i.e., $ \nabla Q(\mu) = -\frac{\rho}{\mu(1-\rho)^{2}}$,
+\begin{align*}
+&\E\left[h \cdot \hat{\nabla} Q_{N}(\mu - h Y) \left( \frac{1}{\theta} Y \log Y \right)|Y = y\right] 
+= - h\frac{1}{\theta} (y \log y) \frac{\lambda }{(\mu - hy - \lambda)^{2}}.
+\end{align*}
+% Note that for any $y\in [0,1]$ this has lower bound $0$ and upper bound $h\theta^{-1} e^{-1} \frac{\rho}{(\mu - h)(1-c)^{2}(1-\rho)^{2}}$, which gives a variance upper bound of
+We next evaluate the variance analytically,
+\begin{align*}
+&\var\left(
+- h\frac{1}{\theta} (Y \log Y) \frac{\lambda }{(\mu - hY - \lambda)^{2}}
+\right) \\
+&= 
+\E\left[ 
+\left(- h\frac{1}{\theta} (Y \log Y) \frac{\lambda }{(\mu - hY - \lambda)^{2}}
+\right)^{2}
+\right] 
+- \E\left[ 
+- h\frac{1}{\theta} (Y \log Y) \frac{\lambda }{(\mu - hY - \lambda)^{2}}
+\right]^{2}
+\end{align*}
+Since
+\begin{align*}
+&\E\left[ 
+- h\frac{1}{\theta} (Y \log Y) \frac{\lambda }{(\mu - hY - \lambda)^{2}}
+\right] \\
+&= \frac{h}{(1+\theta)^{2}}
+\frac{\lambda}{(\mu - \lambda)^{2}}
+F^{3}_{2} 
+\left((2,1+\theta,1+\theta), 
+(2+\theta, 2+ \theta), \frac{h}{\mu -\lambda} \right) \\
+& = O((1-\rho)^{-1})
+\end{align*}
+and
+\begin{align*}
+&\E\left[ 
+\left(- h\frac{1}{\theta} (Y \log Y) \frac{\lambda }{(\mu - hY - \lambda)^{2}}
+\right)^{2}
+\right] \\
+&=
+2h\theta^{2}\Gamma(\theta)^{3}\Gamma(2+\theta)^{-3}\frac{\lambda^{2}}{(\mu - \lambda)^{2}} \times 
+\left( F^{4}_{3} 
+\left((3,1+\theta,1+\theta,1+\theta), 
+(2+\theta, 2+ \theta,2+ \theta), \frac{h}{\mu -\lambda} \right) \right. \\
+& \left. -F^{4}_{3} 
+\left((4,1+\theta,1+\theta,1+\theta), 
+(2+\theta, 2+ \theta,2+ \theta), \frac{h}{\mu -\lambda} \right) \right) \\
+& = O((1-\rho)^{-2}),
+\end{align*}
+we have
+\[
+\var\left(
+- h\frac{1}{\theta} (Y \log Y) \frac{\lambda }{(\mu - hY - \lambda)^{2}}
+\right) = O( (1-\rho)^{-2}).
+\]
+
+
+\subsection{Proof of Corollary~\ref{cor:reinforce-baseline}}
+\label{sec:proof_reinforce_baseline}
+
+First, we can explicitly characterize the optimal baseline:
+\begin{align*}
+b^{*} &= \frac{\E[Q(\mu -hY) \nabla_{\theta} \log \pi_{\theta}(Y)^{2}]}{\E[\nabla_{\theta}\log \pi_{\theta}(Y)^{2}]} \\
+ &= \frac{\E[Q(\mu -hY) \left( \log Y + 1/\theta \right)^{2}]}{\E[\left( \log Y + 1/\theta \right)^{2}]} \\
+&= \frac{\lambda}{\mu - \lambda}\underbrace{\left[F^{2}_{1}\left(1,\theta,1+\theta,\frac{h}{\mu-\lambda}\right) -2\theta^{2}\Phi\left(\frac{h}{\mu-\lambda},2,\theta\right) + 2\frac{h}{\mu-\lambda}\theta^{3}\Phi\left(\frac{h}{\mu-\lambda},3,1+\theta\right)\right]}_{b(\theta)}  \\
+& = O((1-\rho)^{-1}).
+\end{align*}
+Next, we plug this into the $\reinforce$ estimator. 
+\begin{align*}
+    \var_{\infty}((\hat{Q}_{N}(\mu-hY)-b^*)\cdot(\log Y-\frac{1}{\theta}))&=\mathbb{E}\left[\var_{\infty}\left((\hat{Q}_{N}(\mu-hy)-b^*)(\log y-\frac{1}
+{\theta})|Y=y\right)\right]\\
+&+\var\left(\mathbb{E}\left[(\hat{Q}_{N}(\mu-hy) - b^{*})(\log y-\frac{1}{\theta})|Y=y\right]\right).
+\end{align*}
+Note that since $b^{*}$ is a constant, the first term, i.e., the mean of the conditional variance given $Y$, has the same value as in Theorem \ref{thm:mm1_variance}. For the second term, note that since $h = c(\mu - \lambda)$,
+% For the second, i.e., we can explicitly compute the variance of the conditional mean given $Y$ with Mathematica. However, this leads to an unwieldy expressio
+\begin{align*}
+& \var \left[ \left(\frac{\lambda}{\mu - hY - \lambda}  - b^{*}\right)
+\left( \log Y + \frac{1}{\theta} \right) \right]  \\
+&= \left(\frac{\lambda}{\mu - \lambda}\right)^{2} \var \left[ \left(\frac{1}{1- cY}  - b(\theta)\right)
+\left( \log Y + \frac{1}{\theta} \right) \right].
+\end{align*}
+Since $\var \left[ \left(\frac{1}{1- cY}  - b(\theta)\right)
+\left( \log Y + \frac{1}{\theta} \right) \right] > 0$ and doesn't depend on $\mu$ or $\lambda$, this confirms that the second term is $\Theta((1-\rho)^{-2})$
+

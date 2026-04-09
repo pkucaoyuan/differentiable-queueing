@@ -1,0 +1,170 @@
+
+
+
+\section{Why is $\reinforce$ Sample-Inefficient? A Theoretical Case Study for the $M/M/1$ Queue}
+\label{section:case_study}
+
+In this section, we provide a theoretical case study explaining how $\pathwise$
+gradients are able to learn more from a single observed trajectory compared to
+$\reinforce$. We focus on the special case of the $M/M/1$ queue to explain how
+$\reinforce$ and its actor-critic variants utilizing baselines/advantages suffer from
+sample inefficiency.
+Although we are only able to analyze a substantially simpler setting than the control problems in general multi-class queueing networks we are interested in, 
+our theoretical results illustrate the essential statistical benefits of pathwise gradient estimators.
+We highlight that while $\reinforce$ applies to virtually any setting by relying on random exploration, %unlike $\pathwise$ 
+it fundamentally struggles to assign credit to actions, especially in noisy environments. $\pathwise$, on the other hand, is much better at assigning credit to actions. This allows us to crystallize why we see such a large improvement in sample efficiency in sections~\ref{section:gradient_eval} and~\ref{section:results}. We also believe our result may be of broader interest in reinforcement learning, because it illustrates a practically relevant instance where $\reinforce$, even with an optimal baseline, is provably sub-optimal. 
+
+We consider the $M/M/1$ queue with a fixed arrival rate $\lambda$ under service rate control $u=\mu > \lambda$. This setting permits an analytic approach to showing that the $\reinforce$ estimator has a sub-optimally large variance, particularly for congested systems when $\rho = \lambda/\mu \to 1$. On the other hand, the $\pathwise$ estimator achieves an order of magnitude improvement in estimation efficiency. 
+In the $M/M/1$ queue setting, the $\pathwise$ approach
+for general queuing networks 
+reduces to IPA based on Lindley recursion. 
+% \hntodo{You use statistical benefits and sample efficiency throughout, which gives the impression that our goal is to utilize data to its full potential. This is a bit orthogonal to how most applied probabilists think about simulation optimization. I recommend either clarifying what you mean early on in the paper or better yet, keeping to computational efficiency as the main framing.}
+
+
+
+We consider a simple service-rate control problem where the cost is the steady-state average queue length in the $M/M/1$ queue
+\[
+Q(\mu) := \E_{\infty}[x(t)] = \frac{\lambda}{\mu - \lambda} = \frac{\rho}{1-\rho}.
+\]
+Given that the service rate is continuous, it is natural to consider a policy that randomizes over $[\mu - h, \mu]$. One such option is a Beta-distributed policy $\pi_{\theta}: A = \mu - hY$, where $Y \sim \text{Beta}(\theta,1)$ and $h>0$. As $\theta \to \infty$, the policy frequently sets service rates close to $\mu$ and as $\theta \to 0$, it concentrates more probability mass on service rates close to $\mu - h$. The task is to estimate the following policy gradient
+\[
+\nabla_{\theta} J(\theta) = \nabla \E_{A\sim \pi_{\theta}}[Q(A)].
+\]
+The $\mathsf{REINFORCE}$ estimator of $\nabla_{\theta}J(\theta)$ involves sampling a random service rate from the policy $\pi_{\theta}$, and then estimating the steady-state queue length from a trajectory under that service rate. For a trajectory with $N$ steps, we denote the steady-state queue length estimator as $\widehat{Q}_{N}(A)$. Then, the $\reinforce$ gradient estimator takes the form
+\begin{equation}
+\label{eq:mm1-reinforce}
+\widehat{\nabla}^{\mathsf{R}} J_{N}(\theta; \xi_{1:N})
+= \widehat{Q}_{N}(\mu - hY) \nabla_{\theta} \log \pi_{\theta}(Y) 
+= \widehat{Q}_{N}(\mu - hY) \left( \log Y + \frac{1}{\theta} \right).
+\end{equation}
+The standard estimator for the steady-state queue length is simply the queue length averaged over a sample path: 
+$\widehat{Q}_{N}(a) = \frac{1}{N}\sum_{k=1}^{N}x_{k}\tau_{k+1}^*$ when $A=a$. As long as $\mu - h > \lambda$, it is known that as $N\to \infty$, $\widehat{Q}_{N}(a) \to Q(a)$, which implies that $\widehat{\nabla}^{\mathsf{R}} J_{N}(\theta; \xi_{1:N}) \to \nabla J(\theta)$.
+
+% \hntodo{$U$ is usually reserved for a uniform variable. Since we don't follow typical notational conventions (e.g., capital letters are RVs), it occasionally gets confusing. Concrete here, $\omega$ is now a uniform in the reparameterization trick, introducing some notational overhead.}
+On the other hand, the $\pathwise$ estimator utilizes the structure of the single server queue. First, by inverse transform sampling, $Y \stackrel{d}{=} F_{\theta}^{-1}(\omega)$, where $\omega \sim \text{Uniform(0,1)}$ and $F_{\theta}^{-1}(\omega) = \omega^{1/\theta}$. Then, we can substitute $A = \mu - h\omega^{1/\theta}$. Since $Q(\mu)$ is differentiable and the derivative is integrable, we can change the order of differentiation and integration
+\[
+\nabla_{\theta} J(\theta) 
+= \nabla_{\theta} \E_{\omega}[Q(\mu - h\omega^{1/\theta})]
+= -\E_{\omega}[\nabla Q(\mu - h\omega^{1/\theta}) \cdot h \nabla_{\theta} \omega^{1/\theta}].
+\]
+The preceding display involves the gradient of the steady-state queue-length $Q(\mu)$ with respect to the service rate $\mu$, i.e., $\nabla Q(\mu)$. 
+
+For the $M/M/1$ queue, there are consistent sample-path estimators of $\nabla Q(\mu)$. One such estimator uses the fact that by Little's law $Q(\mu) = \E_{\infty}[x(t)] = \lambda \E_{\infty}[w(t)] =: \lambda W(\mu)$ where $W(\mu)$ is the steady-state waiting time. The waiting time process $W_{i}$, which denotes the waiting time of the $i$th job arriving to the system, has the following dynamics, known as the Lindley recursion:
+\begin{equation}
+\label{eq:lindley}
+ W_{i+1} = \left( W_{i} - T_{i+1} + \frac{S_{i}}{\mu} \right)^{+},
+\end{equation}
+where $T_{i+1}\stackrel{\text{iid}}{\sim}\text{Exp(1)}$ is the inter-arrival time of between the $i$th job and $(i+1)$th job, and $S_{i}\stackrel{\text{iid}}{\sim}\text{Exp(1)}$ is the workload of the $i$th job. Crucially, this stochastic recursion specifies how the service rate affects the waiting time along the sample path, which enables one to derive a pathwise derivative via the recursion:
+\[
+ \widehat{\nabla}W_{i+1} = 
+ \left( -\frac{S_{k}}{\mu^{2}} + \widehat{\nabla} W_{i} \right)
+ \mathbf{1} \left\{ W_{i+1} > 0 \right\},
+\]
+where $\widehat{\nabla} W_{i}$ together with $W_i$ form a Markov chain following the above recursion. By averaging this gradient across jobs and using Little's law, we have the following gradient estimator for $\nabla Q$, which we denote as $\widehat{\nabla} Q_{N}(\mu)$: 
+%In particular, let $L_{N}$ be the number of arrivals that occur during a sample path with $N$ events. Then,
+\[
+\widehat{\nabla} Q_{N}(\mu) = \lambda \frac{1}{L_{N}} \sum_{i=1}^{L_{N}} \widehat{\nabla} W_{i},
+\]
+where $L_{N}$ is the number of arrivals that occur during a sample path with $N$ events.
+Using this, the $\pathwise$ policy gradient estimator (a.k.a. IPA estimator) is
+\begin{equation}
+\label{eq:mm1-pathwise}
+\widehat{\nabla}_{\theta} J_{N}(\theta; \xi_{1:N}) 
+= h \cdot \widehat{\nabla} Q_{N}(\mu - h Y) \left( \frac{1}{\theta} Y \log Y \right).
+\end{equation}
+As long as $\mu - h > \lambda$, it has been established that $\widehat{\nabla} Q_{N}(\mu)$ is asymptotically unbiased, i.e., as $N\to \infty$, $\E[\widehat{\nabla} Q_{N}(\mu)] \to \nabla Q(\mu)$, which implies 
+$\E[\widehat{\nabla}_{\theta} J_{N}(\theta; \xi_{1:N})] \to \nabla J(\theta)$. 
+
+Since both the $\reinforce$ and $\pathwise$ gradient estimators give an asymptotically unbiased estimation of $\nabla J(\theta)$, we compare them based on their variances, which determines how many samples are needed to reliably estimate the gradient. Although the variances of the estimators are not precisely known for a finite $N$, $\widehat{Q}_{N}$ and $\widehat{\nabla}Q_{N}$ both satisfy the central limit theorem (CLT) with explicitly characterized asymptotic variances, which we denote as $\var_{\infty}(\widehat{Q})$ and $\var_{\infty}(\widehat{\nabla}Q)$ 
+% \hntodo{Subscripts on $\sigma$ are cumbersome. How about $\var(\what{Q})$ instead?} 
+respectively. This implies that the variance of $\widehat{Q}_{N}$ is approximately $\var_{\infty}(\widehat{Q})/N$. We define $\var_{\infty}(\widehat{\nabla} J_{N}(\theta; \xi_{1:N}))$ to be the variance of the gradient estimator when we approximate the variance of $\widehat{Q}_{N}$ and $\widehat{\nabla}Q_{N}$ using $\var_{\infty}(\widehat{Q})/N$ and $\var_{\infty}(\widehat{\nabla}Q)/N$ respectively.
+%we plug in the asymptotic variance of the corresponding queueing estimator.
+
+It is worth reiterating that the $\reinforce$ estimator only required an estimate of cost $Q(\mu)$, which does not require any domain knowledge, whereas the $\pathwise$ gradient required an estimate of $\nabla Q(\mu)$ which requires a detailed understanding of how the service rate affected the sample path dynamics. Utilizing this structural information can greatly improve the efficiency of gradient estimation. Since $\widehat{\nabla}_{\theta} J_{N}(\theta; \xi_{1:N}) = O(h)$ \emph{almost surely},
+we have $\var(\widehat{\nabla}_{\theta}J_{N}(\theta; \xi_{1:N})) = O(h^{2})$. On the other hand, the variance of the $\reinforce$ estimator can be very large even if $h$ is small. To highlight this, consider the extreme case where $h = 0$ for which the policy gradient $\nabla J(\theta)$ is obviously zero since the policy deterministically sets the service rate to $\mu$ regardless of $\theta$. Strikingly, $\reinforce$ does not have zero variance in this case:
+
+
+\begin{observation}
+\label{obs:h_0}
+If $h = 0$, then the variance of the estimators are
+\[
+\var_{\infty}\left(\widehat{\nabla} J_{N}(\theta; \xi_{1:N}) \right) = 0, \quad
+\var_{\infty}\left(\widehat{\nabla}^{\mathsf{R}} J_{N}(\theta; \xi_{1:N}) \right)
+= \Theta \left( N^{-1} (1 - \rho)^{-4} \right)
+\]
+\end{observation}
+\noindent Note that even when $h=0$, the variance of the $\reinforce$ estimator can be quite high if the queue is congested, i.e. $\rho$ is close to $1$, while the pathwise estimator gives the correct estimate of zero with zero variance.
+
+For non-trivial values of $h$, we focus on the so-called `heavy-traffic' asymptotic regime with $\rho=\lambda/\mu \to 1$, which is of major theoretical and practical interest in the study of queues. Estimating steady-state quantities becomes harder as the queue is more congested, so $(1 - \rho)^{-1}$ emerges as a key scaling term in the variance. 
+%In addition, if $\theta \to 0$, then both estimators will diverge to infinity. 
+We set $h$ such that $\frac{h}{\mu - \lambda}<c$ and $\frac{h}{\mu - \lambda}\to c \in (0,1)$ as $\rho \to 1$. This resembles the square-root heavy-traffic regime for capacity planning, where the service rate is set to be $\lambda + \beta \sqrt{\lambda}$ for some $\beta > 0$, and one considers the limit as $\lambda \to \infty$. In this case, if one were choosing a policy over the square-root capacity rules $A\in[\lambda + a \sqrt{\lambda}, \lambda + b \sqrt{\lambda}]$ for some $b>a>0$, this is equivalent to setting $\mu = \lambda + b\sqrt{\lambda}$ and $h = (b - a) \sqrt{\lambda} = O(\sqrt{\lambda})$. Note that if $c = 0$, the gradient is zero (identical to Observation~\ref{obs:h_0}), and if $c \geq 1$, the queue with service rate $\mu-h$ is unstable.
+
+Within this regime, we have the following comparison between the gradient estimators, which utilizes recent results concerning the asymptotic variance of $\widehat{\nabla}Q_N(\mu)$~\cite{hu2023comparison}.
+\begin{theorem}
+\label{thm:mm1_variance}
+Suppose $h = c(\mu - \lambda)$ for $c\in(0,1)$ as $\rho \to 1$. Under this scaling
+$\nabla J(\theta) \sim (1-\rho)^{-1}$,
+and
+\begin{align}
+\var_{\infty}\left(\widehat{\nabla} J_{N}(\theta; \xi_{1:N}) \right) 
+&= O \Big( \underbrace{N^{-1}  \left(1 - \rho \right)^{-3}}_{\text{estimation noise}} + \underbrace{(1-\rho)^{-2}}_{\text{policy randomization}} \Big) \label{eq:V_R}\\ 
+\var_{\infty}\left(\widehat{\nabla}^{\mathsf{R}} J_{N}(\theta; \xi_{1:N}) \right) &= \Theta 
+\left( N^{-1} \left(1 -\rho\right)^{-4}
++ (1-\rho)^{-2}
+\right) \label{eq:V_P}
+\end{align}
+\end{theorem}
+\noindent See Appendix~\ref{sec:proof_mm1_variance} for the proof.
+
+Overall, the $\pathwise$ estimator is much more sample efficient than the $\reinforce$ estimator as $\rho \to 1$, with the variance scaling as $(1-\rho)^{-3}$ compared to $(1-\rho)^{-4}$.
+The first terms in \eqref{eq:V_R} and \eqref{eq:V_P} represent the variance occurring from the Monte Carlo estimation and becomes smaller if one generates a longer sample path (larger $N$), and it scales as $N^{-1}$. The second terms are the variance resulting from randomness in the service rate induced by the policy. 
+%$\reinforce$ $(1-\rho)^{-1}$ times more samples in order to have the same sample variance as the pathwise estimator. 
+% The pathwise estimator also improves upon the dependence on $\theta^{-1}$ in the second term as $\theta \to 0$. This is because the score function $\nabla_{\theta} \log \pi_{\theta}$, which appears in $\reinforce$ estimator, generally becomes poorly conditioned as $\pi_{\theta}$ converges to a deterministic policy.
+
+
+
+
+
+Theorem \ref{thm:mm1_variance} illustrates that large improvements in statistical efficiency can be achieved by leveraging the structure of the system dynamics. An existing strategy for incorporating domain knowledge in $\reinforce$ is to subtract a baseline $b$ from the cost, which preserves un-biasedness:
+\begin{equation}
+\label{eq:mm1-reinforce-baseline}
+\widehat{\nabla}^{\mathsf{RB}} J_{N}
+(\theta, \xi_{1:N})
+= (\widehat{Q}_{N}(\mu - hY) - b) \left( \log Y + \frac{1}{\theta} \right).
+\end{equation}
+%A well-chosen baseline can reduce the variance of the estimator. 
+In this case, one can characterize the optimal variance-reducing baseline in closed form if one has knowledge of the true cost $Q(\mu)$. Under $h = c(\mu - \lambda)$,
+\begin{align*}
+b^{*} &= \frac{\E[Q(h-hY) \nabla_{\theta} \log \pi_{\theta}(Y)^{2}]}{\E[\nabla_{\theta}\log \pi_{\theta}(Y)^{2}]} \\
+&= \frac{\lambda}{\mu - \lambda}\left[F^{2}_{1}\left(1,\theta,1+\theta,c\right) -2\theta^{2}\Phi\left(c,2,\theta\right) + 2c\theta^{3}\Phi\left(c,3,1+\theta\right)\right] \\
+& = O((1-\rho)^{-1})
+\end{align*}
+where $F^{2}_{1}$ is the hypergeometric 2F1 function and $\Phi$ is the Lerch $\Phi$ transcendental. The optimal baseline $b^{*}$ is of the same order as $Q(\mu)$ as $\rho \to 1$.
+%We compute the variance under the optimal baseline. See Appendix~\ref{sec:proof_reinforce_baseline} for the proof.
+\begin{corollary}
+\label{cor:reinforce-baseline}
+Consider the $\reinforce$ estimator with the optimal baseline $b^{*}$. As $\rho \to 1$, the variance of the estimator scales as
+\[
+\var_{\infty}\left(\widehat{\nabla}^{\mathsf{RB}} J_{N}(\theta; \xi_{1:N}) \right) = \Theta 
+\left( N^{-1} \left(1 -\rho\right)^{-4} 
++(1-\rho)^{-2}
+\right)
+\]
+\end{corollary}
+
+The proof of Corollary \ref{cor:reinforce-baseline} is provided in Appendix~\ref{sec:proof_reinforce_baseline}.
+Simply, since the optimal baseline is a deterministic input, it is unable to improve upon the $(1-\rho)^{-4}$ dependence on $\rho$, which is driven by the statistical properties of $\widehat{Q}_{N}$. 
+%The optimal baseline also does not fix the issue pointed out in Observation~\ref{obs:h_0} and still has a potentially large variance when $h = 0$.
+This illustrates that the pathwise gradient estimator can offer an order of magnitude improvement in sample efficiency than the $\reinforce$ estimator even with an optimized baseline that requires knowledge of the true cost function (and thus precludes the need to estimate the cost in the first place). 
+
+Intuitively, the $\reinforce$ estimator is inefficient because it is unable to leverage the fact that %at the \emph{sample-path-level}, 
+$Q(\mu) \approx Q(\mu + \epsilon)$ when $\epsilon$ is small. After all, generic MDPs do not have such a structure; a slight change in the action can result in vastly different outcomes. The $\reinforce$ estimator cannot use the estimate of $\widehat{Q}_{N}(\mu)$ to say anything about $Q(\mu + \epsilon)$, and must draw a new sample path to estimate $Q(\mu + \epsilon)$. Meanwhile, using a \emph{single} sample path, the pathwise estimator can obtain an estimate for $Q(\mu + \epsilon)$ when $\epsilon$ is small enough via $\widehat{Q}_{N}(\mu + \epsilon)\approx \widehat{Q}_{N}(\mu) + \epsilon\widehat{\nabla}Q_{N}(\mu)$. In this sense, the pathwise estimator can be seen as a \emph{infinitesimal counterfactual} of the outcome under alternative---but similar---actions.
+
+Even though we only study a single server queue here, %and we study the IPA estimator instead of our proposed $\pathwise$ estimator,
+we believe the key observations may apply more broadly.
+\begin{itemize}[itemsep=0pt]
+\item Higher congestion ($\rho \to 1$) makes it more challenging to estimate the performance of queueing networks based on the sample path. This applies to both gradient estimators and baselines that could be used to reduce variance.
+\item It is important to reliably estimate the effects of small changes in the policy, as large changes can potentially cause instability. Pathwise gradient estimators provide a promising way to achieve this. For general networks with known dynamics, their dynamics are often not differentiable, which requires the development of the $\pathwise$ estimator.
+% \item While the queue lengths $x_{k}$ are discrete, the dynamics may look more continuous when viewing the system through the event times. Unfortunately, while general networks follow known dynamics, these dynamics are more complicated than the Lindley recursion~\eqref{eq:lindley}, and are not differentiable, which requires development of the $\pathwise$ estimator.
+\end{itemize}
+

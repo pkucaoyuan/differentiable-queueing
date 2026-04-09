@@ -1,0 +1,97 @@
+\documentclass[11pt]{article}
+\usepackage[numbers]{natbib}
+\usepackage{./macros/packages}
+\usepackage{./macros/editing-macros}
+\usepackage{./macros/formatting}
+\usepackage{./macros/statistics-macros}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{wrapfig}
+
+\usepackage[textsize=tiny]{todonotes}
+% \usepackage[disable, textsize=tiny]{todonotes}
+\newcommand{\hntodo}[1]{\todo{Hong: #1}}
+
+
+% \onehalfspacing
+% \renewcommand{\baselinestretch}{1.35}
+
+\begin{document}
+
+% Control whitespace around equations
+\abovedisplayskip=8pt plus0pt minus3pt
+\belowdisplayskip=8pt plus0pt minus3pt
+
+
+% ------------------------------------------------------------------------
+% Main Paper Body
+% ------------------------------------------------------------------------
+
+
+% ------------------------------------------------------------------------
+% Default title and authorship
+% ------------------------------------------------------------------------
+\begin{center}
+  {\huge Differentiable Discrete Event Simulation \vspace{.2cm}
+  \\ for Queuing Network Control } \\
+  \vspace{.5cm} {\Large Ethan Che ~~~ Jing Dong ~~~ Hongseok Namkoong} \\
+  \vspace{.2cm}
+  {\large Columbia Business School} \\
+  \vspace{.2cm}
+  \texttt{\{eche25, jing.dong, namkoong\}@gsb.columbia.edu}
+\end{center}
+
+% ------------------------------------------------------------------------
+% Abstract
+% ------------------------------------------------------------------------
+
+\begin{abstract}%
+  \input{abstract}
+\end{abstract}
+
+\input{introduction}
+\input{related_work}
+\input{model}
+\input{gradient}
+\input{gradient_eval}
+\input{optimization}
+\input{results}
+\input{case_study}
+\input{conclusion}
+
+% Acknowledgments---Will not appear in anonymized version
+
+
+%% ========================== Bibliography =========================  = %%
+
+\bibliography{./bib}
+
+\bibliographystyle{abbrvnat}
+
+\setlength{\bibsep}{.7em}
+
+\newpage
+\appendix
+
+\input{appendix-numerical}
+\input{appendix-proofs}
+%\input{tv-bounds}
+% \input{proof-limit-experiment}
+% \input{proof-mdp}
+% \input{proof-asymptotic}
+% \input{implementation}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

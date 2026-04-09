@@ -1,0 +1,18 @@
+\section{Training Details}
+\label{sec:training-details}
+
+$\ppo$ WC was trained over $100$ episodes, each consisting of $50,000$ environment steps parallelized over $50$ actors. We closely follow the hyper-parameters and training setup as in~\cite{dai2022queueing}. We used a discount factor of $0.998$, a GAE~\cite{schulman2015high} parameter of $0.99$, and set the Kullback–Leibler divergence penalty as $0.03$. For the value network, we used a batch size of $2,500$, while for the policy network, we used the entire rollout buffer (batch size of $50,000$) to take one gradient step. We performed $3$ PPO gradient updates on the same rollout data. For all the experiments, we used the Adam optimizer with a cosine decaying warming-up learning rate scheduler. The learning rates were set to $3 \times 10^{-4}$ for the value network and $9 \times 10^{-4}$ for the policy network. We used 3\% of the training horizon to warm up to the maximum learning rate and then cosine decayed to $1 \times 10^{-5}$ for both networks. We used the same neural network architecture as those in~\cite{dai2022queueing}, see Appendix E of ~\cite{dai2022queueing} for more details.
+
+For the $\pathwise$ policy gradient, we used the same hyperparameters across all experiments. We use an inverse temperature of $\beta = 10$ for the $\softmax$ relaxation of the event selection. We update the policy after every episode with the Adam optimizer, using constant step-size of $5\times 10^{-4}$, momentum parameters $(0.8, 0.9)$, and gradient clipping of $1$. For the policy neural network, we used a multilayer perceptron with 3 hidden layers, each hidden layer consisting of 128 hidden units. We use the work-conserving $\softmax$ for the final output.
+% \subsection{Direct smoothing across inverse temperatures $\beta$}
+% \label{sec:app-inv-temp}
+
+% Figure~\ref{fig:direct_inv_temp} displays the average cosine similiarty of gradient estimators (with $B = 1$ trajectory) under direct smoothing for different inverse temperature parameters. The gradient estimators either suffer from high bias or high variance and are unable to achieve a high cosine similarity with the true gradient, which is estimated from the $\mathsf{REINFORCE}$ estimator. Our approach, which preserves the dynamics of the sample paths is able to achieve almost perfect cosine similarity with the true gradient under an inverse temperature of $\beta = 1.0$. This illustrates the importance of preserving the dynamics when generating trajectories.
+
+% \begin{figure}[ht]
+% \centering
+%     \includegraphics[height = 2.3in]{plot/direct_smoothing_cos.png}
+    
+%     \caption{Comparison of average cosine similarity of gradient estimators using direct smoothing with $\beta  \in \{1, 10, 100, 1000 \}$ for the criss-cross network under a randomized backpressure policy for $N = 1000$ steps. The gradient estimators either suffer from high bias or high variance and are unable to achieve a high cosine similarity with the true gradient.}
+%     \label{fig:direct_inv_temp}
+%\end{figure}
