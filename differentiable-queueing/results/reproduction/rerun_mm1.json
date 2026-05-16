@@ -1,0 +1,12 @@
+{
+  "experiment": "mm1_sanity",
+  "rho": 0.9,
+  "analytical": 9.000000000000002,
+  "simulated": 9.028234481811523,
+  "error": 0.02823448181152166,
+  "error_pct": 0.3137164645724628,
+  "wall_time_sec": 36.97566556930542,
+  "previous_simulated": 9.0282,
+  "diff_from_previous": 3.448181152343466e-05,
+  "status": "PASS"
+}

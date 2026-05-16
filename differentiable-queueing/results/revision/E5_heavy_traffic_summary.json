@@ -1,0 +1,530 @@
+[
+  {
+    "rho": 0.8,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 1.0146366671695877,
+    "std_normalized_cost": 0.011581416632871261,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.85,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 1.0011673613478564,
+    "std_normalized_cost": 0.014989113343130979,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.88,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 1.0126520322441734,
+    "std_normalized_cost": 0.020300929162191714,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.9,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9927214499570897,
+    "std_normalized_cost": 0.021283484273963094,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.92,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9947478776138112,
+    "std_normalized_cost": 0.02763999336081384,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.94,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 1.005506793336508,
+    "std_normalized_cost": 0.03197534095826967,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.95,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 1.0042918831067582,
+    "std_normalized_cost": 0.038863530802898186,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.96,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 1.0006537179375905,
+    "std_normalized_cost": 0.04518969388946231,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.97,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.8867994802457456,
+    "std_normalized_cost": 0.04107609155455245,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.98,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.8959513713205116,
+    "std_normalized_cost": 0.05029615273378237,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.99,
+    "gap": 0.01,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.7881161383998204,
+    "std_normalized_cost": 0.045878131867128503,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.8,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 1.0060433314223953,
+    "std_normalized_cost": 0.010557113133775097,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.85,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9864294072968102,
+    "std_normalized_cost": 0.012514025175543453,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.88,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9924087089449081,
+    "std_normalized_cost": 0.013810471251280626,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.9,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.990107237482104,
+    "std_normalized_cost": 0.01888684709225155,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.92,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9588479755064228,
+    "std_normalized_cost": 0.02875042121545483,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.94,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9574866226260969,
+    "std_normalized_cost": 0.031776741644000225,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.95,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9883935707753809,
+    "std_normalized_cost": 0.04361621194493236,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.96,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9157465142763437,
+    "std_normalized_cost": 0.04184428478146853,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.97,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9056317702128108,
+    "std_normalized_cost": 0.03582582769529276,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.98,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.8608075274205019,
+    "std_normalized_cost": 0.040059078875867404,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.99,
+    "gap": 0.5,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.7157670123537365,
+    "std_normalized_cost": 0.03587317272863566,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.8,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9956581988292382,
+    "std_normalized_cost": 0.0074941734419284554,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.85,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9998333442286512,
+    "std_normalized_cost": 0.013023574088170207,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.88,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.992588450623248,
+    "std_normalized_cost": 0.014813783865075435,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.9,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9939779236904565,
+    "std_normalized_cost": 0.017923197683645267,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.92,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9916944342459453,
+    "std_normalized_cost": 0.021169323553432307,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.94,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9972016036338605,
+    "std_normalized_cost": 0.03862582064979404,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.95,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 1.0008631365184477,
+    "std_normalized_cost": 0.04091276757548279,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.96,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9391823126206088,
+    "std_normalized_cost": 0.05210787672437065,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.97,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.9779500444249751,
+    "std_normalized_cost": 0.05822710088216214,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.98,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.8607769190948027,
+    "std_normalized_cost": 0.04747556921611102,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.99,
+    "gap": 1.0,
+    "method": "pathwise",
+    "mean_normalized_cost": 0.7682860362335675,
+    "std_normalized_cost": 0.03878661939822807,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.8,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0165243353102313,
+    "std_normalized_cost": 0.012206467690021644,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.85,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0024014347146228,
+    "std_normalized_cost": 0.01503950698717386,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.88,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0126159124465368,
+    "std_normalized_cost": 0.019510419617294914,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.9,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9954359731750011,
+    "std_normalized_cost": 0.02069369606788389,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.92,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9946914492796948,
+    "std_normalized_cost": 0.027303310292681886,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.94,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.000256898017842,
+    "std_normalized_cost": 0.036234369754851795,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.95,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0036756593722609,
+    "std_normalized_cost": 0.03770885424181349,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.96,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9951495738613277,
+    "std_normalized_cost": 0.04407129473390366,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.97,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.8779530936755248,
+    "std_normalized_cost": 0.04697674513675864,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.98,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.8864582094943856,
+    "std_normalized_cost": 0.05190152915029317,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.99,
+    "gap": 0.01,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.7901781486130196,
+    "std_normalized_cost": 0.04953219805093095,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.8,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0073968177297163,
+    "std_normalized_cost": 0.008209325621472805,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.85,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9925081414379676,
+    "std_normalized_cost": 0.011845665521343385,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.88,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0005646140133964,
+    "std_normalized_cost": 0.01548998020978863,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.9,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9976667782907356,
+    "std_normalized_cost": 0.01809640591701053,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.92,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9639112771804298,
+    "std_normalized_cost": 0.022615683106600636,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.94,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9538441465066461,
+    "std_normalized_cost": 0.027515391089019386,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.95,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9848420506444949,
+    "std_normalized_cost": 0.0340729716501072,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.96,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9258423620145391,
+    "std_normalized_cost": 0.03898159934260705,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.97,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.898016149877863,
+    "std_normalized_cost": 0.04566361886014357,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.98,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.8690909381804218,
+    "std_normalized_cost": 0.04505475180778423,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.99,
+    "gap": 0.5,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.704294877398851,
+    "std_normalized_cost": 0.03602904447321835,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.8,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9977937522251039,
+    "std_normalized_cost": 0.009453597251755055,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.85,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0061374394052107,
+    "std_normalized_cost": 0.01362176868229439,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.88,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9945406286690962,
+    "std_normalized_cost": 0.015992908856738573,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.9,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0010168391760705,
+    "std_normalized_cost": 0.01711608426567806,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.92,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9856541816071459,
+    "std_normalized_cost": 0.022844539990054733,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.94,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0129594293670992,
+    "std_normalized_cost": 0.034000845806072176,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.95,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 1.0051428129969955,
+    "std_normalized_cost": 0.03693541646037877,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.96,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9419167478175234,
+    "std_normalized_cost": 0.040322341064916674,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.97,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.9802471417181919,
+    "std_normalized_cost": 0.047404017341822674,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.98,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.8577508213938888,
+    "std_normalized_cost": 0.04759550598003433,
+    "n_trials": 200
+  },
+  {
+    "rho": 0.99,
+    "gap": 1.0,
+    "method": "reinforce",
+    "mean_normalized_cost": 0.7744107088206695,
+    "std_normalized_cost": 0.043737136585263146,
+    "n_trials": 200
+  }
+]

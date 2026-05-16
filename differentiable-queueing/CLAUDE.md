@@ -54,7 +54,7 @@ This requires `stable_baselines3` and `gym` (not listed in pyproject.toml depend
 
 ### Core Library (`queuetorch/`)
 
-- **`env.py`** — The central module. `QueuingNetwork` is the differentiable discrete-event simulator. State is `EnvState(queues, time, service_times, arrival_times)`, observations are `Obs(queues, time)`. The `step()` method uses a straight-through estimator (hard argmin forward, softmax backward via `temp` parameter) to make event selection differentiable. `load_env()` constructs a `QueuingNetwork` from a YAML config dict.
+- **`env.py`** — The central module. `QueuingNetwork` is the differentiable discrete-event simulator. State is `EnvState(queues, time, service_times, arrival_times)`, observations are `Obs(queues, time)`. The `step()` method uses a straight-through estimator (hard argmin forward, softmax backward via `temp` parameter) to make event selection differentiable. `load_env()` constructs a `QueuingNetwork` from a YAML config dict. **Modified 2026-04-09**: Added GPU-native sampling via `torch.distributions` (auto-enabled for CUDA + constant arrivals); new attributes `gpu_native_sampling`, `_service_type`.
 - **`routing.py`** — Sinkhorn-based differentiable optimal transport for server-queue assignment. Contains `Sinkhorn` (custom autograd function with analytical backward pass), `linear_assignment_batch` (scipy LP solver), and `pad` (prepares assignment matrices).
 - **`policies.py`** — Simple policy architectures: `SoftPriorityPolicy` (state-independent softmax), `SoftMaxWeightPolicy` (linear in queue lengths), `SoftMaxPressurePolicy`.
 - **`ppo.py`** — PPO buffer and loss computation (GAE, clipped surrogate).
@@ -72,6 +72,26 @@ This requires `stable_baselines3` and `gym` (not listed in pyproject.toml depend
 ### Experiments (`experiments/`)
 
 Standalone scripts for specific studies (CMU rule comparisons via pathwise vs REINFORCE, admission control, gradient analysis). These use `pathos.multiprocessing` for parallel trials and write results as JSON to `cmu/`.
+
+#### Revision Experiments (2026-04-09, OPRE major revision)
+
+| Script | Experiment | Reviewer | Status |
+|--------|-----------|----------|--------|
+| `ste_bias_variance.py` | E1: STE bias-variance beyond M/M/1 | AE-M1 | 🚧 implemented |
+| `glr_comparison.py` | E2: GLR vs PATHWISE vs REINFORCE (M/M/1) | AE-M3 | 🚧 implemented |
+| `gpu_benchmarks.py` | E3: GPU wall-clock benchmark | AE-M4, R2 | 🚧 implemented |
+| `criss_cross_nonwc.py` | E4: Non-work-conserving criss-cross | R1 | 🚧 implemented |
+| `heavy_traffic_curve.py` | E5: Heavy-traffic rho→1 curve | R1 | 🚧 implemented |
+| `ablation_3way.py` | E6: 3-way factorial ablation (6 methods) | R2 | 🚧 implemented |
+| `hyperparam_sensitivity.py` | E7: Hyperparameter sensitivity | R2 | 🚧 implemented |
+| `extract_parameters.py` | E8: Parameter table extraction | R1, AE | ✅ complete |
+| `reproduce_main.py` | Reproduce main paper results | — | 🚧 running |
+
+### Results (`results/`)
+
+- `E8_env_parameters.json` — 25 environments extracted (network, mu, lambda, h, rho)
+- `E8_model_parameters.json` — 4 model configs (PATHWISE, PPO variants)
+- `E8_reinforce_details.json` — REINFORCE baseline implementation details
 
 ### Key Concepts
 

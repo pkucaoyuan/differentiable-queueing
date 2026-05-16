@@ -1,0 +1,16 @@
+{
+  "sPR": {
+    "pathwise_cossim_mean": 0.8000000190734863,
+    "pathwise_cossim_std": 0.6000000143051171,
+    "reinforce_cossim_mean": -1.1920928955078125e-09,
+    "reinforce_cossim_std": 1.0000000131130227,
+    "gt_norm": 171.99745178222656
+  },
+  "sMW": {
+    "pathwise_cossim_mean": 0.15133219808340073,
+    "pathwise_cossim_std": 0.40883878230714543,
+    "reinforce_cossim_mean": 0.05001107230782509,
+    "reinforce_cossim_std": 0.46974090278119157,
+    "gt_norm": 377.0312194824219
+  }
+}

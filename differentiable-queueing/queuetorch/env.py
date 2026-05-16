@@ -73,6 +73,8 @@ class QueuingNetwork():
         self.inv_eps = 1/self.eps
         self.batch = batch
         self.state = np.random.default_rng(seed)
+        self.gpu_native_sampling = False
+        self._service_type = 'exp'
 
         self.free_servers = torch.ones((self.batch, self.s)).to(self.device)
 
@@ -86,8 +88,35 @@ class QueuingNetwork():
         Returns:
         A tensor representing service times for each batch and server.
         '''
+        if self.gpu_native_sampling and self.device.type == 'cuda':
+            return self._draw_service_gpu(time)
         service_mat = torch.tensor(self.service_dists(self.state, self.batch, time)).float().to(self.device)
         return service_mat
+
+    def _draw_service_gpu(self, time):
+        '''GPU-native service time sampling using torch.distributions.'''
+        if self._service_type == 'exp':
+            return torch.distributions.Exponential(
+                torch.ones(self.batch, self.q, device=self.device)
+            ).sample()
+        elif self._service_type == 'lognormal':
+            return torch.distributions.LogNormal(0, 1).sample(
+                (self.batch, self.q)
+            ).to(self.device) / np.exp(0.5)
+        elif self._service_type == 'hyper':
+            scale = 0.8
+            coins = torch.bernoulli(0.5 * torch.ones(self.batch, self.q, device=self.device))
+            a = torch.distributions.Exponential(
+                torch.full((self.batch, self.q), 1.0 / (1 + scale), device=self.device)
+            ).sample()
+            b = torch.distributions.Exponential(
+                torch.full((self.batch, self.q), 1.0 / (1 - scale), device=self.device)
+            ).sample()
+            return coins * a + (1 - coins) * b
+        else:
+            return torch.distributions.Exponential(
+                torch.ones(self.batch, self.q, device=self.device)
+            ).sample()
 
     def draw_inter_arrivals(self, time):
         '''
@@ -99,7 +128,12 @@ class QueuingNetwork():
         Returns:
         A tensor representing inter-arrival times for each batch and queue.
         '''
-        interarrivals = torch.tensor(self.inter_arrival_dists(self.state, self.batch)).float().to(self.device)
+        if self.gpu_native_sampling and self.device.type == 'cuda':
+            interarrivals = torch.distributions.Exponential(
+                torch.ones(self.batch, self.q, device=self.device)
+            ).sample()
+        else:
+            interarrivals = torch.tensor(self.inter_arrival_dists(self.state, self.batch)).float().to(self.device)
         lam = torch.tensor(self.arrival_rates(self.state, time, self.batch)).to(self.device)
         return interarrivals / lam
         
@@ -364,12 +398,17 @@ def load_env(env_config, temp, batch, seed, device):
         else:
             pass
 
-    dq = QueuingNetwork(network, mu, h, arrival_rates, 
-                        inter_arrival_dists, service_dists, 
+    dq = QueuingNetwork(network, mu, h, arrival_rates,
+                        inter_arrival_dists, service_dists,
                         queue_event_options= queue_event_options,
-                        batch = batch, 
+                        batch = batch,
                         temp = temp, seed = seed,
                         device = torch.device(device))
+
+    dq._service_type = service_type
+    # Enable GPU-native sampling for CUDA devices with standard distributions
+    if str(device) == 'cuda' and lam_type == 'constant':
+        dq.gpu_native_sampling = True
 
     return dq
 

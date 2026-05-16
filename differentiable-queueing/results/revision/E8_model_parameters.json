@@ -1,0 +1,240 @@
+{
+  "ppg_softmax.yaml": {
+    "name": "ppg_softmax",
+    "env": {
+      "device": "cpu",
+      "env_temp": 0.1,
+      "straight_through_min": false,
+      "model_seed": 33,
+      "test_seed": 42,
+      "train_seed": null,
+      "print_grads": true,
+      "test_restart": true,
+      "test_freq": 1,
+      "train_restart": true
+    },
+    "param": {
+      "layers": 3,
+      "width": 128,
+      "f_time": false
+    },
+    "opt": {
+      "num_epochs": 100,
+      "train_batch": 1,
+      "test_batch": 100,
+      "lr": 0.0003,
+      "betas": [
+        0.8,
+        0.9
+      ],
+      "grad_clip_norm": 1.0,
+      "threshold": "None"
+    },
+    "policy": {
+      "test_policy": "softmax",
+      "randomize": true,
+      "train_policy": "softmax"
+    },
+    "plot": {
+      "plot_policy_curve": true,
+      "inds": [
+        0,
+        1
+      ],
+      "val_inds": [
+        0,
+        0
+      ]
+    },
+    "checkpoint": null
+  },
+  "PPO/vanilla_bc.yaml": {
+    "name": "PPO",
+    "env": {
+      "device": "cpu",
+      "env_temp": 1.0,
+      "straight_through_min": false,
+      "model_seed": 100,
+      "test_seed": 42,
+      "train_seed": 3003,
+      "randomize": true,
+      "time_f": false,
+      "reward_scale": 1.0
+    },
+    "model": {
+      "policy_name": "vanilla",
+      "scale": 20
+    },
+    "training": {
+      "behavior_cloning": true,
+      "normalize_advantage": true,
+      "normalize_value": true,
+      "normalize_reward": true,
+      "rescale_v": true,
+      "truncation": true,
+      "amp_value": false,
+      "var_scaler": 1.0,
+      "per_iter_normal_obs": false,
+      "per_iter_normal_value": false,
+      "actors": 20,
+      "episode_steps": 50000,
+      "num_epochs": 100,
+      "train_batch": 1,
+      "test_batch": 100,
+      "lr": 0.0003,
+      "lr_policy": 0.0009,
+      "lr_value": 0.0003,
+      "min_lr_policy": 1e-05,
+      "min_lr_value": 1e-05,
+      "gae_lambda": 0.99,
+      "gamma": 0.998,
+      "target_kl": 0.03,
+      "vf_coef": 1.0,
+      "batch_size": 2500,
+      "ppo_epochs": 3,
+      "clip_range_vf": null,
+      "ent_coef": 0.0
+    },
+    "policy": {
+      "test_policy": "vanilla"
+    },
+    "plot": {
+      "plot_policy_curve": true,
+      "inds": [
+        0,
+        1
+      ],
+      "val_inds": [
+        0,
+        0
+      ]
+    },
+    "checkpoint": null
+  },
+  "PPO/softmax.yaml": {
+    "name": "PPO",
+    "env": {
+      "device": "cpu",
+      "env_temp": 1.0,
+      "straight_through_min": false,
+      "model_seed": 100,
+      "test_seed": 42,
+      "train_seed": 3003,
+      "randomize": true,
+      "time_f": false,
+      "reward_scale": 1.0
+    },
+    "model": {
+      "policy_name": "vanilla",
+      "scale": 10
+    },
+    "training": {
+      "behavior_cloning": false,
+      "normalize_advantage": true,
+      "normalize_value": true,
+      "normalize_reward": true,
+      "rescale_v": true,
+      "truncation": true,
+      "amp_value": false,
+      "var_scaler": 1.0,
+      "per_iter_normal_obs": false,
+      "per_iter_normal_value": false,
+      "actors": 50,
+      "episode_steps": 50000,
+      "num_epochs": 100,
+      "train_batch": 1,
+      "test_batch": 100,
+      "lr": 0.0003,
+      "lr_policy": 0.0009,
+      "lr_value": 0.0003,
+      "min_lr_policy": 1e-05,
+      "min_lr_value": 1e-05,
+      "gae_lambda": 0.99,
+      "gamma": 0.998,
+      "target_kl": 0.03,
+      "vf_coef": 1.0,
+      "batch_size": 2500,
+      "ppo_epochs": 3,
+      "clip_range_vf": null,
+      "ent_coef": 0.0
+    },
+    "policy": {
+      "test_policy": "vanilla"
+    },
+    "plot": {
+      "plot_policy_curve": true,
+      "inds": [
+        0,
+        1
+      ],
+      "val_inds": [
+        0,
+        0
+      ]
+    },
+    "checkpoint": null
+  },
+  "PPO/wc_softmax.yaml": {
+    "name": "PPO",
+    "env": {
+      "device": "cpu",
+      "env_temp": 1.0,
+      "straight_through_min": false,
+      "model_seed": 100,
+      "test_seed": 42,
+      "train_seed": 3003,
+      "randomize": true,
+      "time_f": false,
+      "reward_scale": 1.0
+    },
+    "model": {
+      "policy_name": "WC",
+      "scale": 20
+    },
+    "training": {
+      "behavior_cloning": false,
+      "normalize_advantage": true,
+      "normalize_value": true,
+      "normalize_reward": true,
+      "rescale_v": true,
+      "truncation": true,
+      "amp_value": false,
+      "var_scaler": 1.0,
+      "per_iter_normal_obs": false,
+      "per_iter_normal_value": false,
+      "actors": 20,
+      "episode_steps": 50000,
+      "num_epochs": 100,
+      "train_batch": 1,
+      "test_batch": 100,
+      "lr": 0.0003,
+      "lr_policy": 0.0009,
+      "lr_value": 0.0003,
+      "min_lr_policy": 1e-05,
+      "min_lr_value": 1e-05,
+      "gae_lambda": 0.99,
+      "gamma": 0.998,
+      "target_kl": 0.03,
+      "vf_coef": 1.0,
+      "batch_size": 2500,
+      "ppo_epochs": 3,
+      "clip_range_vf": null,
+      "ent_coef": 0.0
+    },
+    "policy": {
+      "test_policy": "WC"
+    },
+    "plot": {
+      "plot_policy_curve": true,
+      "inds": [
+        0,
+        1
+      ],
+      "val_inds": [
+        0,
+        0
+      ]
+    },
+    "checkpoint": null
+  }
+}
