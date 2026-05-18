@@ -102,3 +102,9 @@ Format: `[timestamp] [job_id] command (notes)`
   - reentrant_7 SPSA_B1000=106.0 vs PATHWISE_B1=44.1
 - Confirms paper Section 5.3 claim that pathwise gradient enables scaling
 
+
+### Final 3 STE jobs finished
+- 8674075 reentrant_8: end 2026-05-16 06:34, walltime 20h55m, exit=0, min cost 64.33 (ep 2)
+- 8674076 reentrant_9: end 2026-05-16 09:30, walltime 23h52m, exit=0, min cost 72.92 (ep 5)
+- 8674405 reentrant_10: end 2026-05-16 13:50, walltime 27h23m, exit=0, min cost 80.25 (ep 80)
+

@@ -31,8 +31,11 @@ Last updated: 2026-05-15
 | 20 | STE training reentrant_4 (100 epochs) | ✅ | trend | min cost 32.20, final 35.03 |
 | 21 | Theorem 2 retry (T=10000, 1000 trials) | ❌ | mismatch | PW slope -4.13 (vs -3), RF slope -0.76 (vs -4). RF variance plateaus — my Gaussian-perturbation REINFORCE doesn't reproduce paper's likelihood-ratio scaling. Need paper's exact event-history score function. |
 | 22 | Section 5.3 Admission Control (12 envs × 4 methods) | ✅ | qualitative | PATHWISE_B1 consistent across all envs; SPSA_B1000 fails catastrophically on K≥15 nets (e.g. reentrant_7: PW=44.1 vs SPSA_B1000=106.0) — confirms paper's claim that PATHWISE > SPSA at scale |
+| 23 | STE training reentrant_8 (100 epochs) | ✅ | trend | min cost 64.33 (ep 2) |
+| 24 | STE training reentrant_9 (100 epochs) | ✅ | trend | min cost 72.92 (ep 5) |
+| 25 | STE training reentrant_10 (100 epochs) | ✅ | trend | min cost 80.25 (ep 80) |
 
-**Still running:** reentrant_8 (77/100 ep, min 64.33), _9 (67/100, min 72.92), _10 (53/100, min 80.53).
+**All reproduction jobs complete.**
 
 ---
 
