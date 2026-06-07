@@ -1,0 +1,25 @@
+{
+  "env": "criss_cross_bh",
+  "T": 1000,
+  "results": [
+    {
+      "batch_size": 4096,
+      "median_time_s": 0.9574646949768066,
+      "throughput_events_per_s": 4277964.525991447,
+      "mem_used_gb": 12.476350464
+    },
+    {
+      "batch_size": 16384,
+      "median_time_s": 1.0877392292022705,
+      "throughput_events_per_s": 15062433.67908662,
+      "mem_used_gb": 12.480544768
+    },
+    {
+      "batch_size": 65536,
+      "median_time_s": 1.3934557437896729,
+      "throughput_events_per_s": 47031274.79439487,
+      "mem_used_gb": 12.509904896
+    }
+  ],
+  "cuda_device_name": "NVIDIA A100-SXM4-80GB"
+}

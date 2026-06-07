@@ -1,0 +1,16 @@
+artifact_id,paper_section,status,driver,source,job_ids
+mm1_sanity,simulator validation,pass,experiments/reproduction/test_mm1.py,results/reproduction/rerun_mm1.json,8673694
+section_5_1_gradient_quick,§5.1 Fig 4,noisy,experiments/reproduction/test_gradient.py,results/reproduction/reproduction_gradient.json,
+section_5_2_cmu_10class_quickgrid,§5.2 Fig 9 right,pass_with_caveat,experiments/reproduction/full_reproduction.py,results/reproduction/reproduction_cmu_pathwise.json + reinforce.json,8631656
+section_5_2_cmu_papergrid,§5.2 Fig 9 right (paper-correct),running,experiments/reproduction/test_cmu_papergrid.py,,
+section_5_2_cmu_5class,§5.2 5-class,pass,experiments/reproduction/test_cmu_5class.py,results/reproduction/reproduction_cmu5_pathwise.json + reinforce.json,8673698
+section_5_2_rho_ablation,§5.2 ρ robustness,pass,experiments/reproduction/test_rho_ablation.py,results/reproduction/rho_ablation_*.json,8673700
+section_5_2_T_ablation,§5.2 T robustness,pass,experiments/reproduction/test_T_ablation.py,results/reproduction/T_ablation_*.json,8674408
+section_5_2_queue_class_ablation,§5.2 queue_class robustness,pass,experiments/reproduction/test_queue_class_ablation.py,results/reproduction/queue_class_ablation_*.json,8674406
+section_5_2_num_iter_ablation,§5.2 num_iter robustness,pass,experiments/reproduction/test_num_iter_ablation.py,results/reproduction/num_iter_ablation_*.json,8674409
+section_5_3_admission_control,§5.3 Fig 11,pass,experiments/admission_control.py,results/admission_control_*.json,8674080
+section_6_wc_vs_vanilla,§6,pass,train/train_policy.py --algo ste,"loss/criss_cross_bh_ppg_{softmax,vanilla}.json","8556850,8674410"
+section_7_ste_training,§7 Tables 1-5 (training data),pass_last_iterate,train/train_policy.py --algo ste,loss/*_ppg_softmax.json,"8556850,8631657,8673699,8674071,8674072,8674073,8674074,8674075,8674076,8674405"
+section_7_ste_vs_ppo_speed,§7 STE/PPO speed comparison,pass,,logs/COMMANDS_LOG.md + qacct records,"8556850,8556856"
+section_4_3_1_gpu_benchmark,§4.3.1,pass,experiments/reproduction/test_gpu_benchmark.py + test_gpu_benchmark_large.py,results/reproduction/gpu_benchmark.json + gpu_benchmark_large.json,
+section_8_theorem_2,§8 Theorem 2 variance scaling,methodology_mismatch,experiments/reproduction/test_theorem2_scaling*.py,results/reproduction/theorem2_validation*.json,

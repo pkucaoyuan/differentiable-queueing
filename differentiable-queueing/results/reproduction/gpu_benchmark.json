@@ -1,0 +1,125 @@
+{
+  "env": "criss_cross_bh",
+  "T": 1000,
+  "batch_sizes": [
+    1,
+    4,
+    16,
+    64,
+    256,
+    1024
+  ],
+  "warmup_runs": 1,
+  "timed_runs": 3,
+  "results": [
+    {
+      "batch_size": 1,
+      "device": "cpu",
+      "median_time_s": 0.3192901611328125,
+      "min_time_s": 0.31684160232543945,
+      "max_time_s": 0.3298358917236328,
+      "throughput_events_per_s": 3131.94743130227,
+      "final_cost": 29348.03515625
+    },
+    {
+      "batch_size": 4,
+      "device": "cpu",
+      "median_time_s": 0.3356485366821289,
+      "min_time_s": 0.3347189426422119,
+      "max_time_s": 0.3358883857727051,
+      "throughput_events_per_s": 11917.227584364959,
+      "final_cost": 32618.1796875
+    },
+    {
+      "batch_size": 16,
+      "device": "cpu",
+      "median_time_s": 0.3481767177581787,
+      "min_time_s": 0.34802699089050293,
+      "max_time_s": 0.35166501998901367,
+      "throughput_events_per_s": 45953.675774244555,
+      "final_cost": 34137.171875
+    },
+    {
+      "batch_size": 64,
+      "device": "cpu",
+      "median_time_s": 0.41747379302978516,
+      "min_time_s": 0.4069952964782715,
+      "max_time_s": 0.4315037727355957,
+      "throughput_events_per_s": 153303.03618707354,
+      "final_cost": 34615.40234375
+    },
+    {
+      "batch_size": 256,
+      "device": "cpu",
+      "median_time_s": 0.5690844058990479,
+      "min_time_s": 0.5684695243835449,
+      "max_time_s": 0.5707311630249023,
+      "throughput_events_per_s": 449845.39612461784,
+      "final_cost": 35135.61328125
+    },
+    {
+      "batch_size": 1024,
+      "device": "cpu",
+      "median_time_s": 1.8233363628387451,
+      "min_time_s": 1.8204059600830078,
+      "max_time_s": 1.8297679424285889,
+      "throughput_events_per_s": 561607.8420142614,
+      "final_cost": 34853.90234375
+    },
+    {
+      "batch_size": 1,
+      "device": "cuda",
+      "median_time_s": 0.956768274307251,
+      "min_time_s": 0.9192936420440674,
+      "max_time_s": 0.9570717811584473,
+      "throughput_events_per_s": 1045.185158050993,
+      "final_cost": 35820.42578125
+    },
+    {
+      "batch_size": 4,
+      "device": "cuda",
+      "median_time_s": 0.8875885009765625,
+      "min_time_s": 0.8841781616210938,
+      "max_time_s": 0.8952951431274414,
+      "throughput_events_per_s": 4506.592858739191,
+      "final_cost": 34089.21484375
+    },
+    {
+      "batch_size": 16,
+      "device": "cuda",
+      "median_time_s": 0.903083324432373,
+      "min_time_s": 0.8932850360870361,
+      "max_time_s": 0.9059860706329346,
+      "throughput_events_per_s": 17717.0805474198,
+      "final_cost": 33965.01171875
+    },
+    {
+      "batch_size": 64,
+      "device": "cuda",
+      "median_time_s": 0.9259395599365234,
+      "min_time_s": 0.9237682819366455,
+      "max_time_s": 0.9266600608825684,
+      "throughput_events_per_s": 69118.98224154871,
+      "final_cost": 34750.23046875
+    },
+    {
+      "batch_size": 256,
+      "device": "cuda",
+      "median_time_s": 0.9177250862121582,
+      "min_time_s": 0.9154903888702393,
+      "max_time_s": 0.9245219230651855,
+      "throughput_events_per_s": 278950.6398442489,
+      "final_cost": 34913.078125
+    },
+    {
+      "batch_size": 1024,
+      "device": "cuda",
+      "median_time_s": 0.9210748672485352,
+      "min_time_s": 0.9192132949829102,
+      "max_time_s": 0.9227428436279297,
+      "throughput_events_per_s": 1111744.5892959018,
+      "final_cost": 35077.31640625
+    }
+  ],
+  "cuda_device_name": "NVIDIA A100-SXM4-80GB"
+}
