@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this reproduction in your work, please cite the original paper and this reproduction."
+title: "Reproduction of: Differentiable Discrete Event Simulation for Queuing Network Control"
+authors:
+  - given-names: Yuan
+    family-names: Cao
+    affiliation: Peking University / Columbia Business School
+    email: caoyuan@picaa.com
+abstract: >-
+  Independent reproduction of OPRE-2025-02-1714 "Differentiable Discrete Event
+  Simulation for Queuing Network Control" by Che, Dong, Namkoong et al.
+  Covers §5.2 CμRule, §5.3 admission control, §6 work-conserving softmax,
+  §7 STE training on criss-cross + reentrant_2..10, §4.3.1 GPU benchmark,
+  and §8 Theorem 2 variance scaling. All driver scripts, raw outputs,
+  training curves, and per-Job qacct accounting are included.
+keywords:
+  - reproduction
+  - reinforcement learning
+  - queuing networks
+  - straight-through estimator
+  - pathwise gradient
+license: MIT
+repository-code: "https://github.com/pkucaoyuan/differentiable-queueing"
+references:
+  - title: "Differentiable Discrete Event Simulation for Queuing Network Control"
+    type: article
+    authors:
+      - family-names: Che
+        given-names: Ethan
+      - family-names: Dong
+        given-names: Jing
+      - family-names: Namkoong
+        given-names: Hongseok
+    notes: "OPRE-2025-02-1714 (major revision)"
+    repository-code: "https://github.com/namkoong-lab/differentiable-queueing"
