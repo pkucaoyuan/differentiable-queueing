@@ -53,11 +53,18 @@
     {
       "id": "section_5_2_cmu_papergrid",
       "paper_section": "§5.2 Fig 9 right (paper-correct)",
-      "status": "running",
-      "acceptance_rule": "Full grid {1.0, 0.5, 0.1, 0.05, 0.01} × {0.01, 0.1, 0.5, 1.0} × 50 trials",
+      "status": "pass",
+      "acceptance_rule": "Full grid {1.0, 0.5, 0.1, 0.05, 0.01} × {0.01, 0.1, 0.5, 1.0} × 50 trials; |RF-PW|/PW ≤ 5%",
+      "result": {
+        "cells": "20 PATHWISE + 20 REINFORCE = 40",
+        "max_RF_PW_diff_pct": 3.1,
+        "gap_0_1_added": "alpha=0.5 gap=0.1: PW=14.64, RF=14.61 (diff 0.2%)",
+        "total_walltime_min": 227.6,
+        "completed": "2026-06-07T12:31Z"
+      },
+      "source": "results/reproduction/cmu_papergrid_{pathwise,reinforce}.json",
       "driver": "experiments/reproduction/test_cmu_papergrid.py",
-      "pid": 3973876,
-      "started": "2026-06-07T08:30Z"
+      "figure": "reports/figures/fig_section52_cmu_papergrid.png"
     },
     {
       "id": "section_5_2_cmu_5class",

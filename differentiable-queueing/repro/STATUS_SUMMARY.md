@@ -6,10 +6,9 @@ Project: **differentiable-queueing**  ·  Paper: `OPRE-2025-02-1714`  ·  Update
 
 | Status | Count | Meaning |
 |---|---:|---|
-| ✅ pass | 10 | Numerical match within acceptance window |
+| ✅ pass | 11 | Numerical match within acceptance window |
 | ⚠️ noisy | 1 | High variance, compute budget too small |
 | ✅⚠️ pass_with_caveat | 1 | Pass but with documented limitation |
-| 🔄 running | 1 | Currently executing |
 | ✅ pass_last_iterate | 1 | Trend matches; uses last-iterate vs paper avg-iterate |
 | ❌ methodology_mismatch | 1 | Our test setup doesn't exercise the paper's exact claim |
 | **TOTAL** | **15** | |
@@ -21,7 +20,7 @@ Project: **differentiable-queueing**  ·  Paper: `OPRE-2025-02-1714`  ·  Update
 | `mm1_sanity` | simulator validation | ✅ pass | E[Q]=9.0282, analytical=9.0, error_pct=0.31 |
 | `section_5_1_gradient_quick` | §5.1 Fig 4 | ⚠️ noisy | rerun with paper's 100x100 samples on GPU |
 | `section_5_2_cmu_10class_quickgrid` | §5.2 Fig 9 right | ✅⚠️ pass_with_caveat | PW_max_diff_pct=5.19, RF_max_diff_pct=1.67, cells_OK=24/24 |
-| `section_5_2_cmu_papergrid` | §5.2 Fig 9 right (paper-correct) | 🔄 running |  |
+| `section_5_2_cmu_papergrid` | §5.2 Fig 9 right (paper-correct) | ✅ pass | cells=20 PATHWISE + 20 REINFORCE = 40, max_RF_PW_diff_pct=3.1, gap_0_1_added=alpha=0.5 gap=0.1: PW=14.64, RF=14.61 (diff 0.2%) |
 | `section_5_2_cmu_5class` | §5.2 5-class | ✅ pass | PW_diff_pct=0.78, RF_diff_pct=0.19 |
 | `section_5_2_rho_ablation` | §5.2 ρ robustness | ✅ pass | max_diff_pct=2.62, cells_OK=8/8 |
 | `section_5_2_T_ablation` | §5.2 T robustness | ✅ pass | max_diff_pct=2.41, cells_OK=8/8 |

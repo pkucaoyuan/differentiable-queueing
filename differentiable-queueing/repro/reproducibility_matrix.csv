@@ -2,7 +2,7 @@ artifact_id,paper_section,status,driver,source,job_ids
 mm1_sanity,simulator validation,pass,experiments/reproduction/test_mm1.py,results/reproduction/rerun_mm1.json,8673694
 section_5_1_gradient_quick,§5.1 Fig 4,noisy,experiments/reproduction/test_gradient.py,results/reproduction/reproduction_gradient.json,
 section_5_2_cmu_10class_quickgrid,§5.2 Fig 9 right,pass_with_caveat,experiments/reproduction/full_reproduction.py,results/reproduction/reproduction_cmu_pathwise.json + reinforce.json,8631656
-section_5_2_cmu_papergrid,§5.2 Fig 9 right (paper-correct),running,experiments/reproduction/test_cmu_papergrid.py,,
+section_5_2_cmu_papergrid,§5.2 Fig 9 right (paper-correct),pass,experiments/reproduction/test_cmu_papergrid.py,"results/reproduction/cmu_papergrid_{pathwise,reinforce}.json",
 section_5_2_cmu_5class,§5.2 5-class,pass,experiments/reproduction/test_cmu_5class.py,results/reproduction/reproduction_cmu5_pathwise.json + reinforce.json,8673698
 section_5_2_rho_ablation,§5.2 ρ robustness,pass,experiments/reproduction/test_rho_ablation.py,results/reproduction/rho_ablation_*.json,8673700
 section_5_2_T_ablation,§5.2 T robustness,pass,experiments/reproduction/test_T_ablation.py,results/reproduction/T_ablation_*.json,8674408
