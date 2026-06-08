@@ -1,0 +1,13 @@
+§4.3.1 large-batch GPU benchmark | CUDA: True
+Device: NVIDIA A100-SXM4-80GB, free 72.7 GB
+
+B=4096
+  median=0.957s  throughput=4277965 ev/s  mem=12.5 GB
+
+B=16384
+  median=1.088s  throughput=15062434 ev/s  mem=12.5 GB
+
+B=65536
+  median=1.393s  throughput=47031275 ev/s  mem=12.5 GB
+
+Saved: test_gpu_benchmark_large.json

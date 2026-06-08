@@ -1,0 +1,9 @@
+
+══ criss_cross_bh: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 2810.835
+  Polyak avg (last 50): 2789.643  (diff -0.75%)
+  eval time: 89s @ B=100, T=50000
+
+══ reentrant_2: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)

@@ -1,0 +1,8 @@
+Running on cpu with 256 cores available.
+
+==================================================
+Starting Experiment for Intensity rho = 0.8
+==================================================
+
+Testing Policy: sPR (rho=0.8)
+  [Sample 0] Computing Ground Truth (Batch=50000)...
