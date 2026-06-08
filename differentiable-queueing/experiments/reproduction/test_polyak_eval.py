@@ -107,19 +107,24 @@ def evaluate_policy(net, env_config, batch, T, device='cpu'):
 
 
 def get_avg_cost(net, env_config, batch, T):
-    """Time-averaged cost (matches train_policy.py line 302 protocol)."""
+    """Time-averaged cost with paper's WC eval protocol."""
     dq = load_env(env_config, temp=1e-3, batch=batch, seed=42, device='cpu')
     obs, state = dq.reset()
-    total_cost = torch.zeros(batch)
+    total_cost = torch.zeros(batch, 1)
     with torch.no_grad():
         for _ in range(T):
             queues, t = obs
-            action = net(queues, t.detach() if t is not None else None)
+            pr = net(queues, t.detach() if t is not None else None)  # (B,s,q) softmax
+            # Apply paper's eval protocol (matches train_policy.py 269-273)
+            pr = pr * dq.network
+            pr = torch.minimum(pr, queues.unsqueeze(1).repeat(1, dq.s, 1))
+            pr = F.one_hot(torch.argmax(pr, dim=2), num_classes=dq.q).float()
+            action = torch.round(pr)
             obs, state, cost, _ = dq.step(state, action)
             total_cost = total_cost + cost
-    # Normalize by actual time elapsed (state.time is shape [batch, 1])
-    time_elapsed = state.time.squeeze(-1)  # [batch]
-    return float((total_cost / time_elapsed).mean())
+    # Normalize by actual time elapsed
+    time_elapsed = state.time.squeeze(-1)
+    return float((total_cost.squeeze(-1) / time_elapsed).mean())
 
 
 def main():

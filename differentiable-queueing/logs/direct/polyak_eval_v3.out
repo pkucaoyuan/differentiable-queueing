@@ -1,0 +1,75 @@
+
+══ criss_cross_bh: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 15.864
+  Polyak avg (last 50): 15.538  (diff -2.05%)
+  eval time: 80s @ B=100, T=50000
+
+══ reentrant_2: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 22.448
+  Polyak avg (last 50): 44.453  (diff +98.02%)
+  eval time: 79s @ B=100, T=50000
+
+══ reentrant_3: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 22.264
+  Polyak avg (last 50): 22.342  (diff +0.35%)
+  eval time: 87s @ B=100, T=50000
+
+══ reentrant_4: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 77.769
+  Polyak avg (last 50): 81.123  (diff +4.31%)
+  eval time: 92s @ B=100, T=50000
+
+══ reentrant_5: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 52.160
+  Polyak avg (last 50): 41.941  (diff -19.59%)
+  eval time: 102s @ B=100, T=50000
+
+══ reentrant_6: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 85.164
+  Polyak avg (last 50): 85.589  (diff +0.50%)
+  eval time: 119s @ B=100, T=50000
+
+══ reentrant_7: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 64.609
+  Polyak avg (last 50): 84.956  (diff +31.49%)
+  eval time: 164s @ B=100, T=50000
+
+══ reentrant_8: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 105.040
+  Polyak avg (last 50): 100.758  (diff -4.08%)
+  eval time: 158s @ B=100, T=50000
+
+══ reentrant_9: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 84.095
+  Polyak avg (last 50): 75.848  (diff -9.81%)
+  eval time: 180s @ B=100, T=50000
+
+══ reentrant_10: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 97.190
+  Polyak avg (last 50): 91.679  (diff -5.67%)
+  eval time: 203s @ B=100, T=50000
+
+Saved: /user/yc4911/DJ_OR/differentiable-queueing/results/reproduction/polyak_eval.json
+
+══ Summary ══
+env                       last    polyak    diff%
+  criss_cross_bh        15.864    15.538   -2.05%
+  reentrant_2           22.448    44.453  +98.02%
+  reentrant_3           22.264    22.342   +0.35%
+  reentrant_4           77.769    81.123   +4.31%
+  reentrant_5           52.160    41.941  -19.59%
+  reentrant_6           85.164    85.589   +0.50%
+  reentrant_7           64.609    84.956  +31.49%
+  reentrant_8          105.040   100.758   -4.08%
+  reentrant_9           84.095    75.848   -9.81%
+  reentrant_10          97.190    91.679   -5.67%

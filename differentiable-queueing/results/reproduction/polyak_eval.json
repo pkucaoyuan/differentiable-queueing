@@ -4,99 +4,99 @@
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 7933.38330078125,
-    "polyak_avg_cost": 7906.703125,
-    "diff_pct": -0.33630261856404486,
-    "eval_time_s": 69.88167333602905
+    "last_iterate_cost": 15.863886833190918,
+    "polyak_avg_cost": 15.53828239440918,
+    "diff_pct": -2.0524884109769275,
+    "eval_time_s": 80.37912178039551
   },
   "reentrant_2": {
     "epochs_total": 100,
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 24817.904296875,
-    "polyak_avg_cost": 24729.32421875,
-    "diff_pct": -0.3569200568484493,
-    "eval_time_s": 75.50317096710205
+    "last_iterate_cost": 22.448328018188477,
+    "polyak_avg_cost": 44.453067779541016,
+    "diff_pct": 98.02395859292271,
+    "eval_time_s": 78.50265717506409
   },
   "reentrant_3": {
     "epochs_total": 100,
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 24965.720703125,
-    "polyak_avg_cost": 12495.3154296875,
-    "diff_pct": -49.950111281492305,
-    "eval_time_s": 80.11119079589844
+    "last_iterate_cost": 22.263687133789062,
+    "polyak_avg_cost": 22.342390060424805,
+    "diff_pct": 0.35350356013715556,
+    "eval_time_s": 86.97738790512085
   },
   "reentrant_4": {
     "epochs_total": 100,
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 4171.6669921875,
-    "polyak_avg_cost": 4169.22900390625,
-    "diff_pct": -0.05844158428311149,
-    "eval_time_s": 85.788076877594
+    "last_iterate_cost": 77.76891326904297,
+    "polyak_avg_cost": 81.1226577758789,
+    "diff_pct": 4.312448722580959,
+    "eval_time_s": 91.66524267196655
   },
   "reentrant_5": {
     "epochs_total": 100,
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 8331.001953125,
-    "polyak_avg_cost": 12431.0703125,
-    "diff_pct": 49.2145888627123,
-    "eval_time_s": 94.27588677406311
+    "last_iterate_cost": 52.16010665893555,
+    "polyak_avg_cost": 41.941192626953125,
+    "diff_pct": -19.591436226926927,
+    "eval_time_s": 102.07876086235046
   },
   "reentrant_6": {
     "epochs_total": 100,
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 24841.1484375,
-    "polyak_avg_cost": 24844.25,
-    "diff_pct": 0.012485584182242982,
-    "eval_time_s": 104.39319133758545
+    "last_iterate_cost": 85.16357421875,
+    "polyak_avg_cost": 85.58900451660156,
+    "diff_pct": 0.4995449072614167,
+    "eval_time_s": 118.69619560241699
   },
   "reentrant_7": {
     "epochs_total": 100,
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 21213.482421875,
-    "polyak_avg_cost": 24889.53515625,
-    "diff_pct": 17.328850875442843,
-    "eval_time_s": 115.64328455924988
+    "last_iterate_cost": 64.60895538330078,
+    "polyak_avg_cost": 84.95584869384766,
+    "diff_pct": 31.49237313904297,
+    "eval_time_s": 163.85714435577393
   },
   "reentrant_8": {
     "epochs_total": 100,
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 21318.1953125,
-    "polyak_avg_cost": 24627.826171875,
-    "diff_pct": 15.524911048330559,
-    "eval_time_s": 102.44894099235535
+    "last_iterate_cost": 105.040283203125,
+    "polyak_avg_cost": 100.75849914550781,
+    "diff_pct": -4.076325698148729,
+    "eval_time_s": 157.6368043422699
   },
   "reentrant_9": {
     "epochs_total": 100,
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 24904.41796875,
-    "polyak_avg_cost": 24867.791015625,
-    "diff_pct": -0.14707010286672592,
-    "eval_time_s": 117.1822497844696
+    "last_iterate_cost": 84.09503173828125,
+    "polyak_avg_cost": 75.84822082519531,
+    "diff_pct": -9.806537607062788,
+    "eval_time_s": 180.49946880340576
   },
   "reentrant_10": {
     "epochs_total": 100,
     "polyak_window_epochs": 50,
     "eval_batch": 100,
     "eval_T": 50000,
-    "last_iterate_cost": 11603.234375,
-    "polyak_avg_cost": 8241.341796875,
-    "diff_pct": -28.973753950609137,
-    "eval_time_s": 129.99665999412537
+    "last_iterate_cost": 97.19013977050781,
+    "polyak_avg_cost": 91.6793441772461,
+    "diff_pct": -5.670117983443791,
+    "eval_time_s": 202.81962132453918
   }
 }
