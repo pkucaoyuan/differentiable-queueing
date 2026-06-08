@@ -1,0 +1,36 @@
+════════════════════════════════════════════════════════════════
+[2026-06-08 08:27:29] Stage 1: wait for E5 + Polyak v2 + cμ baseline
+════════════════════════════════════════════════════════════════
+[08:27:29] Waiting for E5 (PID 338053)...
+[10:44:30] E5 (PID 338053) finished
+[10:44:30] polyak_v2 (PID 433418) already finished
+[10:44:30] Waiting for cmu_baseline (PID 515300)...
+[11:00:30] cmu_baseline (PID 515300) finished
+════════════════════════════════════════════════════════════════
+[2026-06-08 11:00:30] Stage 2: rebuild all figures
+════════════════════════════════════════════════════════════════
+Building figures...
+  saved reports/figures/fig_section52_cmu_grid.png + .pdf
+  saved reports/figures/fig_section52_ablations.png + .pdf
+  saved reports/figures/fig_section53_admission.png + .pdf
+  saved reports/figures/fig_section6_wc_vs_vanilla.png + .pdf
+  saved reports/figures/fig_section7_training_curves.png + .pdf
+  saved reports/figures/fig_section7_min_cost_summary.png + .pdf
+  saved reports/figures/fig_section8_theorem2.png + .pdf
+Done.
+saved reports/figures/fig_section52_cmu_papergrid.{png,pdf}
+saved reports/figures/fig_section7_polyak_vs_last.{png,pdf}
+Using alpha=0.5, gap=0.05, 20 trials
+saved reports/figures/fig_section52_queue_ordering.{png,pdf}
+saved reports/figures/fig_section7_ste_vs_cmu.{png,pdf}
+saved reports/figures/fig_E5_heavy_traffic.{png,pdf}
+  gaps included: [0.01, 0.5, 1.0]
+  rhos per gap: 11
+════════════════════════════════════════════════════════════════
+[2026-06-08 11:00:46] Stage 3: refresh artifact matrix
+════════════════════════════════════════════════════════════════
+Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/reproducibility_matrix.csv (15 rows)
+Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/STATUS_SUMMARY.md
+════════════════════════════════════════════════════════════════
+[2026-06-08 11:00:46] Stage 4: commit + push
+════════════════════════════════════════════════════════════════

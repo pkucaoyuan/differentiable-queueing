@@ -7,3 +7,69 @@
 
 ══ reentrant_2: 100 checkpoints, epochs 0..99 ══
   Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 192262.906
+  Polyak avg (last 50): 191160.656  (diff -0.57%)
+  eval time: 95s @ B=100, T=50000
+
+══ reentrant_3: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 193924.438
+  Polyak avg (last 50): 48579.176  (diff -74.95%)
+  eval time: 100s @ B=100, T=50000
+
+══ reentrant_4: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 10819.551
+  Polyak avg (last 50): 10821.798  (diff +0.02%)
+  eval time: 107s @ B=100, T=50000
+
+══ reentrant_5: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 21576.957
+  Polyak avg (last 50): 48074.617  (diff +122.81%)
+  eval time: 122s @ B=100, T=50000
+
+══ reentrant_6: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 192275.281
+  Polyak avg (last 50): 192284.219  (diff +0.00%)
+  eval time: 132s @ B=100, T=50000
+
+══ reentrant_7: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 138817.188
+  Polyak avg (last 50): 192903.641  (diff +38.96%)
+  eval time: 159s @ B=100, T=50000
+
+══ reentrant_8: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 141441.688
+  Polyak avg (last 50): 189041.594  (diff +33.65%)
+  eval time: 131s @ B=100, T=50000
+
+══ reentrant_9: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 193040.281
+  Polyak avg (last 50): 192440.359  (diff -0.31%)
+  eval time: 150s @ B=100, T=50000
+
+══ reentrant_10: 100 checkpoints, epochs 0..99 ══
+  Polyak window: epochs 50..99 (50 ckpts)
+  last (ep 99): 41926.430
+  Polyak avg (last 50): 21234.727  (diff -49.35%)
+  eval time: 161s @ B=100, T=50000
+
+Saved: /user/yc4911/DJ_OR/differentiable-queueing/results/reproduction/polyak_eval.json
+
+══ Summary ══
+env                       last    polyak    diff%
+  criss_cross_bh      2810.835  2789.643   -0.75%
+  reentrant_2        192262.906 191160.656   -0.57%
+  reentrant_3        193924.438 48579.176  -74.95%
+  reentrant_4        10819.551 10821.798   +0.02%
+  reentrant_5        21576.957 48074.617 +122.81%
+  reentrant_6        192275.281 192284.219   +0.00%
+  reentrant_7        138817.188 192903.641  +38.96%
+  reentrant_8        141441.688 189041.594  +33.65%
+  reentrant_9        193040.281 192440.359   -0.31%
+  reentrant_10       41926.430 21234.727  -49.35%

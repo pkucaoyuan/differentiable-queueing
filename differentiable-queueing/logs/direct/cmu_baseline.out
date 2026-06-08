@@ -1,0 +1,65 @@
+
+══ criss_cross_bh ══
+  cμ baseline: 17.765 ± 2.382 (22s)
+  STE (last ep): 15.864 ± 1.612 (35s)
+  STE vs cμ: +10.7% (negative = STE worse)
+
+══ reentrant_2 ══
+  cμ baseline: 17.790 ± 3.223 (25s)
+  STE (last ep): 22.448 ± 3.638 (37s)
+  STE vs cμ: -26.2% (negative = STE worse)
+
+══ reentrant_3 ══
+  cμ baseline: 23.809 ± 4.165 (28s)
+  STE (last ep): 22.207 ± 3.047 (41s)
+  STE vs cμ: +6.7% (negative = STE worse)
+
+══ reentrant_4 ══
+  cμ baseline: 32.599 ± 6.497 (31s)
+  STE (last ep): 77.769 ± 20.584 (45s)
+  STE vs cμ: -138.6% (negative = STE worse)
+
+══ reentrant_5 ══
+  cμ baseline: 38.705 ± 7.354 (37s)
+  STE (last ep): 52.160 ± 10.704 (52s)
+  STE vs cμ: -34.8% (negative = STE worse)
+
+══ reentrant_6 ══
+  cμ baseline: 48.513 ± 11.240 (42s)
+  STE (last ep): 85.164 ± 17.666 (57s)
+  STE vs cμ: -75.5% (negative = STE worse)
+
+══ reentrant_7 ══
+  cμ baseline: 52.280 ± 10.748 (49s)
+  STE (last ep): 64.609 ± 12.832 (66s)
+  STE vs cμ: -23.6% (negative = STE worse)
+
+══ reentrant_8 ══
+  cμ baseline: 62.491 ± 14.251 (54s)
+  STE (last ep): 105.040 ± 21.815 (69s)
+  STE vs cμ: -68.1% (negative = STE worse)
+
+══ reentrant_9 ══
+  cμ baseline: 65.284 ± 13.083 (63s)
+  STE (last ep): 84.095 ± 15.389 (83s)
+  STE vs cμ: -28.8% (negative = STE worse)
+
+══ reentrant_10 ══
+  cμ baseline: 70.091 ± 13.300 (72s)
+  STE (last ep): 97.190 ± 16.431 (93s)
+  STE vs cμ: -38.7% (negative = STE worse)
+
+Saved: /user/yc4911/DJ_OR/differentiable-queueing/results/reproduction/ste_vs_cmu_benchmark.json
+
+══ Summary ══
+env                          cμ        STE  improvement
+  criss_cross_bh         17.765     15.864       +10.7%
+  reentrant_2            17.790     22.448       -26.2%
+  reentrant_3            23.809     22.207        +6.7%
+  reentrant_4            32.599     77.769      -138.6%
+  reentrant_5            38.705     52.160       -34.8%
+  reentrant_6            48.513     85.164       -75.5%
+  reentrant_7            52.280     64.609       -23.6%
+  reentrant_8            62.491    105.040       -68.1%
+  reentrant_9            65.284     84.095       -28.8%
+  reentrant_10           70.091     97.190       -38.7%

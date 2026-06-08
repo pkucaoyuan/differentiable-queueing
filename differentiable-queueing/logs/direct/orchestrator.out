@@ -48,3 +48,27 @@ Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/STATUS_SUMMARY.md
 ════════════════════════════════════════════════════════════════
 [2026-06-08 03:46:41] Stage 4: git add / commit / push
 ════════════════════════════════════════════════════════════════
+[main 81d283a] Auto-orchestrated refresh after §5.2 papergrid + §5.1 mid finished
+ 25 files changed, 561552 insertions(+)
+ create mode 100644 differentiable-queueing/logs/direct/E5_heavy_traffic.err
+ create mode 100644 differentiable-queueing/logs/direct/E5_heavy_traffic.out
+ create mode 100644 differentiable-queueing/logs/direct/cmu_papergrid.err
+ create mode 100644 differentiable-queueing/logs/direct/cmu_papergrid.out
+ create mode 100644 differentiable-queueing/logs/direct/gpu_benchmark.out
+ create mode 100644 differentiable-queueing/logs/direct/gpu_benchmark_large.out
+ create mode 100644 differentiable-queueing/logs/direct/orchestrator.err
+ create mode 100644 differentiable-queueing/logs/direct/orchestrator.out
+ create mode 100644 differentiable-queueing/logs/direct/polyak_eval.err
+ create mode 100644 differentiable-queueing/logs/direct/polyak_eval.out
+ create mode 100644 differentiable-queueing/logs/direct/section51_mid.err
+ create mode 100644 differentiable-queueing/logs/direct/section51_mid.out
+ create mode 100644 differentiable-queueing/logs/direct/section51_mid_v2.err
+ create mode 100644 differentiable-queueing/logs/direct/section51_mid_v2.out
+ create mode 100644 differentiable-queueing/logs/direct/section51_v3.err
+ create mode 100644 differentiable-queueing/logs/direct/section51_v3.out
+To github.com:pkucaoyuan/differentiable-queueing.git
+   0788859..81d283a  main -> main
+
+════════════════════════════════════════════════════════════════
+[2026-06-08 03:46:48] Orchestrator done at Mon Jun  8 03:46:48 AM EDT 2026
+════════════════════════════════════════════════════════════════

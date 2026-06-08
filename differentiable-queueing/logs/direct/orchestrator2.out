@@ -1,0 +1,9 @@
+
+════════════════════════════════════════════════════════════════
+[2026-06-08 03:48:33] Stage 1: wait for Polyak + §5.1 v3 + E5
+════════════════════════════════════════════════════════════════
+[03:48:33] Waiting for polyak_eval (PID 332621)...
+[04:06:33] polyak_eval (PID 332621) finished
+[04:06:33] Waiting for section51_v3 (PID 332998)...
+[08:16:35] section51_v3 (PID 332998) finished
+[08:16:35] Waiting for E5_heavy_traffic (PID 338053)...
