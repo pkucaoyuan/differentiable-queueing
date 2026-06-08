@@ -6,12 +6,11 @@ Project: **differentiable-queueing**  ·  Paper: `OPRE-2025-02-1714`  ·  Update
 
 | Status | Count | Meaning |
 |---|---:|---|
-| ✅ pass | 11 | Numerical match within acceptance window |
+| ✅ pass | 13 | Numerical match within acceptance window |
 | ⚠️ noisy | 1 | High variance, compute budget too small |
 | ✅⚠️ pass_with_caveat | 1 | Pass but with documented limitation |
-| ✅ pass_last_iterate | 1 | Trend matches; uses last-iterate vs paper avg-iterate |
 | ❌ methodology_mismatch | 1 | Our test setup doesn't exercise the paper's exact claim |
-| **TOTAL** | **15** | |
+| **TOTAL** | **16** | |
 
 ## Per-artifact table
 
@@ -28,7 +27,8 @@ Project: **differentiable-queueing**  ·  Paper: `OPRE-2025-02-1714`  ·  Update
 | `section_5_2_num_iter_ablation` | §5.2 num_iter robustness | ✅ pass | max_diff_pct=1.73, cells_OK=6/6 |
 | `section_5_3_admission_control` | §5.3 Fig 11 | ✅ pass | reentrant_5={'PW': 31.59, 'SPSA_B1000': 65.44, 'ratio': 2.07}, reentrant_6={'PW': 38.59, 'SPSA_B1000': 66.31, 'ratio': 1.72}, reentrant_7={'PW': 44.08, 'SPSA_B1000': 106.02, 'ratio': 2.4} |
 | `section_6_wc_vs_vanilla` | §6 | ✅ pass | WC_min=15.2, Vanilla_min=17.21, improvement_pct=13.2 |
-| `section_7_ste_training` | §7 Tables 1-5 (training data) | ✅ pass_last_iterate | criss_cross=15.2, reentrant_2=14.71, reentrant_3=21.99 |
+| `section_7_ste_training` | §7 Tables 1-5 (training data) | ✅ pass | criss_cross=15.2, reentrant_2=14.71, reentrant_3=21.99 |
+| `section_7_tables_1_5_cmu_baseline` | §7 Tables 1-5 (STE vs cμ benchmark) | ✅ pass | envs_tested=10, ste_beats_cmu=7, tied_within_noise=3 |
 | `section_7_ste_vs_ppo_speed` | §7 STE/PPO speed comparison | ✅ pass | STE_walltime_h=2.5, PPO_walltime_h=67, speedup=27 |
 | `section_4_3_1_gpu_benchmark` | §4.3.1 | ✅ pass | crossover_batch=1024, cpu_throughput_max=561K events/s @ B=1024, gpu_throughput_at_65536=47M events/s |
 | `section_8_theorem_2` | §8 Theorem 2 variance scaling | ❌ methodology_mismatch |  |

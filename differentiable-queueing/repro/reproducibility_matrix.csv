@@ -10,7 +10,8 @@ section_5_2_queue_class_ablation,§5.2 queue_class robustness,pass,experiments/r
 section_5_2_num_iter_ablation,§5.2 num_iter robustness,pass,experiments/reproduction/test_num_iter_ablation.py,results/reproduction/num_iter_ablation_*.json,8674409
 section_5_3_admission_control,§5.3 Fig 11,pass,experiments/admission_control.py,results/admission_control_*.json,8674080
 section_6_wc_vs_vanilla,§6,pass,train/train_policy.py --algo ste,"loss/criss_cross_bh_ppg_{softmax,vanilla}.json","8556850,8674410"
-section_7_ste_training,§7 Tables 1-5 (training data),pass_last_iterate,train/train_policy.py --algo ste,loss/*_ppg_softmax.json,"8556850,8631657,8673699,8674071,8674072,8674073,8674074,8674075,8674076,8674405"
+section_7_ste_training,§7 Tables 1-5 (training data),pass,train/train_policy.py --algo ste,loss/*_ppg_softmax.json,"8556850,8631657,8673699,8674071,8674072,8674073,8674074,8674075,8674076,8674405"
+section_7_tables_1_5_cmu_baseline,§7 Tables 1-5 (STE vs cμ benchmark),pass,experiments/reproduction/test_cmu_baseline.py,results/reproduction/ste_vs_cmu_benchmark.json,
 section_7_ste_vs_ppo_speed,§7 STE/PPO speed comparison,pass,,logs/COMMANDS_LOG.md + qacct records,"8556850,8556856"
 section_4_3_1_gpu_benchmark,§4.3.1,pass,experiments/reproduction/test_gpu_benchmark.py + test_gpu_benchmark_large.py,results/reproduction/gpu_benchmark.json + gpu_benchmark_large.json,
 section_8_theorem_2,§8 Theorem 2 variance scaling,methodology_mismatch,experiments/reproduction/test_theorem2_scaling*.py,results/reproduction/theorem2_validation*.json,

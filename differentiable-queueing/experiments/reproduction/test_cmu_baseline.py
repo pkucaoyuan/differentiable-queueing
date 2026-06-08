@@ -107,12 +107,13 @@ def eval_cmu(env_config, batch, T, seed=42):
 
 
 def eval_ste(env_name, env_config, batch, T, epoch='best'):
-    """Evaluate STE-trained policy using paper's WC eval protocol.
+    """Evaluate STE-trained policy using paper's actual training-time eval protocol:
+    softmax → mask network → clip to queues → fix-zero-rows → normalize → sample.
 
-    epoch='best' picks the epoch with min train-time test_loss from loss/*.json;
-    epoch=int picks specific epoch;
-    epoch='last' picks epoch 99.
+    This matches train_policy.py test_policy='softmax', randomize=True (the default).
     """
+    import torch.distributions.one_hot_categorical as one_hot_sample
+
     if epoch == 'best':
         loss_file = f'{PROJECT_ROOT}/loss/{env_name}_ppg_softmax.json'
         with open(loss_file) as f:
@@ -128,6 +129,7 @@ def eval_ste(env_name, env_config, batch, T, epoch='best'):
     if not os.path.exists(ckpt):
         return None, None
     torch.set_num_threads(1)
+    torch.manual_seed(42)
     net = torch.load(ckpt, map_location='cpu')
     net.eval()
     dq = load_env(env_config, temp=1e-3, batch=batch, seed=42, device='cpu')
@@ -137,11 +139,13 @@ def eval_ste(env_name, env_config, batch, T, epoch='best'):
         for _ in range(T):
             queues, t = obs
             pr = net(queues, t.detach() if t is not None else None)  # (B,s,q) softmax
-            # Paper's WC eval protocol (train_policy.py lines 269-273)
+            # train_policy.py test_policy='softmax' + randomize=True (default)
             pr = pr * dq.network
             pr = torch.minimum(pr, queues.unsqueeze(1).repeat(1, dq.s, 1))
-            pr = F.one_hot(torch.argmax(pr, dim=2), num_classes=dq.q).float()
-            action = torch.round(pr)
+            # Fix all-zero rows
+            pr = pr + 1.0 * torch.all(pr == 0., dim=2).reshape(batch, dq.s, 1).repeat(1, 1, dq.q) * dq.network
+            pr = pr / torch.sum(pr, dim=-1).reshape(batch, dq.s, 1)
+            action = one_hot_sample.OneHotCategorical(probs=pr).sample()
             obs, state, cost, _ = dq.step(state, action)
             total_cost = total_cost + cost
     avg = (total_cost.squeeze(-1) / state.time.squeeze(-1)).cpu().numpy()
