@@ -1,80 +1,207 @@
-# Reproduction Summary — OPRE-2025-02-1714
+# Reproduction Report — OPRE-2025-02-1714
 
 **Paper:** *Differentiable Discrete Event Simulation for Queuing Network Control*
-**Upstream code:** `namkoong-lab/differentiable-queueing` @ `0c21ed7` (private)
-**Our fork:** `pkucaoyuan/differentiable-queueing` (this repo)
-**Initial commit** byte-for-byte identical to upstream.
+**Upstream code:** `namkoong-lab/differentiable-queueing` @ `0c21ed7`
+**This fork:** `pkucaoyuan/differentiable-queueing` — initial commit byte-for-byte identical to upstream
 
 ---
 
-## What we reproduced
+## §1 Headline result
+
+> **The paper's main empirical narrative reproduces.** PATHWISE/STE matches or
+> beats the cμ baseline on 10/10 §7 networks (7 wins, 3 ties, 0 losses; mean
+> improvement **+3.4%**). Method-level claims in §§4.3.1 / 5.2 / 5.3 / 6 / 7
+> hold under independent re-execution on CPU + 1 GPU.
+
+One-glance summary figure: `reports/figures/fig_benchmark_summary.png`
+
+---
+
+## §2 What we reproduced
 
 | § | Claim | Status | Figure |
 |---|---|---|---|
 | **§4.3.1** | GPU parallelization gives large speedup | ✅ 84× at B=65536 | `fig_section4_3_1_gpu_benchmark` |
-| **§5.1** | PATHWISE has higher cosine similarity than REINFORCE | ⚠️ noisy on quick budget; mid-canonical rerun in progress | (will refresh) |
-| **§5.2 10-class** | PW / RF recover optimal cost across (α, gap) | ✅ ≤5.2% diff on 24 cells (upstream's 4-gap grid); paper-grid rerun with gap=0.1 running | `fig_section52_cmu_grid` |
-| **§5.2 ablations** | Robust to T, queue_class, num_iter, ρ | ✅ ≤2.62% on all 28 ablation entries | `fig_section52_ablations` |
-| **§5.3** | PATHWISE scales; SPSA collapses on K≥15 | ✅ qualitative match on 12 nets (e.g. reentrant_7: PW=44.1 vs SPSA_B1000=106.0) | `fig_section53_admission` |
-| **§6** | Work-conserving softmax beats vanilla on criss-cross | ✅ WC=15.20 vs Vanilla=17.21 | `fig_section6_wc_vs_vanilla` |
-| **§7** | STE trains stable policies on criss-cross + reentrant_2..10 | ✅ 11 envs all converge | `fig_section7_training_curves`, `fig_section7_min_cost_summary` |
-| **§7** | STE 27× faster than PPO | ✅ STE 2.5h vs PPO 67h on criss-cross | (in §7 figures) |
-| **§8 Theorem 2** | Var(PW) ∝ (1-ρ)⁻³, Var(RF) ∝ (1-ρ)⁻⁴ | ❌ methodology mismatch — our REINFORCE uses Gaussian perturb not paper's likelihood-ratio | `fig_section8_theorem2` |
+| **§5.1** | PATHWISE has higher cosine similarity than REINFORCE | ⚠️ quick run shows direction; paper-canonical (100×100×10⁶) too expensive on CPU | `fig_section52_cmu_grid` (quick) |
+| **§5.2 10-class** | PW / RF recover cμ-optimal cost across (α, gap) | ✅ paper-grid 5×4=40 cells max 3.1% diff (incl. gap=0.1) | `fig_section52_cmu_papergrid` |
+| **§5.2 ablations** | Robust to T / queue_class / num_iter / ρ | ✅ all 28 entries ≤2.62% diff | `fig_section52_ablations` |
+| **§5.2 Fig 9 left** | Learned policy ranks queues monotonically | ✅ Spearman \|ρ\|=1 | `fig_section52_queue_ordering` |
+| **§5.3** | PATHWISE scales; SPSA collapses on K≥15 | ✅ reentrant_7: PW=44.1 vs SPSA_B1000=106.0 | `fig_section53_admission` |
+| **§6** | Work-conserving softmax beats vanilla | ✅ WC 15.20 vs Vanilla 17.21 (+13.2%) | `fig_section6_wc_vs_vanilla` |
+| **§7 training** | STE trains stable policies on 11 networks | ✅ all converge | `fig_section7_training_curves`, `fig_section7_min_cost_summary` |
+| **§7 Tables 1-5** | STE/PATHWISE beats cμ baseline | ✅ **7/10 wins, 3/10 ties, 0/10 losses, mean +3.4%** | `fig_section7_ste_vs_cmu` |
+| **§7 speed** | STE ≈27× faster than PPO | ✅ STE 2.5h vs PPO 67h on criss-cross | (walltime in `logs/COMMANDS_LOG.md`) |
+| **§7 avg-iterate** | Polyak averaging vs last-iterate | ✅ produced; 8/10 envs Polyak within ±10% of last | `fig_section7_polyak_vs_last` |
+| **E5 (revision)** | Heavy-traffic regime ρ → 1 | ✅ PATHWISE cost grows ~ 1/(1-ρ) | `fig_E5_heavy_traffic` |
+| **§8 Theorem 2** | Var(PW) ∝ (1-ρ)⁻³, Var(RF) ∝ (1-ρ)⁻⁴ | ❌ methodology mismatch (our REINFORCE is Gaussian-perturb, not paper's likelihood-ratio) | `fig_section8_theorem2` |
 
-**Overall: 7 of 9 paper sections fully reproduced; 1 noisy (§5.1, being refined); 1 methodological gap (§8 — theorem stands, our test setup is wrong probe).**
-
----
-
-## How the reproduction was performed
-
-1. **Code base** — `git diff` of every reproduction-relevant file (`train/train_policy.py`, `queuetorch/*`, `experiments/cmu_*`, `admission_control.py`, all env / model configs) vs upstream `namkoong-lab/differentiable-queueing@0c21ed7`: **0 byte differences**. The only edit (`queuetorch/env.py`) adds a CUDA-only branch that's dead code on CPU.
-
-2. **Driver scripts** — 12 reproduction scripts under `experiments/reproduction/`. Each calls unmodified upstream library code, uses upstream seed files (`cmu/seeds_cmu_*.json`), runs N trials via `pathos.ProcessingPool`, writes raw JSON to `results/reproduction/`, and prints `Ours X.XXX | Ref Y.YYY | Z.ZZ% [OK]` per cell against the paper's own pre-computed reference JSONs (`cmu/pathwise_*.json`).
-
-3. **Execution** — All jobs run on Columbia CBS Research Grid via SGE (early phase) and direct on `researchgpu07` (later phase). 19 jobs with `exit_status=0` from cluster-side `qacct` accounting; total wall time ~110 hours. Per-job hostname, start/end timestamps, peak memory, and exit code retrievable via `qacct -j <id>`.
-
-4. **Verification** — `verify_all.py` cross-checks 23 ledger claims against stdout, result JSONs, loss JSONs, and SGE accounting — **23/23 pass** (or correctly documented as failure).
-
-5. **Provenance for figures** — Each of 8 figures in `reports/figures/` is generated by `reports/build_figures.py` (or `build_fig_gpu.py`) from cached JSON. PNG + PDF outputs; rebuildable with no extra simulation.
+**Overall: 11/13 paper artifacts fully reproduced; 1 ⚠️ partial (§5.1, compute-budget bound); 1 ❌ method-mismatch (§8, theorem holds independently).**
 
 ---
 
-## Reproducibility artifacts
+## §3 How the reproduction was performed
+
+1. **Code base** — every reproduction-relevant file (`train/train_policy.py`,
+   `queuetorch/*`, `experiments/cmu_*.py`, `experiments/admission_control.py`,
+   `experiments/gradient_comparison.py`, all `configs/env/*.yaml`,
+   `configs/model/ppg_softmax.yaml`) is byte-identical to upstream
+   `namkoong-lab/differentiable-queueing@0c21ed7`. The single source-code edit
+   (`queuetorch/env.py`) adds a CUDA-only branch behind `device.type=='cuda'`
+   that's dead code on CPU.
+
+2. **Driver scripts** — 16 reproduction scripts in `experiments/reproduction/`.
+   Each calls unmodified upstream library code, reads upstream seed files
+   (`cmu/seeds_cmu_*.json`), runs N trials via `pathos.ProcessingPool`, writes
+   raw JSON to `results/reproduction/`, and prints
+   `Ours X.XXX | Ref Y.YYY | Z.ZZ% [OK]` per cell against the paper's own
+   pre-computed reference JSONs (`cmu/pathwise_*.json`).
+
+3. **Execution** — All jobs run on CBS Research Grid via SGE (early phase) and
+   direct on `researchgpu07` (later phase). 25+ jobs with `exit_status=0` from
+   cluster-side `qacct` accounting; total wall time **~150 hours**. Per-job
+   hostname, start/end timestamps, peak memory, and exit code retrievable via
+   `qacct -j <id>`.
+
+4. **Figures** — Each of the 13 figures in `reports/figures/` is generated by a
+   script in `reports/build_*.py` from cached JSON. PNG + PDF + same-name CSV
+   outputs; rebuildable in seconds with no extra simulation.
+
+5. **Critical fix** — the §7 STE-vs-cμ eval was originally run with `argmax`
+   but the paper's training-time eval uses `softmax-renormalize + sample`
+   (`OneHotCategorical`). The softmax-protocol eval matches training-time
+   `test_loss` to within 8%; argmax was off by 200%+ on harder envs. **All
+   reported §7 numbers use the corrected protocol.** See §6 below.
+
+---
+
+## §4 Reproducibility artifacts (where to find things)
 
 | Artifact | Location | Size |
 |---|---|---|
-| Status matrix (machine-readable) | `repro/status.json` + `repro/reproducibility_matrix.csv` | ~10 KB |
+| **Headline figure** | `reports/figures/fig_benchmark_summary.png` | 1 panel of 6 |
+| Per-figure source data | `reports/figures/*.csv` (9 files) | ~100 KB |
+| Status matrix (machine-readable) | `repro/status.json` + `repro/reproducibility_matrix.csv` | ~12 KB |
 | Status summary (human-readable) | `repro/STATUS_SUMMARY.md` | 4 KB |
-| Per-experiment driver scripts | `experiments/reproduction/*.py` | 12 files |
-| Cluster submission wrappers | `jobs/reproduction/*.sh` | 25 files |
+| **Per-experiment ledger** | `REPRODUCTION_LEDGER.md` | 25 rows |
+| Per-experiment driver scripts | `experiments/reproduction/*.py` | 16 files |
+| Cluster submission wrappers | `jobs/reproduction/*.sh` | 29 files |
 | Submission log with Job IDs | `logs/COMMANDS_LOG.md` | 8 KB |
-| Per-epoch training curves | `loss/*.json` + `training_logs/csv/*.csv` | 2 MB |
-| Raw experiment outputs | `results/**/*.json` | 6 MB |
-| Per-epoch policy plots | `plot/<env>/*.png` | 18 MB, 1100 files |
-| Publication figures | `reports/figures/*.{png,pdf}` | 1.8 MB, 8 figures |
+| Per-epoch training curves | `loss/*.json` (11 envs) + `training_logs/csv/*.csv` | 2 MB |
+| Raw experiment outputs | `results/**/*.json` (34 files) | 6 MB |
+| Per-epoch policy plots | `plot/<env>/*.png` (1100 files) | 18 MB |
+| Publication figures | `reports/figures/*.{png,pdf,csv}` (13 figures × 3 fmts) | 1.8 MB |
 | Checkpoints (1,100 .pt files) | GitHub Release `v1.0-reproduction` | 255 MB tarball |
+| **This report** | `reports/REPRODUCTION_SUMMARY.md` | 8 KB |
 | Citation metadata | `CITATION.cff` | 1 KB |
+| **File map** | `INDEX.md` | full directory map |
+| **Senior-collaborator verify guide** | `HOW_TO_VERIFY.md` | 10 sections |
 
-## How to independently verify
+---
+
+## §5 How to independently verify
+
+### 5-minute path (skim)
+
+Open `reports/figures/fig_benchmark_summary.png` — one panel per paper section,
+each panel's numbers are in the same-name CSV.
+
+### 30-minute path (spot-check)
 
 ```bash
 git clone git@github.com:pkucaoyuan/differentiable-queueing.git
 cd differentiable-queueing
 
-# Verify code matches upstream (requires upstream access)
+# 1) Verify code matches upstream (requires upstream access)
 git clone https://github.com/namkoong-lab/differentiable-queueing.git /tmp/upstream
-diff -rq differentiable-queueing/queuetorch/ /tmp/upstream/queuetorch/
+for f in queuetorch/policies.py queuetorch/routing.py train/train_policy.py \
+         experiments/cmu_step_rules_PATHWISE.py experiments/admission_control.py; do
+    diff -q "$f" "/tmp/upstream/$f"   # should print nothing
+done
 
-# Verify cluster jobs really ran (anyone with CBS Grid access)
+# 2) Verify cluster jobs really ran (anyone with CBS Grid access)
 source /opt/n1ge/default/common/settings.sh
-qacct -j 8631656   # full reproduction
-qacct -j 8674071   # reentrant_4 STE
+qacct -j 8631656   # full §5.2 reproduction (5.8h, exit=0)
+qacct -j 8674071   # reentrant_4 STE training (5h, exit=0)
+qacct -j 8674080   # admission control (16h, exit=0)
 
-# Verify reproduction numbers match
-column -t -s, differentiable-queueing/training_logs/summary.csv
-cat differentiable-queueing/repro/STATUS_SUMMARY.md
+# 3) Verify a reproduction number end-to-end
+python -c "
+import json, statistics
+d = json.load(open('results/reproduction/T_ablation_pathwise.json'))
+print(statistics.mean(r['avg_cost'] for r in d['T_2000']['0.5']['0.5']))
+"   # should print ~11.441
+grep '\[OK\]' logs/reproduction/run_T_ablation.sh.o8674408 | head -1
 ```
 
-## Acknowledgment
+### Hours-budget path (re-run)
 
-All training was run on CBS Research Grid (Columbia Business School). Original code and seeds are from Che, Dong & Namkoong's `namkoong-lab/differentiable-queueing` repository.
+```bash
+conda create -n queuetorch python=3.11 numpy=1.26.4 scipy=1.11.4 cvxpy=1.4.2 -c conda-forge
+conda activate queuetorch
+pip install torch==2.2.0 pyyaml tqdm pathos pandas matplotlib
+
+# Any of these is reproducible end-to-end in < 1h:
+python experiments/reproduction/test_mm1.py                    # ~1 min
+python experiments/reproduction/test_queue_class_ablation.py   # ~9 min on 16 cores
+python experiments/reproduction/test_T_ablation.py             # ~32 min
+python experiments/reproduction/test_cmu_baseline.py           # ~17 min  (§7 STE vs cμ)
+
+# Then rebuild any figure from the JSON output
+python reports/build_figures.py
+python reports/build_fig_ste_vs_cmu.py
+python reports/export_csv.py
+```
+
+Full collaborator guide (10 sections with C1–C6 pass criteria, what to be
+skeptical about, and a what-if-discrepancy checklist): **`HOW_TO_VERIFY.md`**.
+
+---
+
+## §6 Critical caveat: the eval-protocol fix
+
+`train_policy.py` defaults to `test_policy='softmax'`, `randomize=True`, which
+during evaluation does:
+
+```python
+pr = net(queues, time)
+pr = pr * dq.network
+pr = torch.minimum(pr, queues.unsqueeze(1).repeat(1, dq.s, 1))
+pr += 1*torch.all(pr == 0., dim=2).reshape(B, s, 1).repeat(1, 1, q) * dq.network
+pr /= torch.sum(pr, dim=-1).reshape(B, s, 1)
+action = one_hot_sample.OneHotCategorical(probs=pr).sample()
+```
+
+Our first §7 STE-vs-cμ benchmark used `argmax + round` instead, which severely
+underestimates STE on harder envs (the trained network's softmax isn't peaked
+enough for argmax to capture its behavior). **After switching to the paper's
+softmax-sample protocol, STE wins on 7/10 envs instead of losing on 7/10.**
+
+Independent test on `reentrant_2` epoch 13 checkpoint:
+
+| Protocol | STE cost (T=10K) | Comment |
+|---|---:|---|
+| training-time reported `test_loss` | 14.71 | paper-protocol baseline |
+| softmax + OneHotCategorical sample | **15.95** | matches within 8% ✅ |
+| argmax + round | 35.95 | mismatch ❌ |
+
+Code reference: `experiments/reproduction/test_cmu_baseline.py:eval_ste`.
+
+---
+
+## §7 What's NOT in this reproduction
+
+| Item | Why missing | Severity |
+|---|---|---|
+| §5.1 Figure 4 paper-canonical heatmap (100 samples × 100 estimators × 10⁶ batch) | Compute budget — ~weeks on CPU | ⚠️ method-level claim still defensible via direction-of-effect in quick run |
+| §6 Figure 12 — vanilla PPO + PPO+BC + PPO-WC three-curve comparison | PPO is 67h/env; full Figure 12 would take 200+ hours | ⚠️ STE-WC vs STE-Vanilla on criss-cross shows the WC value; full PPO comparison missing |
+| §7 Tables 1-5 PPO column | Same compute reason | ⚠️ cμ column complete; PPO would need 700+ hours |
+| §8 Theorem 2 numerical verification | Our REINFORCE = Gaussian perturbation (≈ SPSA), paper's = likelihood-ratio over event history. Theorem itself has a math proof. | ❌ documented as methodology mismatch, not theorem failure |
+
+---
+
+## §8 Acknowledgment
+
+All training was run on CBS Research Grid (Columbia Business School).
+Original code, configs, and seeds are from Che, Dong & Namkoong's
+`namkoong-lab/differentiable-queueing` repository (private). Initial commit
+`937ac2f` of this fork is byte-for-byte identical to upstream HEAD `0c21ed7`.
