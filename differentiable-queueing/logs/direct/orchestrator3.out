@@ -34,3 +34,20 @@ Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/STATUS_SUMMARY.md
 ════════════════════════════════════════════════════════════════
 [2026-06-08 11:00:46] Stage 4: commit + push
 ════════════════════════════════════════════════════════════════
+[main 63403a7] Round 3: Polyak v2 + cμ baseline + E5 heavy traffic + queue ordering fig
+ 25 files changed, 121638 insertions(+), 30 deletions(-)
+ create mode 100644 differentiable-queueing/logs/direct/cmu_baseline.out
+ create mode 100644 differentiable-queueing/logs/direct/cmu_baseline_v2.out
+ create mode 100644 differentiable-queueing/logs/direct/orchestrator2.out
+ create mode 100644 differentiable-queueing/logs/direct/orchestrator3.out
+ create mode 100644 differentiable-queueing/logs/direct/polyak_eval_v2.out
+ rewrite differentiable-queueing/reports/figures/fig_section7_polyak_vs_last.pdf (88%)
+ rewrite differentiable-queueing/reports/figures/fig_section7_polyak_vs_last.png (97%)
+ create mode 100644 differentiable-queueing/reports/figures/fig_section7_ste_vs_cmu.pdf
+ create mode 100644 differentiable-queueing/reports/figures/fig_section7_ste_vs_cmu.png
+ create mode 100644 differentiable-queueing/results/E5_heavy_traffic_curve.json
+To github.com:pkucaoyuan/differentiable-queueing.git
+   fc74cdc..63403a7  main -> main
+════════════════════════════════════════════════════════════════
+[2026-06-08 11:00:48] Round 3 done at Mon Jun  8 11:00:48 AM EDT 2026
+════════════════════════════════════════════════════════════════
