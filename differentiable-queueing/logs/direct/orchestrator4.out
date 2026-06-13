@@ -1,0 +1,25 @@
+════════════════════════════════════════════════════════════════
+[2026-06-08 11:12:47] Stage 1: wait for diagnostic + long trainings
+[11:12:47] Waiting for diagnostic (PID 527129)...
+[11:22:47] diagnostic (PID 527129) finished
+[11:22:47] Waiting for reentrant_4_long (PID 529185)...
+[15:12:52] reentrant_4_long (PID 529185) finished
+[15:12:52] Waiting for reentrant_8_long (PID 530355)...
+[11:47:54] reentrant_8_long (PID 530355) finished
+════════════════════════════════════════════════════════════════
+[2026-06-13 11:47:54] Stage 2: regenerate STE-vs-cμ figure with 300-epoch checkpoints
+Building figures...
+  saved reports/figures/fig_section52_cmu_grid.png + .pdf
+  saved reports/figures/fig_section52_ablations.png + .pdf
+  saved reports/figures/fig_section53_admission.png + .pdf
+  saved reports/figures/fig_section6_wc_vs_vanilla.png + .pdf
+  saved reports/figures/fig_section7_training_curves.png + .pdf
+  saved reports/figures/fig_section7_min_cost_summary.png + .pdf
+  saved reports/figures/fig_section8_theorem2.png + .pdf
+Done.
+════════════════════════════════════════════════════════════════
+[2026-06-13 11:48:01] Stage 3: refresh matrix
+Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/reproducibility_matrix.csv (16 rows)
+Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/STATUS_SUMMARY.md
+════════════════════════════════════════════════════════════════
+[2026-06-13 11:48:01] Stage 4: commit + push

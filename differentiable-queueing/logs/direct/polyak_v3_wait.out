@@ -1,0 +1,11 @@
+[11:03:02] Waiting for Polyak v3 (PID 523557)...
+[11:23:03] Polyak v3 done. Rebuilding figure...
+saved reports/figures/fig_section7_polyak_vs_last.{png,pdf}
+[11:23:05] Committing...
+[main 16370ec] Polyak v3: WC eval protocol applied (cost normalization fixed)
+ 5 files changed, 126 insertions(+), 46 deletions(-)
+ create mode 100644 differentiable-queueing/logs/direct/polyak_eval_v3.out
+ rewrite differentiable-queueing/reports/figures/fig_section7_polyak_vs_last.png (97%)
+To github.com:pkucaoyuan/differentiable-queueing.git
+   63403a7..16370ec  main -> main
+[11:23:07] Done.
