@@ -1,0 +1,114 @@
+CUDA device: NVIDIA A100-SXM4-80GB
+Free mem: 84.7 GB
+
+══ §5.1 cossim GPU: criss_cross_bh, device=cuda ══
+   rhos=[0.8, 0.9, 0.95, 0.99], gt_batch=100000, num_samples=20, est_per_sample=15, T=1000
+
+── rho=0.8 ──
+  policy=sPR
+    sample 0/20 done (75.0s/sample)
+    sample 4/20 done (75.5s/sample)
+    sample 8/20 done (73.7s/sample)
+    sample 12/20 done (74.9s/sample)
+    sample 16/20 done (74.3s/sample)
+    PW: +0.300±0.954  RF: +0.027±1.000  (policy took 24.8 min)
+  policy=sMW
+    sample 0/20 done (77.7s/sample)
+    sample 4/20 done (78.0s/sample)
+    sample 8/20 done (78.5s/sample)
+    sample 12/20 done (76.5s/sample)
+    sample 16/20 done (77.8s/sample)
+    PW: -0.048±0.761  RF: +0.137±0.732  (policy took 26.0 min)
+  policy=sMP
+    sample 0/20 done (77.0s/sample)
+    sample 4/20 done (77.4s/sample)
+    sample 8/20 done (77.7s/sample)
+    sample 12/20 done (95.1s/sample)
+    sample 16/20 done (94.0s/sample)
+    PW: -0.048±0.761  RF: +0.137±0.732  (policy took 28.9 min)
+
+── rho=0.9 ──
+  policy=sPR
+    sample 0/20 done (90.0s/sample)
+    sample 4/20 done (90.5s/sample)
+    sample 8/20 done (90.2s/sample)
+    sample 12/20 done (90.8s/sample)
+    sample 16/20 done (90.4s/sample)
+    PW: +0.480±0.877  RF: +0.060±0.998  (policy took 30.0 min)
+  policy=sMW
+    sample 0/20 done (102.5s/sample)
+    sample 4/20 done (93.2s/sample)
+    sample 8/20 done (92.6s/sample)
+    sample 12/20 done (93.6s/sample)
+    sample 16/20 done (92.7s/sample)
+    PW: +0.081±0.767  RF: +0.090±0.717  (policy took 31.2 min)
+  policy=sMP
+    sample 0/20 done (93.4s/sample)
+    sample 4/20 done (93.4s/sample)
+    sample 8/20 done (93.8s/sample)
+    sample 12/20 done (93.3s/sample)
+    sample 16/20 done (92.8s/sample)
+    PW: +0.081±0.767  RF: +0.090±0.717  (policy took 31.3 min)
+
+── rho=0.95 ──
+  policy=sPR
+    sample 0/20 done (90.2s/sample)
+    sample 4/20 done (89.8s/sample)
+    sample 8/20 done (89.3s/sample)
+    sample 12/20 done (90.2s/sample)
+    sample 16/20 done (90.4s/sample)
+    PW: +0.600±0.800  RF: +0.047±0.999  (policy took 30.0 min)
+  policy=sMW
+    sample 0/20 done (94.5s/sample)
+    sample 4/20 done (92.9s/sample)
+    sample 8/20 done (94.3s/sample)
+    sample 12/20 done (93.2s/sample)
+    sample 16/20 done (94.0s/sample)
+    PW: +nan±nan  RF: +nan±nan  (policy took 31.1 min)
+  policy=sMP
+    sample 0/20 done (93.0s/sample)
+    sample 4/20 done (93.6s/sample)
+    sample 8/20 done (93.4s/sample)
+    sample 12/20 done (93.0s/sample)
+    sample 16/20 done (93.1s/sample)
+    PW: +nan±nan  RF: +nan±nan  (policy took 31.1 min)
+
+── rho=0.99 ──
+  policy=sPR
+    sample 0/20 done (90.6s/sample)
+    sample 4/20 done (89.7s/sample)
+    sample 8/20 done (90.1s/sample)
+    sample 12/20 done (89.8s/sample)
+    sample 16/20 done (89.8s/sample)
+    PW: +0.480±0.877  RF: +0.093±0.996  (policy took 30.0 min)
+  policy=sMW
+    sample 0/20 done (94.1s/sample)
+    sample 4/20 done (93.8s/sample)
+    sample 8/20 done (93.1s/sample)
+    sample 12/20 done (92.9s/sample)
+    sample 16/20 done (93.5s/sample)
+    PW: +nan±nan  RF: +nan±nan  (policy took 31.2 min)
+  policy=sMP
+    sample 0/20 done (93.5s/sample)
+    sample 4/20 done (94.9s/sample)
+    sample 8/20 done (93.1s/sample)
+    sample 12/20 done (92.9s/sample)
+    sample 16/20 done (93.2s/sample)
+    PW: +nan±nan  RF: +nan±nan  (policy took 31.2 min)
+
+Saved /user/yc4911/DJ_OR/differentiable-queueing/results/reproduction/gradient_gpu_canonical.json
+
+══ Summary ══
+   rho policy    PW mean   PW std    RF mean   RF std  PW>RF?
+  0.80    sPR    +0.300     0.954    +0.027     1.000  ✓
+  0.80    sMW    -0.048     0.761    +0.137     0.732  ✗
+  0.80    sMP    -0.048     0.761    +0.137     0.732  ✗
+  0.90    sPR    +0.480     0.877    +0.060     0.998  ✓
+  0.90    sMW    +0.081     0.767    +0.090     0.717  ✗
+  0.90    sMP    +0.081     0.767    +0.090     0.717  ✗
+  0.95    sPR    +0.600     0.800    +0.047     0.999  ✓
+  0.95    sMW      +nan       nan      +nan       nan  ✗
+  0.95    sMP      +nan       nan      +nan       nan  ✗
+  0.99    sPR    +0.480     0.877    +0.093     0.996  ✓
+  0.99    sMW      +nan       nan      +nan       nan  ✗
+  0.99    sMP      +nan       nan      +nan       nan  ✗

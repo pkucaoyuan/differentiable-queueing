@@ -23,3 +23,18 @@ Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/reproducibility_matrix.c
 Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/STATUS_SUMMARY.md
 ════════════════════════════════════════════════════════════════
 [2026-06-13 11:48:01] Stage 4: commit + push
+[main edf12dc] Round 4: 300-epoch STE training on reentrant_4 + reentrant_8
+ 17 files changed, 44032 insertions(+), 2 deletions(-)
+ create mode 100644 differentiable-queueing/configs/model/ppg_softmax_long.yaml
+ create mode 100644 differentiable-queueing/logs/direct/cmu_baseline_v3.out
+ create mode 100644 differentiable-queueing/logs/direct/orchestrator4.out
+ create mode 100644 differentiable-queueing/logs/direct/polyak_v3_wait.out
+ create mode 100644 differentiable-queueing/logs/direct/train_reentrant_4_long.out
+ create mode 100644 differentiable-queueing/logs/direct/train_reentrant_8_long.out
+ rewrite differentiable-queueing/reports/figures/fig_section7_min_cost_summary.png (98%)
+ rewrite differentiable-queueing/reports/figures/fig_section7_training_curves.pdf (78%)
+ rewrite differentiable-queueing/reports/figures/fig_section7_training_curves.png (94%)
+To github.com:pkucaoyuan/differentiable-queueing.git
+   23cd4a0..edf12dc  main -> main
+════════════════════════════════════════════════════════════════
+[2026-06-13 11:48:04] Round 4 done at Sat Jun 13 11:48:04 AM EDT 2026

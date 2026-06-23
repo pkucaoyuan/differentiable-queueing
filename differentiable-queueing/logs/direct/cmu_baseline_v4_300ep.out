@@ -1,0 +1,75 @@
+
+══ criss_cross_bh ══
+  cμ baseline: 17.765 ± 2.382 (23s)
+  [STE eval at best epoch=62, train test_loss=15.20]
+  STE (last ep): 15.428 ± 1.741 (49s)
+  STE vs cμ: +13.2% (negative = STE worse)
+
+══ reentrant_2 ══
+  cμ baseline: 17.790 ± 3.223 (24s)
+  [STE eval at best epoch=13, train test_loss=14.71]
+  STE (last ep): 16.582 ± 2.204 (51s)
+  STE vs cμ: +6.8% (negative = STE worse)
+
+══ reentrant_3 ══
+  cμ baseline: 23.809 ± 4.165 (27s)
+  [STE eval at best epoch=62, train test_loss=21.99]
+  STE (last ep): 22.240 ± 3.507 (56s)
+  STE vs cμ: +6.6% (negative = STE worse)
+
+══ reentrant_4 ══
+  cμ baseline: 32.599 ± 6.497 (31s)
+  [STE eval at best epoch=258, train test_loss=29.34]
+  STE (last ep): 30.092 ± 4.684 (63s)
+  STE vs cμ: +7.7% (negative = STE worse)
+
+══ reentrant_5 ══
+  cμ baseline: 38.705 ± 7.354 (38s)
+  [STE eval at best epoch=74, train test_loss=30.10]
+  STE (last ep): 37.353 ± 5.830 (75s)
+  STE vs cμ: +3.5% (negative = STE worse)
+
+══ reentrant_6 ══
+  cμ baseline: 48.513 ± 11.240 (43s)
+  [STE eval at best epoch=13, train test_loss=36.12]
+  STE (last ep): 47.731 ± 9.798 (84s)
+  STE vs cμ: +1.6% (negative = STE worse)
+
+══ reentrant_7 ══
+  cμ baseline: 52.280 ± 10.748 (49s)
+  [STE eval at best epoch=90, train test_loss=37.26]
+  STE (last ep): 52.646 ± 8.756 (95s)
+  STE vs cμ: -0.7% (negative = STE worse)
+
+══ reentrant_8 ══
+  cμ baseline: 62.491 ± 14.251 (53s)
+  [STE eval at best epoch=234, train test_loss=62.13]
+  STE (last ep): 55.960 ± 9.889 (103s)
+  STE vs cμ: +10.5% (negative = STE worse)
+
+══ reentrant_9 ══
+  cμ baseline: 65.284 ± 13.083 (64s)
+  [STE eval at best epoch=5, train test_loss=72.92]
+  STE (last ep): 65.948 ± 12.382 (124s)
+  STE vs cμ: -1.0% (negative = STE worse)
+
+══ reentrant_10 ══
+  cμ baseline: 70.091 ± 13.300 (73s)
+  [STE eval at best epoch=80, train test_loss=80.25]
+  STE (last ep): 69.739 ± 11.894 (142s)
+  STE vs cμ: +0.5% (negative = STE worse)
+
+Saved: /user/yc4911/DJ_OR/differentiable-queueing/results/reproduction/ste_vs_cmu_benchmark.json
+
+══ Summary ══
+env                          cμ        STE  improvement
+  criss_cross_bh         17.765     15.428       +13.2%
+  reentrant_2            17.790     16.582        +6.8%
+  reentrant_3            23.809     22.240        +6.6%
+  reentrant_4            32.599     30.092        +7.7%
+  reentrant_5            38.705     37.353        +3.5%
+  reentrant_6            48.513     47.731        +1.6%
+  reentrant_7            52.280     52.646        -0.7%
+  reentrant_8            62.491     55.960       +10.5%
+  reentrant_9            65.284     65.948        -1.0%
+  reentrant_10           70.091     69.739        +0.5%

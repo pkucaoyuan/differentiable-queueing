@@ -1,0 +1,35 @@
+════════════════════════════════════════════════════════════════
+[2026-06-23 04:48:36] Stage 1: wait for cμ v4 + §5.1 GPU canonical
+[04:48:36] Waiting for cmu_v4 (PID 1979121)...
+[05:03:36] cmu_v4 finished
+[05:03:36] Waiting for section51_gpu (PID 1984163)...
+[10:47:38] section51_gpu finished
+════════════════════════════════════════════════════════════════
+[2026-06-23 10:47:38] Stage 2: rebuild figures + export CSVs
+saved reports/figures/fig_section7_ste_vs_cmu.{png,pdf}
+saved reports/figures/fig_benchmark_summary.{png,pdf}
+Traceback (most recent call last):
+  File "/user/yc4911/DJ_OR/differentiable-queueing/reports/build_fig_section51.py", line 34, in <module>
+    policies = sorted({p for d in data.values() for p in d.keys() if p in ('sPR', 'sMW', 'sMP')})
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/user/yc4911/DJ_OR/differentiable-queueing/reports/build_fig_section51.py", line 34, in <setcomp>
+    policies = sorted({p for d in data.values() for p in d.keys() if p in ('sPR', 'sMW', 'sMP')})
+                                                         ^^^^^^
+AttributeError: 'list' object has no attribute 'keys'
+  wrote reports/figures/fig_section52_cmu_papergrid.csv
+  wrote reports/figures/fig_section53_admission.csv
+  wrote reports/figures/fig_section6_wc_vs_vanilla.csv
+  wrote reports/figures/fig_section7_training_curves.csv
+  wrote reports/figures/fig_section7_ste_vs_cmu.csv
+  wrote reports/figures/fig_section4_3_1_gpu_benchmark.csv
+  wrote reports/figures/fig_E5_heavy_traffic.csv
+  wrote reports/figures/fig_section8_theorem2.csv
+  wrote reports/figures/fig_section7_polyak_vs_last.csv
+
+All figure CSVs exported.
+════════════════════════════════════════════════════════════════
+[2026-06-23 10:48:01] Stage 3: refresh status matrix
+Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/reproducibility_matrix.csv (16 rows)
+Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/STATUS_SUMMARY.md
+════════════════════════════════════════════════════════════════
+[2026-06-23 10:48:01] Stage 4: commit + push
