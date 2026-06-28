@@ -225,11 +225,11 @@ class parallel_eval(BaseCallback):
         for dq_idx in range(self.test_batch):
 
             dq = self.eval_env[dq_idx]
-            lex = torch.zeros(dq.batch, dq.s, dq.q)
+            lex = torch.zeros(dq.batch, dq.s, dq.q, device=self.device)
             obs, state = dq.reset(seed = dq.seed)
             obs = torch.tensor(obs).to(self.device)
-            total_cost = torch.tensor([[0.]])
-            time_weight_queue_len = torch.tensor([[0.]])
+            total_cost = torch.tensor([[0.]], device=self.device)
+            time_weight_queue_len = torch.tensor([[0.]], device=self.device)
 
             lex_batch.append(lex)
             obs_batch.append(obs)
