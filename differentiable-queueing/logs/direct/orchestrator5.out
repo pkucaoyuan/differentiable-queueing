@@ -33,3 +33,20 @@ Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/reproducibility_matrix.c
 Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/STATUS_SUMMARY.md
 ════════════════════════════════════════════════════════════════
 [2026-06-23 10:48:01] Stage 4: commit + push
+[main e2483d1] Round 5: 300-ep STE-vs-cμ rerun + §5.1 GPU canonical cossim
+ 18 files changed, 8608 insertions(+), 109 deletions(-)
+ create mode 100644 differentiable-queueing/experiments/reproduction/test_gradient_gpu.py
+ create mode 100644 differentiable-queueing/logs/direct/cmu_baseline_v4_300ep.out
+ create mode 100644 differentiable-queueing/logs/direct/orchestrator5.out
+ create mode 100644 differentiable-queueing/logs/direct/orchestrator6.out
+ create mode 100644 differentiable-queueing/logs/direct/section51_gpu.out
+ create mode 100644 differentiable-queueing/logs/direct/train_reentrant_10_long.out
+ create mode 100644 differentiable-queueing/logs/direct/train_reentrant_7_long.out
+ create mode 100644 differentiable-queueing/logs/direct/train_reentrant_9_long.out
+ rewrite differentiable-queueing/loss/reentrant_7_ppg_softmax.json (100%)
+ rewrite differentiable-queueing/reports/figures/fig_section7_ste_vs_cmu.png (97%)
+ create mode 100644 differentiable-queueing/results/reproduction/gradient_gpu_canonical.json
+To github.com:pkucaoyuan/differentiable-queueing.git
+   edf12dc..e2483d1  main -> main
+════════════════════════════════════════════════════════════════
+[2026-06-23 10:48:06] Done at Tue Jun 23 10:48:06 AM EDT 2026

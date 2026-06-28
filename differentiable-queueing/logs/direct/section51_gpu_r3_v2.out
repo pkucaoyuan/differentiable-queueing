@@ -1,0 +1,29 @@
+CUDA device: NVIDIA A100-SXM4-80GB, free 84.7 GB
+
+══ §5.1 cossim: reentrant_3, device=cuda ══
+   rhos=[0.95], gt_batch=20000, num_samples=20, est_per_sample=15, T=1000
+
+── rho=0.95 ──
+  policy=sPR
+    sample 0/20
+    sample 4/20
+    sample 8/20
+    sample 12/20
+    sample 16/20
+    PW: +0.450±0.420  RF: +0.308±0.429  (31.9 min)
+  policy=sMW
+    sample 0/20
+    sample 4/20
+    sample 8/20
+    sample 12/20
+    sample 16/20
+    PW: +0.133±0.347  RF: +0.107±0.339  (29.6 min)
+  policy=sMP
+    sample 0/20
+    sample 4/20
+    sample 8/20
+    sample 12/20
+    sample 16/20
+    PW: +0.133±0.347  RF: +0.107±0.339  (31.3 min)
+
+Saved /user/yc4911/DJ_OR/differentiable-queueing/results/reproduction/gradient_gpu_reentrant_3.json

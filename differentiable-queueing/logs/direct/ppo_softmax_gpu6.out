@@ -1,0 +1,305 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+config_file_name: softmax
+env_config: criss_cross_bh
+name: criss_cross_bh
+network: [[1, 0, 1], [0, 1, 0]]
+network: tensor([[1., 0., 1.],
+        [0., 1., 0.]])
+mu: tensor([[2., 0., 2.],
+        [0., 1., 0.]])
+device: cuda
+test_seed: 42
+train_seed: 3003
+policy_name: vanilla
+ppo_batch_size: 2500
+env_config_test_T 50000
+/user/yc4911/DJ_OR/differentiable-queueing/PPO/utils/env.py:114: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  self.h = torch.tensor(h).float().to(device)
+Environment initialized in process: 1375078, parent process: 1375041
+/user/yc4911/DJ_OR/differentiable-queueing/PPO/utils/env.py:501: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  env_config['network'] = torch.tensor(env_config['network']).float()
+/user/yc4911/DJ_OR/differentiable-queueing/PPO/utils/env.py:506: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  env_config['mu'] = torch.tensor(env_config['mu']).float()
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+/user/yc4911/miniconda3/envs/gpu-cu/lib/python3.11/site-packages/stable_baselines3/common/vec_env/patch_gym.py:49: UserWarning: You provided an OpenAI Gym environment. We strongly recommend transitioning to Gymnasium environments. Stable-Baselines3 is automatically wrapping your environments in a compatibility layer, which could potentially cause issues.
+  warnings.warn(
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+Environment initialized in process: 1375078, parent process: 1375041
+pi_arch: [30, 20, 20]
+Using cuda device
+init custom rollout buffer...
+buffer size: 50000
+input q: 3
+normalize_advantage: True
+normalize_value: True
+normalize_reward: True
+truncation: True
+self.alpha: 0
+self.mu: tensor([[[2., 0., 2.],
+         [0., 1., 0.]]])
+self.D: tensor([[ 1.,  0.,  0.],
+        [ 0.,  0.,  0.],
+        [ 0.,  0.,  1.],
+        [-1.,  1.,  0.],
+        [ 0., -1.,  0.],
+        [ 0.,  0., -1.]], device='cuda:0')
+policy architecture:
+VanillaPolicy(
+  (features_extractor): FlattenExtractor(
+    (flatten): Flatten(start_dim=1, end_dim=-1)
+  )
+  (pi_features_extractor): FlattenExtractor(
+    (flatten): Flatten(start_dim=1, end_dim=-1)
+  )
+  (vf_features_extractor): FlattenExtractor(
+    (flatten): Flatten(start_dim=1, end_dim=-1)
+  )
+  (mlp_extractor): MlpExtractor(
+    (policy_net): Sequential(
+      (0): Linear(in_features=3, out_features=30, bias=True)
+      (1): Tanh()
+      (2): Linear(in_features=30, out_features=20, bias=True)
+      (3): Tanh()
+      (4): Linear(in_features=20, out_features=20, bias=True)
+      (5): Tanh()
+    )
+    (value_net): Sequential(
+      (0): Linear(in_features=3, out_features=30, bias=True)
+      (1): Tanh()
+      (2): Linear(in_features=30, out_features=20, bias=True)
+      (3): Tanh()
+      (4): Linear(in_features=20, out_features=20, bias=True)
+      (5): Tanh()
+    )
+  )
+  (action_net): Linear(in_features=20, out_features=6, bias=True)
+  (value_net): Linear(in_features=20, out_features=1, bias=True)
+)
+value architecture:
+Linear(in_features=20, out_features=1, bias=True)
+eval_t 50000
+eval env config name: criss_cross_bh
+pre_train_eval
+iter: 1
+  0%|          | 0/50000 [00:00<?, ?it/s]/user/yc4911/DJ_OR/differentiable-queueing/PPO/utils/eval.py:179: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  action = torch.tensor(raw_actions).float().to(self.device)
+/user/yc4911/DJ_OR/differentiable-queueing/PPO/utils/env.py:192: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  action = torch.tensor(action).float().to(self.device)
+  0%|          | 0/50000 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/user/yc4911/DJ_OR/differentiable-queueing/PPO/train.py", line 361, in <module>
+    main()
+  File "/user/yc4911/DJ_OR/differentiable-queueing/PPO/train.py", line 336, in main
+    eval_callback.pre_train_eval()
+  File "/user/yc4911/DJ_OR/differentiable-queueing/PPO/utils/eval.py", line 134, in pre_train_eval
+    q_mean, q_std, t_mean, t_max, t_min, t_std = self.eval()
+                                                 ^^^^^^^^^^^
+  File "/user/yc4911/DJ_OR/differentiable-queueing/PPO/utils/eval.py", line 183, in eval
+    _, _, _, _, info = test_dq_batch[test_dq_idx].step(action[test_dq_idx])
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/user/yc4911/DJ_OR/differentiable-queueing/PPO/utils/env.py", line 208, in step
+    allocated_work, queue_nonzero_inds, num_allocated = allocator(action, self.mu, service_times)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/user/yc4911/DJ_OR/differentiable-queueing/PPO/utils/env.py", line 63, in allocator
+    nonzero_inds = a[0].detach().numpy().nonzero()
+                   ^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.

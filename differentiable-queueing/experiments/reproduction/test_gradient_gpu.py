@@ -74,6 +74,10 @@ def run(env_name, rhos, gt_batch, num_samples, estimators_per_sample, horizon, d
                 gt_grad = _compute_reinforce_grad_core(
                     gt_net, cfg, batch_size=gt_batch, T=horizon, gamma=DEFAULT_GAMMA, device=device)
 
+                # Skip if GT has NaN or zero norm (numerical issues at heavy traffic)
+                if torch.isnan(gt_grad).any() or torch.norm(gt_grad) < 1e-10:
+                    continue
+
                 # Multiple estimator samples
                 for est_idx in range(estimators_per_sample):
                     torch.manual_seed(31415 + est_idx)
@@ -89,21 +93,32 @@ def run(env_name, rhos, gt_batch, num_samples, estimators_per_sample, horizon, d
                         rf_net, cfg, batch_size=DEFAULT_REINFORCE_BATCH, T=horizon,
                         gamma=DEFAULT_GAMMA, device=device)
 
-                    pw_cosines.append(cosine_similarity(pw_grad, gt_grad))
-                    rf_cosines.append(cosine_similarity(rf_grad, gt_grad))
+                    # NaN-resistant cosine
+                    if torch.isnan(pw_grad).any() or torch.norm(pw_grad) < 1e-10:
+                        pass  # skip
+                    else:
+                        pw_cosines.append(cosine_similarity(pw_grad, gt_grad))
+                    if torch.isnan(rf_grad).any() or torch.norm(rf_grad) < 1e-10:
+                        pass
+                    else:
+                        rf_cosines.append(cosine_similarity(rf_grad, gt_grad))
 
                 if sample_idx % max(1, num_samples // 5) == 0:
                     print(f"    sample {sample_idx}/{num_samples} done ({time.time()-t_gt:.1f}s/sample)",
                           flush=True)
 
+            n_pw = len(pw_cosines) if pw_cosines else 0
+            n_rf = len(rf_cosines) if rf_cosines else 0
             all_results[rho][policy_type] = {
                 'pathwise_cosines': pw_cosines,
                 'reinforce_cosines': rf_cosines,
-                'pathwise_mean': float(np.mean(pw_cosines)),
-                'pathwise_std':  float(np.std(pw_cosines)),
-                'reinforce_mean': float(np.mean(rf_cosines)),
-                'reinforce_std':  float(np.std(rf_cosines)),
-                'n_estimates': len(pw_cosines),
+                'pathwise_mean': float(np.mean(pw_cosines)) if n_pw else float('nan'),
+                'pathwise_std':  float(np.std(pw_cosines)) if n_pw else float('nan'),
+                'reinforce_mean': float(np.mean(rf_cosines)) if n_rf else float('nan'),
+                'reinforce_std':  float(np.std(rf_cosines)) if n_rf else float('nan'),
+                'n_pw_kept': n_pw,
+                'n_rf_kept': n_rf,
+                'n_attempted': num_samples * estimators_per_sample,
             }
             print(f"    PW: {np.mean(pw_cosines):+.3f}±{np.std(pw_cosines):.3f}  "
                   f"RF: {np.mean(rf_cosines):+.3f}±{np.std(rf_cosines):.3f}  "
@@ -134,7 +149,7 @@ if __name__ == '__main__':
         device=device,
     )
 
-    out_path = os.path.join(RESULTS_DIR, 'gradient_gpu_canonical.json')
+    out_path = os.path.join(RESULTS_DIR, 'gradient_gpu_canonical_v2.json')
     with open(out_path, 'w') as f:
         json.dump(res, f, indent=2)
     print(f"\nSaved {out_path}")

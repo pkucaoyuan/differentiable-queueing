@@ -1,0 +1,106 @@
+CUDA device: NVIDIA A100-SXM4-80GB
+Free mem: 84.7 GB
+
+══ §5.1 cossim GPU: criss_cross_bh, device=cuda ══
+   rhos=[0.8, 0.9, 0.95, 0.99], gt_batch=100000, num_samples=20, est_per_sample=15, T=1000
+
+── rho=0.8 ──
+  policy=sPR
+    sample 0/20 done (97.1s/sample)
+    sample 4/20 done (94.0s/sample)
+    sample 8/20 done (94.4s/sample)
+    sample 12/20 done (94.1s/sample)
+    sample 16/20 done (94.2s/sample)
+    PW: +0.300±0.954  RF: +0.027±1.000  (policy took 31.4 min)
+  policy=sMW
+    sample 0/20 done (97.9s/sample)
+    sample 4/20 done (97.3s/sample)
+    sample 8/20 done (97.8s/sample)
+    sample 12/20 done (97.6s/sample)
+    sample 16/20 done (97.6s/sample)
+    PW: -0.048±0.761  RF: +0.137±0.732  (policy took 32.7 min)
+  policy=sMP
+    sample 0/20 done (98.7s/sample)
+    sample 4/20 done (98.5s/sample)
+    sample 8/20 done (99.2s/sample)
+    sample 12/20 done (98.9s/sample)
+    sample 16/20 done (98.1s/sample)
+    PW: -0.048±0.761  RF: +0.137±0.732  (policy took 32.8 min)
+
+── rho=0.9 ──
+  policy=sPR
+    sample 0/20 done (95.6s/sample)
+    sample 4/20 done (95.4s/sample)
+    sample 8/20 done (95.0s/sample)
+    sample 12/20 done (96.4s/sample)
+    sample 16/20 done (95.0s/sample)
+    PW: +0.480±0.877  RF: +0.060±0.998  (policy took 31.9 min)
+  policy=sMW
+    sample 0/20 done (98.3s/sample)
+    sample 4/20 done (98.6s/sample)
+    sample 8/20 done (98.1s/sample)
+    sample 12/20 done (98.0s/sample)
+    sample 16/20 done (98.6s/sample)
+    PW: +0.081±0.767  RF: +0.090±0.717  (policy took 32.8 min)
+  policy=sMP
+    sample 0/20 done (97.8s/sample)
+    sample 4/20 done (98.5s/sample)
+    sample 8/20 done (97.9s/sample)
+    sample 12/20 done (98.2s/sample)
+    sample 16/20 done (98.6s/sample)
+    PW: +0.081±0.767  RF: +0.090±0.717  (policy took 32.8 min)
+
+── rho=0.95 ──
+  policy=sPR
+    sample 0/20 done (94.8s/sample)
+    sample 4/20 done (94.6s/sample)
+    sample 8/20 done (96.1s/sample)
+    sample 12/20 done (95.2s/sample)
+    sample 16/20 done (95.4s/sample)
+    PW: +0.600±0.800  RF: +0.047±0.999  (policy took 31.7 min)
+  policy=sMW
+    sample 0/20 done (98.5s/sample)
+    sample 4/20 done (98.4s/sample)
+    sample 12/20 done (98.1s/sample)
+    PW: +0.237±0.723  RF: +0.115±0.739  (policy took 29.6 min)
+  policy=sMP
+    sample 0/20 done (98.5s/sample)
+    sample 4/20 done (98.9s/sample)
+    sample 12/20 done (103.6s/sample)
+    PW: +0.237±0.723  RF: +0.115±0.739  (policy took 30.7 min)
+
+── rho=0.99 ──
+  policy=sPR
+    sample 0/20 done (95.3s/sample)
+    sample 4/20 done (95.0s/sample)
+    sample 8/20 done (94.5s/sample)
+    sample 12/20 done (95.2s/sample)
+    sample 16/20 done (94.6s/sample)
+    PW: +0.480±0.877  RF: +0.093±0.996  (policy took 31.6 min)
+  policy=sMW
+    sample 0/20 done (97.7s/sample)
+    sample 4/20 done (99.7s/sample)
+    sample 12/20 done (96.7s/sample)
+    PW: +0.273±0.669  RF: +0.029±0.688  (policy took 24.7 min)
+  policy=sMP
+    sample 0/20 done (95.7s/sample)
+    sample 4/20 done (97.0s/sample)
+    sample 12/20 done (97.8s/sample)
+    PW: +0.273±0.669  RF: +0.029±0.688  (policy took 24.6 min)
+
+Saved /user/yc4911/DJ_OR/differentiable-queueing/results/reproduction/gradient_gpu_canonical_v2.json
+
+══ Summary ══
+   rho policy    PW mean   PW std    RF mean   RF std  PW>RF?
+  0.80    sPR    +0.300     0.954    +0.027     1.000  ✓
+  0.80    sMW    -0.048     0.761    +0.137     0.732  ✗
+  0.80    sMP    -0.048     0.761    +0.137     0.732  ✗
+  0.90    sPR    +0.480     0.877    +0.060     0.998  ✓
+  0.90    sMW    +0.081     0.767    +0.090     0.717  ✗
+  0.90    sMP    +0.081     0.767    +0.090     0.717  ✗
+  0.95    sPR    +0.600     0.800    +0.047     0.999  ✓
+  0.95    sMW    +0.237     0.723    +0.115     0.739  ✓
+  0.95    sMP    +0.237     0.723    +0.115     0.739  ✓
+  0.99    sPR    +0.480     0.877    +0.093     0.996  ✓
+  0.99    sMW    +0.273     0.669    +0.029     0.688  ✓
+  0.99    sMP    +0.273     0.669    +0.029     0.688  ✓

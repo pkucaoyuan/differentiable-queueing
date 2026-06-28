@@ -1,0 +1,15 @@
+════════════════════════════════════════════════════════════════
+[2026-06-28 04:56:04] Stage 1: wait for §5.1 v2 (criss-cross) + reentrant_2/3/4
+[04:56:04] Waiting for section51_v2_criss (PID 1373902)...
+[10:59:05] section51_v2_criss finished
+[section51_r2 (PID 1379131)] already finished
+[section51_r3 (PID 1395922)] already finished
+[section51_r4 (PID 1395923)] already finished
+════════════════════════════════════════════════════════════════
+[2026-06-28 10:59:05] Stage 2: refresh figures + CSVs
+saved reports/figures/fig_section7_ste_vs_cmu.{png,pdf}
+saved reports/figures/fig_benchmark_summary.{png,pdf}
+Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/reproducibility_matrix.csv (16 rows)
+Wrote: /user/yc4911/DJ_OR/differentiable-queueing/repro/STATUS_SUMMARY.md
+════════════════════════════════════════════════════════════════
+[2026-06-28 10:59:15] Stage 3: commit + push

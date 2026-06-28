@@ -1,0 +1,7 @@
+CUDA device: NVIDIA A100-SXM4-80GB, free 84.7 GB
+
+══ §5.1 cossim: reentrant_4, device=cuda ══
+   rhos=[0.95], gt_batch=100000, num_samples=20, est_per_sample=15, T=1000
+
+── rho=0.95 ──
+  policy=sPR
