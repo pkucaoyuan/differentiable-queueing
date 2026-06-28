@@ -60,7 +60,7 @@ def allocator(action, mu, queue_service_times):
     num_q = a.size()[-1]
     
     # identify non-zero actions
-    nonzero_inds = a[0].detach().numpy().nonzero()
+    nonzero_inds = a[0].detach().cpu().numpy().nonzero()
     nonzero_inds = np.transpose(nonzero_inds).tolist()
     
     # for each queue, identify servers with positive action
@@ -221,15 +221,15 @@ class P_DiffDiscreteEventSystem(gym.Env):
         #eff_service_times = torch.stack([torch.min(torch.stack(self.service_times[q]) / torch.stack(allocated_work[q])) for q in range(self.q)])
         
         
-        eff_service_times = [torch.tensor([self.inv_eps])]*self.q
+        eff_service_times = [torch.tensor([self.inv_eps], device=self.device)]*self.q
         # print(f"eff service times shape: {torch.tensor(eff_service_times).size()}")
         for q in range(self.q):
             if num_allocated[q] > 0:
                 eff_service_times[q] = torch.stack(service_times[q][:num_allocated[q]])[:,0,q] / torch.clip(torch.stack(allocated_work[q]), min = self.eps)
                 #eff_service_times[q] = torch.stack(self.service_times[q])[:num_allocated[q]] / allocated_work[q]
-        
+
         min_eff_service_times = torch.stack([torch.min(eff_service_times[q]) for q in range(self.q)])
-        min_eff_service_times = min_eff_service_times.unsqueeze(0)
+        min_eff_service_times = min_eff_service_times.unsqueeze(0).to(self.device)
         
         
         # arrival times and service times are both q vectors

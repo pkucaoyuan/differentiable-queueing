@@ -26,7 +26,11 @@ class BasePolicy(ActorCriticPolicy, ABC):
         super(BasePolicy, self).__init__(*args, **kwargs)
         # Store the custom parameter
         self.randomize = randomize
-        self.network = network
+        # Register tensor buffers so they move with .to(device)
+        if network is not None:
+            self.register_buffer('network', network if isinstance(network, torch.Tensor) else torch.tensor(network))
+        else:
+            self.network = None
         self.q = self.network.size()[1]
         self.s = self.network.size()[0]
         self.time_f = time_f
@@ -36,13 +40,16 @@ class BasePolicy(ActorCriticPolicy, ABC):
         self.returns_std = 1
         self.printing = False
         self.rescale_v = rescale_v
-        self.alpha = torch.tensor(alpha)
-        self.mu = mu.unsqueeze(0)
-        self.D = D
+        self.register_buffer('alpha', torch.tensor(alpha) if not isinstance(alpha, torch.Tensor) else alpha)
+        self.register_buffer('mu', mu.unsqueeze(0) if isinstance(mu, torch.Tensor) else torch.tensor(mu).unsqueeze(0))
+        if isinstance(D, torch.Tensor):
+            self.register_buffer('D', D)
+        else:
+            self.D = D
 
         print(f'self.alpha: {self.alpha}')
         print(f'self.mu: {self.mu}')
-        print(f'self.D: {self.D}')     
+        print(f'self.D: {self.D}')
         
 
     def update_mean_std(self, mean_queue_length, std_queue_length):

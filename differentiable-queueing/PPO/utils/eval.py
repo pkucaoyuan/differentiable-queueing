@@ -173,7 +173,9 @@ class parallel_eval(BaseCallback):
                 batch_queue = torch.cat([obs[0] for obs in obs_batch], dim = 0).reshape(self.test_batch,-1)
                 # print(f'batch_queue: {batch_queue}')
 
-                raw_actions, probs = self.model.predict(batch_queue)
+                # SB3's obs_to_tensor calls np.array() which can't convert CUDA tensors;
+                # ensure observation is on CPU before predict
+                raw_actions, probs = self.model.predict(batch_queue.cpu())
                 action = torch.tensor(raw_actions).float().to(self.device)
                 
                 for test_dq_idx in range(len(test_dq_batch)):
