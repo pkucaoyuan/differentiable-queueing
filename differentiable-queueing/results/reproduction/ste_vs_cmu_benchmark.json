@@ -56,9 +56,9 @@
   "reentrant_7": {
     "cmu_mean": 52.2801399230957,
     "cmu_std": 10.747537612915039,
-    "ste_mean": 52.64639663696289,
-    "ste_std": 8.756336212158203,
-    "improvement_pct": -0.7005656725593172,
+    "ste_mean": 51.783119201660156,
+    "ste_std": 8.673689842224121,
+    "improvement_pct": 0.950687435356268,
     "eval_batch": 100,
     "eval_T": 50000
   },
@@ -74,11 +74,13 @@
   "reentrant_9": {
     "cmu_mean": 65.28365325927734,
     "cmu_std": 13.082796096801758,
-    "ste_mean": 65.94843292236328,
-    "ste_std": 12.38161849975586,
-    "improvement_pct": -1.0182942128647907,
+    "ste_mean": 64.8250503540039,
+    "ste_std": 12.210823059082031,
+    "improvement_pct": 0.702477392697484,
     "eval_batch": 100,
-    "eval_T": 50000
+    "eval_T": 50000,
+    "forced_epoch": 99,
+    "note": "100-ep checkpoint (epoch 99); long training failed to progress"
   },
   "reentrant_10": {
     "cmu_mean": 70.09058380126953,
@@ -87,6 +89,8 @@
     "ste_std": 11.893871307373047,
     "improvement_pct": 0.5017572279175824,
     "eval_batch": 100,
-    "eval_T": 50000
+    "eval_T": 50000,
+    "forced_epoch": 80,
+    "note": "Forced ep 80 (original 100-ep training best); long training failed/overwrote loss JSON"
   }
 }
