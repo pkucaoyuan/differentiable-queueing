@@ -54,6 +54,27 @@ follow-up training — the v1.0 tarball preserves the original 100-epoch state.)
 - **`repro/status.json`** + **`repro/reproducibility_matrix.csv`** + **`repro/STATUS_SUMMARY.md`**
   — machine-readable artifact contract per the deep-research-report (7).
 
+## 5a. ⚠️ Provenance note for Figure 12 (PPO 3 variants)
+
+`reports/figures/fig_section6_ppo3_variants.{png,pdf}` shows 3 PPO curves
+on criss-cross (vanilla, +BC, +WC) + cμ baseline. Of those:
+
+- **PPO-WC**: we independently re-ran (`PPO/WC_results.json`, SGE job
+  `8556856`, 67h on CPU, verified via `qacct`).
+- **vanilla PPO** (`PPO/vanilla_results.json`),
+  **PPO+BC** (`PPO/vanilla_bc_results.json`),
+  **cμ baseline** (`PPO/cmu_results.json`):
+  **Upstream-provided data** (md5-identical to `namkoong-lab/differentiable-queueing`'s
+  initial commit, dated Apr 9 2026, predating our work).
+  We did *not* independently re-run these.
+
+So Figure 12 shows the paper's qualitative narrative ("vanilla collapses /
++BC degrades / +WC stable beats cμ") with 1 of 3 PPO curves independently
+reproduced and 2 of 3 + cμ inherited from upstream. The qualitative
+conclusion is consistent (and our WC result 17.15 cleanly beats the
+upstream cμ baseline 17.44), but this is not a from-scratch end-to-end
+reproduction of Figure 12.
+
 ## 5. Critical reproducibility note (eval protocol)
 
 Earlier `test_cmu_baseline.py` used `argmax` for evaluating the STE-trained policy.

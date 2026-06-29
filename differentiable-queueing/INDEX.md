@@ -28,7 +28,8 @@ See `reports/figures/fig_benchmark_summary.png` for the 6-panel overview.
 | **§5.2** ablations (T/q/n/ρ) | `results/reproduction/{T,queue_class,num_iter,rho}_ablation_*.json` | `test_{T,queue_class,num_iter,rho}_ablation.py` | `fig_section52_ablations.{png,pdf}` | — |
 | **§5.2** Fig 9 left queue ordering | `results/reproduction/reproduction_cmu5_pathwise.json` | `reports/build_fig_queue_ordering.py` | `fig_section52_queue_ordering.{png,pdf}` | — |
 | **§5.3** Admission scaling (Fig 11) | `results/admission_control_*.json` | `experiments/admission_control.py` | `fig_section53_admission.{png,pdf}` | `.csv` |
-| **§6** WC vs Vanilla (Fig 12 partial) | `loss/criss_cross_bh_ppg_{softmax,vanilla}.json` | `train/train_policy.py --algo ste` | `fig_section6_wc_vs_vanilla.{png,pdf}` | `.csv` |
+| **§6** WC vs Vanilla (STE) | `loss/criss_cross_bh_ppg_{softmax,vanilla}.json` | `train/train_policy.py --algo ste` | `fig_section6_wc_vs_vanilla.{png,pdf}` | `.csv` |
+| **§6** Fig 12 PPO 3 variants | `PPO/{WC,vanilla,vanilla_bc}_results.json` ⚠️ only WC ran by us | `PPO/train.py wc_softmax criss_cross_bh` | `fig_section6_ppo3_variants.{png,pdf}` ⚠️ | `.csv` |
 | **§7** STE training (Tables 1-5 training) | `loss/*_ppg_softmax.json` (11 envs) | `train/train_policy.py` | `fig_section7_training_curves.{png,pdf}`, `fig_section7_min_cost_summary.{png,pdf}` | `training_curves.csv` |
 | **§7** STE vs cμ benchmark (Tables 1-5) | `results/reproduction/ste_vs_cmu_benchmark.json` | `experiments/reproduction/test_cmu_baseline.py` | `fig_section7_ste_vs_cmu.{png,pdf}` | `.csv` |
 | **§7** STE vs PPO speed | `logs/COMMANDS_LOG.md` + `qacct` records | — | (embedded in narrative) | — |

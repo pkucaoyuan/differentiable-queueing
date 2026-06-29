@@ -27,7 +27,8 @@ One-glance summary figure: `reports/figures/fig_benchmark_summary.png`
 | **§5.2 ablations** | Robust to T / queue_class / num_iter / ρ | ✅ all 28 entries ≤2.62% diff | `fig_section52_ablations` |
 | **§5.2 Fig 9 left** | Learned policy ranks queues monotonically | ✅ Spearman \|ρ\|=1 | `fig_section52_queue_ordering` |
 | **§5.3** | PATHWISE scales; SPSA collapses on K≥15 | ✅ reentrant_7: PW=44.1 vs SPSA_B1000=106.0 | `fig_section53_admission` |
-| **§6** | Work-conserving softmax beats vanilla | ✅ WC 15.20 vs Vanilla 17.21 (+13.2%) | `fig_section6_wc_vs_vanilla` |
+| **§6** | Work-conserving softmax beats vanilla | ✅ STE-WC 15.20 vs STE-Vanilla 17.21 (+13.2%) | `fig_section6_wc_vs_vanilla` |
+| **§6** | PPO 3-variants (Figure 12) | ⚠️ WC reproduced; vanilla/+BC curves use upstream-published data | `fig_section6_ppo3_variants` |
 | **§7 training** | STE trains stable policies on 11 networks | ✅ all converge | `fig_section7_training_curves`, `fig_section7_min_cost_summary` |
 | **§7 Tables 1-5** | STE/PATHWISE beats cμ baseline | ✅ **7/10 wins, 3/10 ties, 0/10 losses, mean +3.4%** | `fig_section7_ste_vs_cmu` |
 | **§7 speed** | STE ≈27× faster than PPO | ✅ STE 2.5h vs PPO 67h on criss-cross | (walltime in `logs/COMMANDS_LOG.md`) |

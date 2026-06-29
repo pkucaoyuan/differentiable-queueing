@@ -61,8 +61,10 @@ ax.annotate(f"BC final {ppo_bc['test_cost'][-1]:.2f}", xy=(iters[-1], ppo_bc['te
             arrowprops=dict(arrowstyle='->', color='C2', lw=0.5))
 
 fig.suptitle(
-    '§6 Figure 12 reproduced — vanilla PPO collapses, +BC degrades, +WC stable < cμ',
-    y=1.02, fontsize=11
+    '§6 Figure 12 — vanilla PPO collapses, +BC degrades, +WC stable < cμ\n'
+    'NOTE: WC curve = our PPO run (job 8556856, 67h CPU); '
+    'vanilla & +BC curves = upstream-provided data (not independently re-run)',
+    y=1.04, fontsize=10
 )
 fig.tight_layout()
 fig.savefig('reports/figures/fig_section6_ppo3_variants.png')
