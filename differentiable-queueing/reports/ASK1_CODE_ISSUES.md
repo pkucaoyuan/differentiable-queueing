@@ -65,3 +65,16 @@
 
 数据：`results/ask1/stage1/*.npz`（每格含 gt/gt_nb/per-θ×draw 余弦/分半诊断/参数）；
 复现脚本：`experiments/ask1/`（common.py / run_cossim.py / validate.py / analyze_stage1.py）。
+
+---
+
+## 追加（2026-07-14）：P6 与论文装置还原实验的定论
+
+### P6：掩蔽包装（min(softmax, queues) + 归一化）显著压低 cossim 且改变被测策略族
+- 位置：`gradient_comparison.py` 的掩蔽逻辑（也见 env.step 内部同构操作）。
+- 实测（criss-cross，论文策略 + V-baseline，同 θ 同 GT 规格）：带掩蔽 PW=0.42–0.44（ρ=0.9），去掉掩蔽（论文公式字面）PW=0.58–0.88。论文 §5.1 的公式没有这层包装。
+- 影响：这是发布代码测不出论文数值的第二大因素（第一是 P1 缺 value baseline）。
+
+### 定论：论文 Figure 8 大概率真实，"无法复现"是发布代码装置缺失
+按论文描述完整还原（论文公式策略 + Lognormal θ + V(x,t/N) baseline [10⁶ 转移拟合，时间特征必需] + 无掩蔽）后：PW = 0.58–0.88（ρ=0.9）/ 0.37–0.81（ρ=0.99，退化模式与论文一致），RF-BL 回到论文的 0.2–0.6 量级，GT 分半自洽 0.95–1.00。剩余与 ≈1 的差距可归于 pilot 规模（10θ×20draws vs 论文 100×100）与 GT=1e5（论文 1e6）。
+详见 `experiments/ask1/paper_impl.py` 与 `reports/ask1_figs/fig5_paper_apparatus.png`。

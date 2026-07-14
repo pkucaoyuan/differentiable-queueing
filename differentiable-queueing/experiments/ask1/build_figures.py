@@ -39,7 +39,8 @@ POLS = [('sMP', 'MaxPressure (sMP)*'), ('sMW', 'MaxWeight (sMW)'), ('sPR', 'Rand
 
 def load_all():
     cells = {}
-    for stage in ['stage1', 'stage2quick']:
+    # later stages overwrite earlier ones: stage2 (full spec) > stage2quick
+    for stage in ['stage1', 'stage2quick', 'stage2']:
         for f in glob.glob(os.path.join(RES, stage, '*.npz')):
             d = np.load(f, allow_pickle=True)
             meta = json.loads(str(d['meta']))
@@ -153,9 +154,93 @@ def fig3_theta_dist(cells):
     print('fig3 done')
 
 
+def fig4_batch_sweep():
+    files = glob.glob(os.path.join(RES, 'sweep', '*.npz'))
+    data = {}
+    for f in files:
+        d = np.load(f, allow_pickle=True)
+        meta = json.loads(str(d['meta']))
+        data[(meta['env'], meta['rho'], meta['policy'])] = d
+    nets = [('criss_cross_bh', 'Criss Cross'), ('reentrant_3', 'Reentrant (9 cls)'),
+            ('re-reentrant_3', 'Reentrant-2 (9 cls)')]
+    rhos = [0.9, 0.99]
+    bs = [1, 2, 5, 10, 50, 100, 1000, 10000]
+    colors = {'sMP': '#1b9e77', 'sMW': '#d95f02', 'sPR': '#7570b3'}
+    fig, axes = plt.subplots(2, 3, figsize=(13, 6.5), sharex=True, sharey=True)
+    for r, rho in enumerate(rhos):
+        for c, (env, lab) in enumerate(nets):
+            ax = axes[r, c]
+            for pol in ['sMP', 'sMW', 'sPR']:
+                d = data.get((env, rho, pol))
+                if d is None:
+                    continue
+                pw = [np.nanmean(d[f'pw_B{b}']) for b in bs]
+                rf = [np.nanmean(d[f'rf_B{b}']) for b in bs]
+                ax.plot(bs, pw, 'o-', color=colors[pol], label=f'{pol} PW', ms=4)
+                ax.plot(bs, rf, 's--', color=colors[pol], label=f'{pol} RF', ms=4, alpha=0.6)
+            ax.set_xscale('log')
+            ax.axhline(0, color='gray', lw=0.5)
+            if r == 0:
+                ax.set_title(lab, fontsize=11)
+            if r == 1:
+                ax.set_xlabel('batch size B (trajectories per estimate)')
+            if c == 0:
+                ax.set_ylabel(f'ρ = {rho}\nmean cossim to GT')
+    axes[0, 0].legend(fontsize=7, ncol=2, loc='upper left')
+    fig.suptitle('Cosine similarity vs batch size — PATHWISE (solid) vs REINFORCE (dashed), '
+                 'released-code policies, LOO-baselined GT', fontsize=11)
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, 'fig4_batch_sweep.png'), dpi=180, bbox_inches='tight')
+    fig.savefig(os.path.join(OUT, 'fig4_batch_sweep.pdf'), bbox_inches='tight')
+    plt.close(fig)
+    print('fig4 done')
+
+
 if __name__ == '__main__':
     cells = load_all()
     print(f'{len(cells)} paper-scaling cells loaded')
     fig1_heatmaps(cells)
     fig2_gt_reliability()
     fig3_theta_dist(cells)
+    fig4_batch_sweep()
+
+
+def fig5_paper_apparatus():
+    import matplotlib.patches as mpatches
+    res = {}
+    for f in glob.glob(os.path.join(RES, 'paper_impl', '*.npz')):
+        d = np.load(f, allow_pickle=True)
+        m = json.loads(str(d['meta']))
+        variant = 'nomask' if f.endswith('_nomask.npz') else 'masked'
+        res[(m['rho'], m['policy'].replace('paper_', ''), variant)] = m['pw_mean']
+    released = {}
+    for f in glob.glob(os.path.join(RES, 'stage1', '*.npz')):
+        d = np.load(f, allow_pickle=True)
+        m = json.loads(str(d['meta']))
+        if m['scaling'] == 'paper':
+            released[(m['rho'], m['policy'])] = float(np.nanmean(d['pw_cos']))
+    pols = ['sMP', 'sMW', 'sPR']
+    fig, axes = plt.subplots(1, 2, figsize=(11, 3.8), sharey=True)
+    for ax, rho in zip(axes, [0.9, 0.99]):
+        x = np.arange(len(pols))
+        bars = [
+            ('released code', [released.get((rho, p), np.nan) for p in pols], '#bdbdbd'),
+            ('paper policies + V-baseline (masked)', [res.get((rho, p, 'masked'), np.nan) for p in pols], '#fdae6b'),
+            ('paper-literal (no mask) + V-baseline', [res.get((rho, p, 'nomask'), np.nan) for p in pols], '#2c7fb8'),
+        ]
+        for k, (lab, vals, col) in enumerate(bars):
+            ax.bar(x + (k - 1) * 0.27, vals, 0.25, label=lab, color=col)
+        ax.axhline(1.0, color='red', lw=0.8, ls='--')
+        ax.text(2.45, 1.02, 'paper ≈1', color='red', fontsize=8)
+        ax.set_xticks(x, pols)
+        ax.set_title(f'ρ = {rho}')
+        ax.set_ylim(0, 1.12)
+    axes[0].set_ylabel('PATHWISE (B=1)\nmean cossim to GT')
+    axes[0].legend(fontsize=7.5, loc='upper left')
+    fig.suptitle('Recovering the paper apparatus (criss-cross): value baseline fixes the GT; removing the\n'
+                 "released-code masking recovers the paper's Fig.8 magnitudes (10θ x 20 draws pilot)", fontsize=10)
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, 'fig5_paper_apparatus.png'), dpi=180, bbox_inches='tight')
+    fig.savefig(os.path.join(OUT, 'fig5_paper_apparatus.pdf'), bbox_inches='tight')
+    plt.close(fig)
+    print('fig5 done')

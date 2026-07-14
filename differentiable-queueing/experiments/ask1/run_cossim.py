@@ -201,7 +201,10 @@ def run_main_cell(env, rho, policy, scaling, device):
 
 def run_sweep_cell(env, rho, policy, scaling, device):
     cid = cell_id(env, rho, policy, scaling)
-    src = os.path.join(RESULTS, 'stage1' if env == 'criss_cross_bh' else 'stage2', cid + '.npz')
+    for stage_dir in (['stage1'] if env == 'criss_cross_bh' else ['stage2', 'stage2quick']):
+        src = os.path.join(RESULTS, stage_dir, cid + '.npz')
+        if os.path.exists(src):
+            break
     d = np.load(src)
     gt = torch.tensor(d['gt'][:SWEEP_THETAS])
     params = []
@@ -234,15 +237,16 @@ def run_sweep_cell(env, rho, policy, scaling, device):
     return out
 
 
-def worker(stage, scaling, device):
+def worker(stage, scaling, device, nets_filter=None):
     outdir = os.path.join(RESULTS, stage)
     os.makedirs(outdir, exist_ok=True)
     if stage == 'sweep':
         cells = [(e, r, p, scaling) for e in SWEEP_NETS for r in SWEEP_RHOS for p in POLICIES]
-    elif stage == 'stage2quick':
-        cells = main_cells(stage, scaling)
     else:
         cells = main_cells(stage, scaling)
+    if nets_filter:
+        cells = [c for c in cells if c[0] in nets_filter]
+        cells.sort(key=lambda c: int(c[0].split('_')[-1]))  # small nets first
     for env, rho, pol, sc in cells:
         cid = cell_id(env, rho, pol, sc)
         out_path = os.path.join(outdir, cid + '.npz')
@@ -260,9 +264,12 @@ def worker(stage, scaling, device):
                       f'gt_split={meta["gt_split_cos_median"]:+.3f} '
                       f'total={meta["t_total_s"]/60:.1f}min', flush=True)
         except torch.cuda.OutOfMemoryError:
-            print(f'!!! OOM on {cid}, releasing claim', flush=True)
-            os.rmdir(os.path.join(RESULTS, 'claims', stage + '__' + cid))
-            raise
+            # keep the claim so other workers don't re-attempt the poisoned cell
+            print(f'!!! OOM on {cid}, keeping claim and moving on', flush=True)
+            torch.cuda.empty_cache()
+        except Exception as e:
+            print(f'!!! ERROR on {cid}: {type(e).__name__}: {e} — keeping claim, moving on', flush=True)
+            torch.cuda.empty_cache()
     print('worker done: no unclaimed cells left', flush=True)
 
 
@@ -276,6 +283,8 @@ if __name__ == '__main__':
     ap.add_argument('--n-draws', type=int, default=None)
     ap.add_argument('--gt-trajs', type=int, default=None)
     ap.add_argument('--no-control-gt', action='store_true')
+    ap.add_argument('--nets', type=str, default=None,
+                    help='comma-separated net filter for stage2 waves')
     args = ap.parse_args()
     if args.n_theta:
         N_THETA = args.n_theta
@@ -286,5 +295,6 @@ if __name__ == '__main__':
     if args.no_control_gt:
         WITH_CONTROL_GT = False
     print(f'GPU: {torch.cuda.get_device_name(0)}  spec: theta={N_THETA} draws={N_DRAWS} '
-          f'gt={GT_TRAJS} control={WITH_CONTROL_GT}', flush=True)
-    worker(args.stage, args.scaling, 'cuda')
+          f'gt={GT_TRAJS} control={WITH_CONTROL_GT} nets={args.nets}', flush=True)
+    worker(args.stage, args.scaling, 'cuda',
+           nets_filter=args.nets.split(',') if args.nets else None)
