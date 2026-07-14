@@ -244,3 +244,53 @@ def fig5_paper_apparatus():
     fig.savefig(os.path.join(OUT, 'fig5_paper_apparatus.pdf'), bbox_inches='tight')
     plt.close(fig)
     print('fig5 done')
+
+
+def fig6_paper_vs_ours(cells):
+    """Side-by-side: paper's original Fig.8 image (top) vs our measurement
+    rendered in the paper's exact layout and colormap (bottom)."""
+    paper_img = plt.imread(os.path.join(
+        HERE, '..', '..', 'literature', 'arxiv_sources', 'che2024differentiable',
+        'plot', 'gradient_eval', 'gradient_comparsion_policy.jpg'))
+    fig = plt.figure(figsize=(13, 13.6))
+    gs = fig.add_gridspec(4, 3, height_ratios=[1.15, 0.10, 0.55, 0.55], hspace=0.35)
+
+    ax_t = fig.add_subplot(gs[1, :])
+    ax_t.axis('off')
+    ax_t.text(0.5, 0.3, 'Our measurement — released-code policies, LOO-baselined GT '
+              '(full spec, 108 cells; values < 0 clipped to 0)',
+              fontsize=12, ha='center', transform=ax_t.transAxes)
+
+    ax_p = fig.add_subplot(gs[0, :])
+    ax_p.imshow(paper_img)
+    ax_p.axis('off')
+    ax_p.set_title('Paper Figure 8 (original; PATHWISE mostly ≈ 1.0)', fontsize=12)
+
+    cmap = plt.get_cmap('jet').copy()
+    cmap.set_bad('#dddddd')
+    im = None
+    for r, (est, est_lab) in enumerate([('pw', 'Pathwise\n(B = 1)'),
+                                        ('rf', 'REINFORCE\n(B = 1,000)')]):
+        for c, (pol, pol_lab) in enumerate(POLS):
+            M = np.full((len(ROWS), len(RHOS)), np.nan)
+            for i, (env, _) in enumerate(ROWS):
+                for j, rho in enumerate(RHOS):
+                    k = (env, rho, pol)
+                    if k in cells:
+                        M[i, j] = max(cells[k][est], 0.0)
+            ax = fig.add_subplot(gs[r + 2, c])
+            im = ax.imshow(np.ma.masked_invalid(M), cmap=cmap, vmin=0, vmax=1, aspect='auto')
+            ax.set_xticks(range(len(RHOS)), [str(x) for x in RHOS], fontsize=7)
+            if c == 0:
+                ax.set_yticks(range(len(ROWS)), [lab for _, lab in ROWS], fontsize=6.5)
+                ax.set_ylabel(est_lab, fontsize=10)
+            else:
+                ax.set_yticks([])
+            if r == 0:
+                ax.set_title(pol_lab.split(' (')[0], fontsize=10)
+    cbar = fig.colorbar(im, ax=fig.axes[1:], fraction=0.015, pad=0.02)
+    cbar.ax.tick_params(labelsize=8)
+    fig.savefig(os.path.join(OUT, 'fig6_paper_vs_ours.png'), dpi=170, bbox_inches='tight')
+    fig.savefig(os.path.join(OUT, 'fig6_paper_vs_ours.pdf'), bbox_inches='tight')
+    plt.close(fig)
+    print('fig6 done')
