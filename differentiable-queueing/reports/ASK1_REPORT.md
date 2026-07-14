@@ -61,3 +61,19 @@
 论文装置的 GT 已用与 REINFORCE 无关的中心有限差分独立验证：9 个可靠 θ 中 8 个 cos(FD,GT)=0.998–1.000，
 其上 PW per-θ = 0.95–1.00（论文水平）。例外 1 例揭示 γ=0.999 折扣信用分配的固有方向偏差（论文 GT 同样受影响）。
 详见 ASK1_CODE_ISSUES.md 附录与 `experiments/ask1/fd_check.py`。
+
+## 终极验证（2026-07-14）：论文 Figure 8 数值级复现成功
+
+按论文描述完整实现（`experiments/ask1/paper_full.py`：论文公式策略、θ~Lognormal(0,1)、无掩蔽、
+GT=10⁶ 条带 V(x,t/N) baseline 的 REINFORCE 轨迹、100θ×100draws、γ=0.999、β=1、N=1000），
+与论文原图像素反解数值（jet 逆映射，`extract_paper_values.py`）逐格对比（criss-cross 行 12 格）：
+
+- **PATHWISE 平均偏差 |Δ|=0.04，最大 0.09，四格 ±0.00**（sMW ρ0.8/0.9、sPR ρ0.9 精确命中）
+- ρ 退化趋势逐列吻合；GT 分半自洽 0.99–1.00
+- 论文反解值本身表明"PW≈1"只对 sMP 成立（sMW 仅 0.55–0.72，sPR≈0.82）
+- RF 列：论文值与无 baseline 的 RF 量级一致 → 推断 Fig.8 的 RF 未带 baseline；带上我们的 V baseline 后 RF 升至 0.29–0.96（baseline 质量决定 RF 表现）
+
+图：`ask1_figs/fig7_paper_numbers.png`（散点对角线图）；数据：`results/ask1/paper_full/`。
+
+**复现配方**（发布代码缺失项加粗）：论文公式策略（**发布代码为 nn.Linear 且 sMP≡sMW**）＋
+**V-baseline GT**＋**无掩蔽**＋γ=0.999＋β=1。

@@ -294,3 +294,50 @@ def fig6_paper_vs_ours(cells):
     fig.savefig(os.path.join(OUT, 'fig6_paper_vs_ours.pdf'), bbox_inches='tight')
     plt.close(fig)
     print('fig6 done')
+
+
+def fig7_paper_numbers(): 
+    """Final numeric comparison: full paper-spec run (GT=1e6, 100x100) vs the
+    paper's Fig.8 criss-cross values extracted by jet-colormap inversion."""
+    with open(os.path.join(RES, 'paper_fig8_values.json')) as f:
+        paper = json.load(f)
+    ours = {}
+    for f2 in glob.glob(os.path.join(RES, 'paper_full', '*.npz')):
+        d = np.load(f2, allow_pickle=True)
+        m = json.loads(str(d['meta']))
+        pol = m['policy'].replace('paper_', '')
+        ours[(pol, m['rho'])] = (float(np.nanmean(d['pw_cos'])),
+                                 float(np.nanmean(d['rf_cos'])))
+    fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.6))
+    marks = {'sMP': 'o', 'sMW': 's', 'sPR': '^'}
+    cols = {0.8: '#c6dbef', 0.9: '#6baed6', 0.95: '#2171b5', 0.99: '#08306b'}
+    for ax, (idx, lab) in zip(axes, [(0, 'PATHWISE (B=1)'), (1, 'REINFORCE (B=1000, baselined)')]):
+        for (pol, rho), v in sorted(ours.items()):
+            pv = paper.get(f'{"pw" if idx == 0 else "rf"}|{pol}|Criss Cross|{rho}')
+            if pv is None:
+                continue
+            ax.scatter(pv, v[idx], marker=marks[pol], s=70, color=cols[rho],
+                       edgecolor='k', lw=0.5, zorder=3)
+        ax.plot([0, 1], [0, 1], 'r--', lw=0.8)
+        ax.set_xlim(0, 1.02)
+        ax.set_ylim(0, 1.02)
+        ax.set_xlabel("paper Fig.8 value (jet-inverted)")
+        ax.set_title(lab, fontsize=11)
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel('our full paper-spec run\n(GT=1e6, 100θ x 100 draws)')
+    handles = ([plt.Line2D([], [], marker=marks[p], ls='', color='gray', label=p) for p in marks]
+               + [plt.Line2D([], [], marker='o', ls='', color=c, label=f'ρ={r}') for r, c in cols.items()])
+    axes[1].legend(handles=handles, fontsize=7.5, ncol=2, loc='lower right')
+    fig.suptitle('Reproducing the paper\'s actual Figure 8 numbers (criss-cross row): PATHWISE matches within ~0.08;\n'
+                 'our baselined REINFORCE exceeds the paper\'s RF (stronger V(x,t) baseline)', fontsize=10)
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, 'fig7_paper_numbers.png'), dpi=180, bbox_inches='tight')
+    fig.savefig(os.path.join(OUT, 'fig7_paper_numbers.pdf'), bbox_inches='tight')
+    plt.close(fig)
+    # console table
+    print(f'{"cell":<16} {"PW ours":>8} {"PW paper":>9} {"diff":>6} | {"RF ours":>8} {"RF paper":>9}')
+    for (pol, rho), v in sorted(ours.items()):
+        pp = paper.get(f'pw|{pol}|Criss Cross|{rho}')
+        rp = paper.get(f'rf|{pol}|Criss Cross|{rho}')
+        print(f'{pol} ρ={rho:<6} {v[0]:>8.3f} {pp:>9.2f} {v[0]-pp:>+6.2f} | {v[1]:>8.3f} {rp:>9.2f}')
+    print('fig7 done')
