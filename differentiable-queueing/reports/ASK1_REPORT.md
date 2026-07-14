@@ -55,3 +55,9 @@
 1. 论文装置 no-mask 变体升级到全规格（100θ×100draws）+ 扩展到 reentrant 拓扑，验证 Figure 8 全图可恢复性
 2. sMP ρ=0.99 的 GT 重尾问题：试 clipped-advantage 或更大 V 拟合集
 3. 把"发布代码 vs 论文装置"的差异清单反馈给原作者（Ethan Che / Namkoong lab）
+
+## 外部校验（有限差分黄金标准）
+
+论文装置的 GT 已用与 REINFORCE 无关的中心有限差分独立验证：9 个可靠 θ 中 8 个 cos(FD,GT)=0.998–1.000，
+其上 PW per-θ = 0.95–1.00（论文水平）。例外 1 例揭示 γ=0.999 折扣信用分配的固有方向偏差（论文 GT 同样受影响）。
+详见 ASK1_CODE_ISSUES.md 附录与 `experiments/ask1/fd_check.py`。
