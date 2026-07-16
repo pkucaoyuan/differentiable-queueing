@@ -281,8 +281,8 @@ def main():
     dq = DummyVecEnv(env_fns)
 
 
-    # Test Env
-    dq_test_list = [make_test_env(seed) for seed in range(test_seed, test_seed + 100)]
+    # Test Env (count follows test_batch config; was hardcoded 100)
+    dq_test_list = [make_test_env(seed) for seed in range(test_seed, test_seed + test_batch)]
 
     # model kwargs
     L = orig_q

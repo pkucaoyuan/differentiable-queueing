@@ -1,0 +1,25 @@
+env_type: reentrant_2
+h:
+- 1
+- 1
+- 1
+- 1
+- 1
+- 1
+init_queues:
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+lam_params:
+  val: null
+lam_type: constant
+mu: null
+name: reentrant_2
+network: null
+num_pool: 1
+queue_event_options: custom
+test_T: 2500
+train_T: 10000

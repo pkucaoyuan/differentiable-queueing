@@ -237,8 +237,9 @@ def run_sweep_cell(env, rho, policy, scaling, device):
     return out
 
 
-def worker(stage, scaling, device, nets_filter=None):
-    outdir = os.path.join(RESULTS, stage)
+def worker(stage, scaling, device, nets_filter=None, out_name=None):
+    out_name = out_name or stage
+    outdir = os.path.join(RESULTS, out_name)
     os.makedirs(outdir, exist_ok=True)
     if stage == 'sweep':
         cells = [(e, r, p, scaling) for e in SWEEP_NETS for r in SWEEP_RHOS for p in POLICIES]
@@ -250,7 +251,7 @@ def worker(stage, scaling, device, nets_filter=None):
     for env, rho, pol, sc in cells:
         cid = cell_id(env, rho, pol, sc)
         out_path = os.path.join(outdir, cid + '.npz')
-        if os.path.exists(out_path) or not claim(stage + '__' + cid):
+        if os.path.exists(out_path) or not claim(out_name.replace('/', '_') + '__' + cid):
             continue
         print(f'>>> {stage} {cid}', flush=True)
         try:
@@ -285,6 +286,10 @@ if __name__ == '__main__':
     ap.add_argument('--no-control-gt', action='store_true')
     ap.add_argument('--nets', type=str, default=None,
                     help='comma-separated net filter for stage2 waves')
+    ap.add_argument('--outdir', type=str, default=None,
+                    help='output dir under results/ask1 (default: stage name)')
+    ap.add_argument('--cap-scale', type=float, default=1.0,
+                    help='scale batch caps (e.g. 0.8 when co-located with other jobs)')
     args = ap.parse_args()
     if args.n_theta:
         N_THETA = args.n_theta
@@ -296,5 +301,9 @@ if __name__ == '__main__':
         WITH_CONTROL_GT = False
     print(f'GPU: {torch.cuda.get_device_name(0)}  spec: theta={N_THETA} draws={N_DRAWS} '
           f'gt={GT_TRAJS} control={WITH_CONTROL_GT} nets={args.nets}', flush=True)
+    if args.cap_scale != 1.0:
+        for k in CAPS:
+            CAPS[k] = {kk: int(vv * args.cap_scale) for kk, vv in CAPS[k].items()}
     worker(args.stage, args.scaling, 'cuda',
-           nets_filter=args.nets.split(',') if args.nets else None)
+           nets_filter=args.nets.split(',') if args.nets else None,
+           out_name=args.outdir)

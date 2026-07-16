@@ -33,7 +33,7 @@ class EnvState(NamedTuple):
 class BCD(Dataset):
     def __init__(self, num_samples, network):
         self.num_samples = num_samples
-        self.network = network
+        self.network = network.cpu()  # dataset samples are CPU; upstream only ran BC on cpu
         self.s = self.network.shape[0]
         self.q = self.network.shape[1]
 
@@ -120,6 +120,8 @@ class parallel_eval(BaseCallback):
         BCD_loader = DataLoader(BCD_dataset, batch_size = self.test_batch, shuffle = True)
 
         for i, (obs, target) in enumerate(BCD_loader):
+            obs = obs.to(self.model.policy.device)
+            target = target.to(self.model.policy.device)
             self.optimizer_policy.zero_grad()
             action, action_probs = self.model.policy.get_prob_act(obs)
             loss = F.mse_loss(action_probs, target)

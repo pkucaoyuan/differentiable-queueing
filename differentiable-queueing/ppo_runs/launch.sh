@@ -1,0 +1,9 @@
+#!/bin/bash
+cd /mindopt/caoyuan/differentiable-queueing/differentiable-queueing/ppo_runs/WC_s0 && OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES=0 setsid nohup /opt/conda/bin/python train.py run reentrant_2_ppofast > run.log 2>&1 < /dev/null &
+cd /mindopt/caoyuan/differentiable-queueing/differentiable-queueing/ppo_runs/WC_s1 && OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES=1 setsid nohup /opt/conda/bin/python train.py run reentrant_2_ppofast > run.log 2>&1 < /dev/null &
+cd /mindopt/caoyuan/differentiable-queueing/differentiable-queueing/ppo_runs/WC_s2 && OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES=2 setsid nohup /opt/conda/bin/python train.py run reentrant_2_ppofast > run.log 2>&1 < /dev/null &
+cd /mindopt/caoyuan/differentiable-queueing/differentiable-queueing/ppo_runs/WC_s3 && OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES=3 setsid nohup /opt/conda/bin/python train.py run reentrant_2_ppofast > run.log 2>&1 < /dev/null &
+cd /mindopt/caoyuan/differentiable-queueing/differentiable-queueing/ppo_runs/vanilla_s0 && OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES=4 setsid nohup /opt/conda/bin/python train.py run reentrant_2_ppofast > run.log 2>&1 < /dev/null &
+cd /mindopt/caoyuan/differentiable-queueing/differentiable-queueing/ppo_runs/vanilla_s1 && OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES=5 setsid nohup /opt/conda/bin/python train.py run reentrant_2_ppofast > run.log 2>&1 < /dev/null &
+cd /mindopt/caoyuan/differentiable-queueing/differentiable-queueing/ppo_runs/bc_s0 && OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES=6 setsid nohup /opt/conda/bin/python train.py run reentrant_2_ppofast > run.log 2>&1 < /dev/null &
+cd /mindopt/caoyuan/differentiable-queueing/differentiable-queueing/ppo_runs/bc_s1 && OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 CUDA_VISIBLE_DEVICES=7 setsid nohup /opt/conda/bin/python train.py run reentrant_2_ppofast > run.log 2>&1 < /dev/null &
